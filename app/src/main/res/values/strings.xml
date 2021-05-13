@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">HayStack</string>
+    <string name="app_name">HayStack-Army</string>
+    <string name="name_or_email">Name or Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="signup">Signup</string>
+    <string name="forgot_pass">Forgot password</string>
+    <string name="soldier_dod_civilian_registration">SOLDIER/DoD CIVILIAN REGISTRATION</string>
+    <string name="or">OR</string>
+    <string name="spouse_registration">Spouse/dependent registration</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="last_name">Last Name</string>
+    <string name="first_name">First Name</string>
+    <string name="dod_id">DOD ID</string>
+    <string name="govt_email_address">Govt Email Address</string>
+    <string name="terms_and_condition">By selecting this box, you certify that the following is true. I certify that i am an authorized individual to access information in the HayStack Army platform</string>
+    <string name="accept_terms">I accept Terms Conditions</string>
+    <string name="sign_up">Signup</string>
+    <string name="relationship_to_sm">Relationship to SM</string>
+    <string name="email_address">Emal Address</string>
+    <string name="username">User Name</string>
+    <string name="sponsors_govt_email_address">Sponsors Govt Email Address</string>
+    <string name="content_description">Inspect</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="enter_registered_email">Enter Your Register Email</string>
 </resources>
