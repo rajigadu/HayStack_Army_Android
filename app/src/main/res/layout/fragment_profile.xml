@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarProfile"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Profile"
+        app:titleCentered="true"
+        app:menu="@menu/profile_menu"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:titleTextColor="@color/black" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarProfile">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/padding_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="center_vertical"
+                android:background="?selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/editProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_24dp"
+                    android:paddingStart="@dimen/margin_24dp"
+                    android:paddingTop="@dimen/padding12dp"
+                    android:text="@string/edit_profile"
+                    android:textAppearance="@style/edit_profil"
+                    app:drawableStartCompat="@drawable/profile"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:id="@+id/view8"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_32dp"
+                    android:layout_marginTop="@dimen/marginMedium"
+                    android:background="@color/colorBottomLine" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="@dimen/padding_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/changePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_24dp"
+                    android:paddingStart="@dimen/margin_24dp"
+                    android:paddingTop="@dimen/padding12dp"
+                    android:text="@string/change_password"
+                    android:textAppearance="@style/edit_profil"
+                    app:drawableStartCompat="@drawable/arrows_exchange"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_32dp"
+                    android:layout_marginTop="@dimen/marginMedium"
+                    android:background="@color/colorBottomLine" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="@dimen/padding_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/contactUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_24dp"
+                    android:paddingStart="@dimen/margin_24dp"
+                    android:paddingTop="@dimen/padding12dp"
+                    android:text="@string/contact_us"
+                    android:textAppearance="@style/edit_profil"
+                    app:drawableStartCompat="@drawable/contact_us"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_32dp"
+                    android:layout_marginTop="@dimen/marginMedium"
+                    android:background="@color/colorBottomLine"
+                    app:layout_constraintTop_toBottomOf="@+id/editProfile"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="@dimen/padding_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/termsAndConditions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_24dp"
+                    android:paddingStart="@dimen/margin_24dp"
+                    android:paddingTop="@dimen/padding12dp"
+                    android:text="@string/terms_and_condition_title"
+                    android:textAppearance="@style/edit_profil"
+                    app:drawableStartCompat="@drawable/terms_and_conditions"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_32dp"
+                    android:layout_marginTop="@dimen/marginMedium"
+                    android:background="@color/colorBottomLine"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:paddingTop="@dimen/padding_8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?selectableItemBackground">
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_24dp"
+                    android:paddingStart="@dimen/margin_24dp"
+                    android:paddingTop="@dimen/padding12dp"
+                    android:text="@string/logout"
+                    android:textAppearance="@style/edit_profil"
+                    app:drawableStartCompat="@drawable/log_out"
+                    tools:ignore="RtlSymmetry" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_32dp"
+                    android:layout_marginTop="@dimen/marginMedium"
+                    android:background="@color/colorBottomLine"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

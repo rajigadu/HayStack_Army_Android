@@ -38,7 +38,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_8dp"
         android:alpha="0.5"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorBottomLine"
         app:layout_constraintEnd_toEndOf="@+id/inputEditTextEmail"
         app:layout_constraintStart_toStartOf="@+id/inputEditTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/inputEditTextEmail" />
@@ -65,7 +65,7 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_8dp"
         android:alpha="0.5"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorBottomLine"
         app:layout_constraintEnd_toEndOf="@+id/inputEditTextEmail"
         app:layout_constraintStart_toStartOf="@+id/inputEditTextEmail"
         app:layout_constraintTop_toBottomOf="@+id/inputEditTextPassword" />
@@ -82,8 +82,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/signIn"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="@dimen/btnWidthSignIn"
+        android:layout_height="@dimen/btnHeightSignIn"
         android:clickable="true"
         android:focusable="true"
         android:background="?selectableItemBackground"

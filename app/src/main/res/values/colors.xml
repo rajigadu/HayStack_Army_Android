@@ -10,4 +10,9 @@
 
     <color name="colorPrimary">#F6921C</color>
     <color name="colorPrimaryDark">#F57F17</color>
+    <color name="colorBottomLine">#E0E0E0</color>
+    <color name="colorDefaultBottomNavIcon">#828282</color>
+    <color name="colorGroupsCardView">#F9F9F9</color>
+    <color name="colorSearchBackground">#F2F2F2</color>
+    <color name="colorLabelText">#333333</color>
 </resources>

@@ -18,17 +18,19 @@ class LogInActivity: AppCompatActivity() {
         setContentView(binding.root)
 
 
-
         binding.signup.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
+            finish()
         }
 
         binding.forgotPass.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
+            finish()
         }
 
         binding.signIn.setOnClickListener {
             startActivity(Intent(this, MainMenuActivity::class.java))
+            finish()
         }
     }
 }
