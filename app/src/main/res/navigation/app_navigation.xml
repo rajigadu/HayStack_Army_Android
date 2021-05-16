@@ -29,7 +29,17 @@
         android:id="@+id/profile"
         android:name="com.android.app.in.haystack.view.fragments.Profile"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profile_to_changePassword"
+            app:destination="@id/changePassword" />
+        <action
+            android:id="@+id/action_profile_to_contactUs"
+            app:destination="@id/contactUs" />
+        <action
+            android:id="@+id/action_profile_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
     <fragment
         android:id="@+id/referAFriend"
         android:name="com.android.app.in.haystack.view.fragments.ReferAFriend"
@@ -39,10 +49,84 @@
         android:id="@+id/homeFragment"
         android:name="com.android.app.in.haystack.view.fragments.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createEvent"
         android:name="com.android.app.in.haystack.view.fragments.CreateEvent"
         android:label="CreateEvent"
         tools:layout="@layout/fragment_create_event"/>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.android.app.in.haystack.view.fragments.CategoriesFragment"
+        android:label="CategoriesFragment"
+        tools:layout="@layout/fragment_categories"/>
+    <fragment
+        android:id="@+id/createGroup"
+        android:name="com.android.app.in.haystack.view.fragments.CreateGroup"
+        android:label="CreateGroup"
+        tools:layout="@layout/fragment_create_group"/>
+    <fragment
+        android:id="@+id/dateRangeFragment"
+        android:name="com.android.app.in.haystack.view.fragments.DateRangeFragment"
+        android:label="DateRangeFragment"
+        tools:layout="@layout/fragment_date_range"/>
+    <fragment
+        android:id="@+id/createEventMode"
+        android:name="com.android.app.in.haystack.view.fragments.CreateEventMode"
+        android:label="CreateEventMode"
+        tools:layout="@layout/fragment_create_event_mode"/>
+    <fragment
+        android:id="@+id/editGroup"
+        android:name="com.android.app.in.haystack.view.fragments.EditGroup"
+        android:label="EditGroup"
+        tools:layout="@layout/fragment_edit_group"/>
+    <fragment
+        android:id="@+id/editMember"
+        android:name="com.android.app.in.haystack.view.fragments.EditMember"
+        android:label="EditMember"
+        tools:layout="@layout/fragment_edit_member"/>
+    <fragment
+        android:id="@+id/eventsInfoFragment"
+        android:name="com.android.app.in.haystack.view.fragments.EventsInfoFragment"
+        android:label="EventsInfoFragment"
+        tools:layout="@layout/fragment_event_info"/>
+    <fragment
+        android:id="@+id/eventsViewPagerFragment"
+        android:name="com.android.app.in.haystack.view.viewpager.EventsViewPagerFragment"
+        android:label="EventsViewPagerFragment"
+        tools:layout="@layout/fragment_viewpager_events"/>
+    <fragment
+        android:id="@+id/eventsSearch"
+        android:name="com.android.app.in.haystack.view.fragments.EventsSearch"
+        android:label="EventsSearch"
+        tools:layout="@layout/fragment_event_search"/>
+    <fragment
+        android:id="@+id/fragmentSearchCategories"
+        android:name="com.android.app.in.haystack.view.fragments.FragmentSearchCategories"
+        android:label="FragmentSearchCategories"
+        tools:layout="@layout/fragment_search_categories"/>
+    <fragment
+        android:id="@+id/membersFragment"
+        android:name="com.android.app.in.haystack.view.fragments.MembersFragment"
+        android:label="MembersFragment"
+        tools:layout="@layout/fragment_members"/>
+    <fragment
+        android:id="@+id/membersPublish"
+        android:name="com.android.app.in.haystack.view.fragments.MembersPublish"
+        android:label="MembersPublish"
+        tools:layout="@layout/fragment_members_publish"/>
+    <fragment
+        android:id="@+id/myEvents"
+        android:name="com.android.app.in.haystack.view.fragments.MyEvents"
+        android:label="MyEvents"
+        tools:layout="@layout/fragment_my_events"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.android.app.in.haystack.view.fragments.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
 </navigation>

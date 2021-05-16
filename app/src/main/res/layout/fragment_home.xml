@@ -50,7 +50,7 @@
                     app:srcCompat="@drawable/surya" />
 
                 <androidx.appcompat.widget.AppCompatAutoCompleteTextView
-                    android:id="@+id/appCompatAutoCompleteTextView"
+                    android:id="@+id/searchView"
                     android:layout_width="0dp"
                     android:layout_height="46dp"
                     android:layout_marginTop="@dimen/margin_8dp"
@@ -59,11 +59,14 @@
                     android:drawablePadding="@dimen/padding12dp"
                     android:fontFamily="@font/lato"
                     android:hint="@string/search_for_an_event"
-                    android:imeOptions="actionDone"
                     android:paddingStart="@dimen/padding12dp"
                     android:paddingEnd="@dimen/padding12dp"
                     android:singleLine="true"
                     android:textFontWeight="400"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:inputType="none"
+                    android:editable="false"
                     app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
                     app:layout_constraintStart_toStartOf="@+id/textView4"
                     app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"

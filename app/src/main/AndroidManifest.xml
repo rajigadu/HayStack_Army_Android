@@ -12,6 +12,11 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.HayStack"
         tools:targetApi="m">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDS1bnwE9zS911Gg4v7OlWia8KdeFcYxmY" />
+
         <activity android:name=".view.activity.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -38,6 +43,7 @@
         <activity android:name=".view.activity.SpouseRegistration"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:screenOrientation="portrait"/>
+
 
     </application>
 

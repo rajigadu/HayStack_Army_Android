@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +13,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Create Event"
+        app:title="Event Info"
         app:titleCentered="true"
+        app:navigationIconTint="@color/black"
+        app:navigationIcon="@drawable/arrow_left"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
     <androidx.core.widget.NestedScrollView
@@ -446,10 +449,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCreateEvent"
+                android:id="@+id/btnNotInterested"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_the_event"
+                android:text="@string/not_interested"
                 android:fontFamily="@font/lato_bold"
                 android:textAllCaps="false"
                 android:padding="@dimen/padding_12dp"
@@ -458,6 +461,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextEventDescr"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnInterested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/interested"
+                android:fontFamily="@font/lato_bold"
+                android:textAllCaps="false"
+                android:padding="@dimen/padding_12dp"
+                android:layout_marginBottom="@dimen/marginMedium"
+                app:layout_constraintTop_toBottomOf="@+id/btnNotInterested"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAttend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/attend"
+                android:fontFamily="@font/lato_bold"
+                android:textAllCaps="false"
+                android:padding="@dimen/padding_12dp"
+                android:layout_marginBottom="@dimen/marginMedium"
+                app:layout_constraintTop_toBottomOf="@+id/btnInterested"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -36,6 +36,7 @@ android {
 
 dependencies {
 
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     def retrofitVersion = "2.9.0"
     def interceptorVersion = "3.12.12"
 

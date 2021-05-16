@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/bottomSheet"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/padding_24dp">
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="@dimen/margin_32dp"
+        android:layout_marginEnd="@dimen/margin_32dp"
+        android:background="@drawable/retangle_background"
+        android:drawableEnd="@drawable/map_radius"
+        android:fontFamily="@font/lato"
+        android:hint="@string/radius"
+        android:inputType="none"
+        android:paddingStart="@dimen/padding12dp"
+        android:paddingEnd="@dimen/padding12dp"
+        android:textSize="@dimen/font_16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:padding="@dimen/padding12dp"
+        android:text="@string/manual_search"
+        android:layout_marginTop="@dimen/margin_24dp"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        tools:layout_editor_absoluteX="24dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/materialButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_bold"
+        android:textAllCaps="false"
+        android:padding="@dimen/padding12dp"
+        android:text="@string/_continue"
+        app:layout_constraintTop_toBottomOf="@+id/materialButton2"
+        tools:layout_editor_absoluteX="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

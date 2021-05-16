@@ -20,5 +20,9 @@ class SoldierRegistration: AppCompatActivity() {
             startActivity(Intent(this, LogInActivity::class.java))
         }
 
+        binding.forgotPass.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+        }
+
     }
 }

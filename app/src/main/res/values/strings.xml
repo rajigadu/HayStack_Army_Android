@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">HayStack-Army</string>
     <string name="name_or_email">Name or Email</string>
     <string name="password">Password</string>
@@ -55,4 +55,34 @@
     <string name="contact_info">Contact Info(Phone/Email)</string>
     <string name="start">Start</string>
     <string name="end">End</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="clock_time">10:00</string>
+    <string name="event_descr">Event Description</string>
+    <string name="create_the_event">Create the Event</string>
+    <string name="enter_group_name">Enter Group Name</string>
+    <string name="add_member">Add Member</string>
+    <string name="choose_from_address_book">Choose From Address Book</string>
+    <string name="edit_member_details">Edit Member Details</string>
+    <string name="art_crafts">Art Cratft</string>
+    <string name="please_choose">Please choose the category that event best fits</string>
+    <string name="invite">Invite</string>
+    <string name="how_would_y">how would you like to Advertise your event?</string>
+    <string name="would_you">Would you like host contact info?</string>
+    <string name="_private">Private</string>
+    <string name="_public">Public</string>
+    <string name="_continue">Continue</string>
+    <string name="add_from_group">Add From Group</string>
+    <string name="publish">Publish</string>
+    <string name="congratulat">Congratulations</string>
+    <string name="your_event_">Your event has been published</string>
+    <string name="create_another_event">create Another Event</string>
+    <string name="close">Close</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="attend">Attend</string>
+    <string name="interested">Interested</string>
+    <string name="not_interested">Not Interested</string>
+    <string name="radius">Radius</string>
+    <string name="manual_search">Manual Search</string>
 </resources>
