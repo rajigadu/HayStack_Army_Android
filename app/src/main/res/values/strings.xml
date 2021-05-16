@@ -85,4 +85,5 @@
     <string name="not_interested">Not Interested</string>
     <string name="radius">Radius</string>
     <string name="manual_search">Manual Search</string>
+    <string name="host_number">Host Number</string>
 </resources>

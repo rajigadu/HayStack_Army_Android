@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.R
-import com.android.app.`in`.haystack.databinding.FragmentCreateEventBinding
+import com.android.app.`in`.haystack.databinding.FragmentAddMemberBinding
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 
-class CreateEvent: Fragment() {
+class AddMembersFragment: Fragment() {
 
-    private lateinit var binding: FragmentCreateEventBinding
+    private lateinit var binding: FragmentAddMemberBinding
 
 
     override fun onCreateView(
@@ -20,7 +20,7 @@ class CreateEvent: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentCreateEventBinding.inflate(layoutInflater)
+        binding = FragmentAddMemberBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -28,15 +28,17 @@ class CreateEvent: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCreateEvent.setOnClickListener {
-            findNavController().navigate(R.id.action_createEvent_to_categoriesFragment)
+        binding.toolbarAddMember.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
 
+        binding.btnInvite.setOnClickListener {
+            findNavController().navigate(R.id.action_addMembersFragment_to_membersPublish)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        (activity as MainMenuActivity).updateBottomNavChange(4)
-        (activity as MainMenuActivity).showBottomNav()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }

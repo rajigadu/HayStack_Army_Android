@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentMembersPublishBinding
+import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 
 class MembersPublish: Fragment() {
 
@@ -25,5 +28,18 @@ class MembersPublish: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbarMembersPublish.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnPublish.setOnClickListener {
+            findNavController().navigate(R.id.action_membersPublish_to_eventCreated)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }

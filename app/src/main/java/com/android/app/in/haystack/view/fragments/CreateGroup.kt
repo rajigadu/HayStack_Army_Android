@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.databinding.FragmentCreateGroupBinding
+import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 
 class CreateGroup: Fragment() {
 
@@ -24,5 +26,14 @@ class CreateGroup: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbarCreateGroup.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }

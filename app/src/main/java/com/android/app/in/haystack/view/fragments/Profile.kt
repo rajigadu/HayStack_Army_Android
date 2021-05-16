@@ -54,5 +54,6 @@ class Profile: Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainMenuActivity).updateBottomNavChange(2)
+        (activity as MainMenuActivity).showBottomNav()
     }
 }

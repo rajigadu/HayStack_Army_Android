@@ -12,11 +12,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentGroupsBinding
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 import com.android.app.`in`.haystack.view.adapters.EventListAdapter
 
-class GroupsFragment: Fragment() {
+class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
 
 
     private lateinit var binding: FragmentGroupsBinding
@@ -42,6 +43,10 @@ class GroupsFragment: Fragment() {
         binding.imageView6.visibility = VISIBLE
         Handler(Looper.getMainLooper()).postDelayed(mRunnable, splash_delay)
 
+        binding.btnCreateGroup.setOnClickListener {
+            findNavController().navigate(R.id.action_groupsFragment_to_createGroup)
+        }
+
     }
 
     private var mRunnable = Runnable {
@@ -55,7 +60,7 @@ class GroupsFragment: Fragment() {
         binding.btnCreateGroup.visibility = INVISIBLE
         binding.imageView6.visibility = INVISIBLE
 
-        eventListAdapter = EventListAdapter(requireContext())
+        eventListAdapter = EventListAdapter(requireContext(), this)
         binding.recyclerEvents.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = eventListAdapter
@@ -65,5 +70,14 @@ class GroupsFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainMenuActivity).updateBottomNavChange(1)
+        (activity as MainMenuActivity).showBottomNav()
+    }
+
+    override fun groupItemEdit() {
+        findNavController().navigate(R.id.action_groupsFragment_to_editGroup)
+    }
+
+    override fun membersViewClick() {
+        findNavController().navigate(R.id.action_groupsFragment_to_membersFragment)
     }
 }

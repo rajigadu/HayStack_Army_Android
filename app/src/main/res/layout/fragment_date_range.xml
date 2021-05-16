@@ -169,6 +169,7 @@
                 android:fontFamily="@font/lato_bold"
                 android:padding="@dimen/padding12dp"
                 android:text="@string/_continue"
+                android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view15" />

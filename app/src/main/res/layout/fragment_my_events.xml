@@ -27,7 +27,7 @@
         app:tabIndicatorColor="@color/colorPrimary"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorHeight="3dp"
-        app:tabSelectedTextColor="@color/white"
+        app:tabSelectedTextColor="@color/black"
         app:tabTextColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/toolbarMyEvents"/>
 

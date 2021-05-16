@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/layout_groups_list_item_view"/>
+                tools:listitem="@layout/layout_event_search_list_item"/>
 
         </androidx.core.widget.NestedScrollView>
 

@@ -103,7 +103,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/thursday_06"
+                android:id="@+id/current_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginMedium"
@@ -124,8 +124,8 @@
                 android:text="@string/banglore_in"
                 android:textAppearance="@style/location"
                 android:translationY="-1.2sp"
-                app:layout_constraintStart_toStartOf="@+id/thursday_06"
-                app:layout_constraintTop_toBottomOf="@+id/thursday_06" />
+                app:layout_constraintStart_toStartOf="@+id/current_date"
+                app:layout_constraintTop_toBottomOf="@+id/current_date" />
 
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView"
@@ -145,10 +145,11 @@
                     android:paddingEnd="@dimen/padding_16dp">
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnMyEvents"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_bold"
-                        android:text="Myevents"
+                        android:text="MyEvents"
                         android:textAllCaps="false" />
 
                     <com.google.android.material.button.MaterialButton

@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentCreateEventModeBinding
+import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 
 class CreateEventMode: Fragment() {
 
@@ -26,5 +29,22 @@ class CreateEventMode: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbarEventMode.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.btnContinue.setOnClickListener {
+            findNavController().navigate(R.id.action_createEventMode_to_addMembersFragment)
+        }
+
+        binding.toolbarEventMode.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }

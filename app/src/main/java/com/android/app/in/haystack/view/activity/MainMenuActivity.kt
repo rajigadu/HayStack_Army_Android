@@ -3,6 +3,8 @@ package com.android.app.`in`.haystack.view.activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
@@ -88,6 +90,14 @@ class MainMenuActivity: AppCompatActivity() {
                 binding.createEvent.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorPrimary))
             }
         }
+    }
+
+    fun hideBottomNav(){
+        binding.customBottomNavigation.visibility = GONE
+    }
+
+    fun showBottomNav(){
+        binding.customBottomNavigation.visibility = VISIBLE
     }
 
 }

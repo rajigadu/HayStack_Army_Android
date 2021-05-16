@@ -13,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/arrow_left"
+        app:navigationIconTint="@color/white"
         android:background="@color/colorPrimary"
         app:titleTextColor="@color/white"
         app:title="Edit Member"

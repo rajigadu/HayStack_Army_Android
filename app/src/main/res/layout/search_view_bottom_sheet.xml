@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
+        android:id="@+id/btnManualSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
@@ -40,14 +40,14 @@
         tools:layout_editor_absoluteX="24dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btnContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
         android:textAllCaps="false"
         android:padding="@dimen/padding12dp"
         android:text="@string/_continue"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton2"
+        app:layout_constraintTop_toBottomOf="@+id/btnManualSearch"
         tools:layout_editor_absoluteX="24dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

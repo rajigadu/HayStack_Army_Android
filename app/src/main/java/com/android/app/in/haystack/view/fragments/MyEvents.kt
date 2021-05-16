@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.databinding.FragmentMyEventsBinding
+import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 import com.android.app.`in`.haystack.view.viewpager.EventsViewPagerAdapter
 import com.android.app.`in`.haystack.view.viewpager.EventsViewPagerFragment
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,7 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MyEvents: Fragment() {
 
     private lateinit var binding: FragmentMyEventsBinding
-    private var tabTitles = arrayOf("My Events", "interests", "Attend", "Invited")
+    private var tabTitles = arrayOf("My Events", "Interests", "Attend", "Invited")
     private lateinit var viewPagerAdapter: EventsViewPagerAdapter
 
 
@@ -34,10 +36,20 @@ class MyEvents: Fragment() {
         viewPagerAdapter.addFragment(EventsViewPagerFragment())
         viewPagerAdapter.addFragment(EventsViewPagerFragment())
         viewPagerAdapter.addFragment(EventsViewPagerFragment())
+        viewPagerAdapter.addFragment(EventsViewPagerFragment())
         binding.myBookingViewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.myEventsTabs, binding.myBookingViewPager) { tab, position ->
             tab.text = tabTitles[position]
             binding.myBookingViewPager.setCurrentItem(tab.position, true)
         }.attach()
+
+        binding.toolbarMyEvents.setNavigationOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }

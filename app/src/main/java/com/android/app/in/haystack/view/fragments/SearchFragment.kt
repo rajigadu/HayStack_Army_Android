@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentSearchBinding
+import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MarkerOptions
@@ -51,5 +52,14 @@ class SearchFragment: Fragment() {
         binding.toolbarSearch.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.bottomSheetLayout.btnContinue.setOnClickListener {
+            findNavController().navigate(R.id.action_searchFragment_to_dateRangeFragment)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainMenuActivity).hideBottomNav()
     }
 }
