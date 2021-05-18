@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintSingUpSoldier"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -63,7 +64,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/last_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view" />
@@ -135,7 +136,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/username"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textEmailAddress|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view3"/>
@@ -255,7 +256,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textAcceptTerms" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
+                android:id="@+id/btnSignUp"
                 android:layout_width="@dimen/btnWidthSignIn"
                 android:layout_height="@dimen/btnHeightSignIn"
                 android:clickable="true"
@@ -288,7 +289,7 @@
                 android:paddingBottom="@dimen/padding_5dp"
                 android:textAppearance="@style/forgot_pass"
                 app:layout_constraintBottom_toBottomOf="@+id/signin"
-                app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                app:layout_constraintEnd_toEndOf="@+id/btnSignUp"
                 app:layout_constraintTop_toTopOf="@+id/signin"
                 tools:ignore="RtlSymmetry" />
 

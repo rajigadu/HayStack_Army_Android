@@ -2,6 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.HayStack" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Ignore white screen while launching -->
+        <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <!-- Primary brand color. -->

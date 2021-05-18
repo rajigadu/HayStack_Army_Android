@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintEditProfile"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/arrow_left"
+        app:navigationIconTint="@color/white"
         app:title="Edit Profile"
         app:titleCentered="true"
         app:titleTextAppearance="@style/ToolbarTitle"
@@ -41,14 +44,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/inputEditTextFullName"
+                android:id="@+id/inputEditTextFirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
-                android:hint="@string/full_name"
+                android:hint="@string/first_name"
                 android:imeOptions="actionNext"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 android:layout_margin="@dimen/margin_32dp"
@@ -61,9 +64,9 @@
                 android:layout_marginTop="@dimen/margin_8dp"
                 android:alpha="0.5"
                 android:background="@color/colorBottomLine"
-                app:layout_constraintEnd_toEndOf="@+id/inputEditTextFullName"
-                app:layout_constraintStart_toStartOf="@+id/inputEditTextFullName"
-                app:layout_constraintTop_toBottomOf="@+id/inputEditTextFullName" />
+                app:layout_constraintEnd_toEndOf="@+id/inputEditTextFirstName"
+                app:layout_constraintStart_toStartOf="@+id/inputEditTextFirstName"
+                app:layout_constraintTop_toBottomOf="@+id/inputEditTextFirstName" />
 
             <EditText
                 android:id="@+id/inputEditTextLastName"
@@ -74,7 +77,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/last_name"
                 android:imeOptions="actionNext"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/view"
@@ -99,8 +102,8 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/username"
-                android:imeOptions="actionNext"
-                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:layout_marginTop="@dimen/marginLarge"
                 android:textSize="@dimen/font_16sp"

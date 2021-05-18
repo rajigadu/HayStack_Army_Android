@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintCreateGroup"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -41,7 +43,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/enter_group_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +88,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/view1">
 
                 <EditText
+                    android:id="@+id/inputGroupDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="text|textCapWords"
+                    android:maxLength="1000"
+                    android:imeOptions="actionNext"
                     android:hint="@string/enter_description"
                     android:gravity="start"
                     android:minLines="3" />
@@ -117,7 +123,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/first_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/editTextGroupDescr"
@@ -170,13 +176,13 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/mobile"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:inputType="number"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/view2"
                 app:layout_constraintStart_toStartOf="@+id/view2"
-                app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <View
                 android:id="@+id/view3"

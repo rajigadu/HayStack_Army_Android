@@ -29,7 +29,7 @@
             android:paddingBottom="@dimen/paddingMedium">
 
             <TextView
-                android:id="@+id/event_manag"
+                android:id="@+id/groupName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -40,7 +40,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/people_4_"
+                android:id="@+id/membersCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -50,7 +50,7 @@
                 android:textAppearance="@style/people_4_"
                 android:translationY="-3.6sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/event_manag" />
+                app:layout_constraintTop_toBottomOf="@+id/groupName" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/editEventGroup"
@@ -65,7 +65,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_edit" />
 
@@ -78,7 +78,7 @@
                 android:layout_marginTop="@dimen/marginLarge"
                 android:src="@drawable/ic_circle_view"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/people_4_" />
+                app:layout_constraintTop_toBottomOf="@+id/membersCount" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="36dp"

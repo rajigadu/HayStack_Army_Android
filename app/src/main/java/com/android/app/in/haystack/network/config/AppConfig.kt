@@ -6,6 +6,20 @@ object AppConfig {
     const val BASE_URL = "https://haystackevents.com/haystack-army/ios/"
 
 
-    const val SIGN_UP = "registration"
-    const val LOG_IN = "login"
+    const val SIGN_UP_SOLDIER = "registration.php"
+    const val SIGN_UP_SPOUSE = "spouse_registration.php"
+    const val LOG_IN = "login.php"
+    const val FORGOT_PASSWORD = "forgotpassword.php"
+    const val EDIT_PROFILE = "editprofile.php"
+    const val CHANGE_PASSWORD = "changepassword.php"
+    const val CONTACT_US = "contact-us.php"
+    const val CREATE_GROUP = "creategroup.php"
+    const val ADD_MEMBER_GROUP = "addmember.php"
+    const val GET_ALL_GROUPS = "allgroups.php"
+    const val EDIT_GROUP = "editgroup.php"
+    const val ALL_MEMBERS = "allmembers.php"
+    const val GROUP_MEMBERS = "group-members.php"
+    const val EDIT_GROUP_MEMBER = "edit-group-member.php"
+    const val DELETE_GROUP_MEMBER = "delete-group-member.php"
+    const val DELETE_GROUP = "deletegroup.php"
 }

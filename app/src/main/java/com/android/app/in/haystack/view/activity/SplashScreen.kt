@@ -27,9 +27,15 @@ import com.android.app.`in`.haystack.manager.SessionManager
 
      private val mRunnable = Runnable {
          if (!isFinishing){
-             //if (SessionManager.instance.getUserId)
-             startActivity(Intent(this, LogInActivity::class.java))
-             finish()
+             if (SessionManager.instance.getUserId().isNotEmpty()){
+
+                 startActivity(Intent(this, MainMenuActivity::class.java))
+                 finish()
+
+             }else {
+                 startActivity(Intent(this, LogInActivity::class.java))
+                 finish()
+             }
          }
      }
  }
