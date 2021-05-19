@@ -97,8 +97,8 @@ class CreateGroup: Fragment() {
         })
     }
 
-    private fun addMember(groupid: String?) {
-        Repository.addMemberToGroup(groupid!!, userId!!, memberName!!, memberMobile!!, memberEmail!!)
+    private fun addMember(groupId: String?) {
+        Repository.addMemberToGroup(groupId!!, userId!!, memberName!!, memberMobile!!, memberEmail!!)
             .enqueue(object : Callback<DefaultResponse>{
                 override fun onResponse(
                     call: Call<DefaultResponse>,

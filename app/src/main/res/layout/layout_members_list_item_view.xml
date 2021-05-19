@@ -5,27 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/padding_8dp">
+    android:paddingStart="@dimen/padding_8dp"
+    android:paddingEnd="@dimen/padding_8dp">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/eventItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
+        android:background="?selectableItemBackground"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
-        app:contentPadding="@dimen/padding_24dp"
+        app:contentPadding="@dimen/padding_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#828282"
-        app:strokeWidth="1dp">
+        app:strokeWidth="0.7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/jone_kene"
+                android:id="@+id/memberName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top"
@@ -37,32 +40,33 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/jonekene_ma"
+                android:id="@+id/memberEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/marginMedium"
                 android:gravity="top"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/jonekene_ma"
                 android:textAppearance="@style/jonekene_ma"
                 android:translationY="-1.2sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jone_kene" />
+                app:layout_constraintTop_toBottomOf="@+id/memberName" />
 
             <TextView
-                android:id="@+id/some_id"
+                android:id="@+id/memberPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_12dp"
+                android:layout_marginTop="@dimen/marginMedium"
                 android:gravity="top"
                 android:lineSpacingExtra="2sp"
                 android:text="@string/some_id"
-                android:textAppearance="@style/some_id"
+                android:textAppearance="@style/member_phone"
                 android:translationY="-1.2sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jonekene_ma" />
+                app:layout_constraintTop_toBottomOf="@+id/memberEmail" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/deleteMember"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?selectableItemBackground"
@@ -82,6 +86,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/editMember"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?selectableItemBackground"

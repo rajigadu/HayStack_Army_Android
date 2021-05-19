@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.LayoutGroupsListItemViewBinding
 import com.android.app.`in`.haystack.network.response.all_groups.Data
 import com.android.app.`in`.haystack.view.fragments.GroupsFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class EventListAdapter(val context: Context, val fragment: GroupsFragment)
     : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
@@ -25,7 +28,34 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
             binding.editEventGroup.setOnClickListener {
                 groupItemClick.groupItemEdit(data.id)
             }
+
+            binding.members.setOnClickListener {
+                groupItemClick.membersViewClick(data.id)
+            }
+
+            binding.deleteGroup.setOnClickListener {
+                showConfirmAlertDialog(data.id)
+            }
         }
+    }
+
+    private fun showConfirmAlertDialog(id: String) {
+        val dialog = MaterialAlertDialogBuilder(context, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            .setTitle("Delete Group?")
+            .setMessage("Are you sure want to delete this group.?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialogInterface, i ->
+                dialogInterface.dismiss()
+                groupItemClick.deleteGroup(id)
+            }
+            .setNegativeButton("No") { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            .create()
+        if (dialog.window != null)
+            dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
+
+        dialog.show()
     }
 
 
@@ -38,10 +68,6 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
         groupItemClick = fragment
 
         holder.bindView(listGroups[position])
-
-        holder.binding.members.setOnClickListener {
-            groupItemClick.membersViewClick()
-        }
     }
 
     fun updateGroupList(groupList: ArrayList<Data>){
@@ -53,6 +79,7 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
 
     interface EventGroupItemClickListener{
         fun groupItemEdit(groupId: String)
-        fun membersViewClick()
+        fun membersViewClick(groupId: String)
+        fun deleteGroup(groupId: String)
     }
 }

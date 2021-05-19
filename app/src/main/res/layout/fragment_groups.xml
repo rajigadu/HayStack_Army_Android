@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Groups"
         app:titleCentered="true"
+        app:menu="@menu/members_toolbar_menu"
         app:titleTextAppearance="@style/ToolbarTitle"
         app:titleTextColor="@color/black" />
 
@@ -24,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/groups"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnCreateGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,17 +41,23 @@
         android:textAllCaps="false"
         app:icon="@drawable/math_plus"
         app:iconGravity="textStart"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="32dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerEvents"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshGroupList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarGroups"
-        tools:listitem="@layout/layout_groups_list_item_view"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbarGroups">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerEvents"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/layout_groups_list_item_view"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

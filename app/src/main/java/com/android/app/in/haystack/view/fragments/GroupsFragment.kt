@@ -10,6 +10,7 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,8 +21,10 @@ import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
 import com.android.app.`in`.haystack.network.response.all_groups.Data
+import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
 import com.android.app.`in`.haystack.utils.AppConstants.GROUP_ID
 import com.android.app.`in`.haystack.utils.Extensions
+import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
 import com.android.app.`in`.haystack.view.adapters.EventListAdapter
@@ -50,7 +53,22 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getAllGroups()
+        binding.refreshGroupList.setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+
+        binding.refreshGroupList.setOnRefreshListener {
+            listGroups.clear()
+            getAllGroups()
+        }
+
+        binding.toolbarGroups.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.addMember -> {
+                    findNavController().navigate(R.id.action_groupsFragment_to_editMember)
+                    return@setOnMenuItemClickListener true
+                }
+                else -> return@setOnMenuItemClickListener false
+            }
+        }
 
         eventListAdapter = EventListAdapter(requireContext(), this)
         binding.recyclerEvents.apply {
@@ -65,11 +83,10 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
     }
 
     private fun getAllGroups() {
-        Log.e("TAG", "userId: "+SessionManager.instance.getUserId())
+        binding.refreshGroupList.isRefreshing = true
         Repository.getAllGroupsList(SessionManager.instance.getUserId())
             .enqueue(object : Callback<AllGroups>{
                 override fun onResponse(call: Call<AllGroups>, response: Response<AllGroups>) {
-                    Log.e("TAG", "response: "+response.body()?.data)
                     try {
 
                         if (response.isSuccessful){
@@ -94,29 +111,33 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
                         }
 
                     }catch (e: Exception){e.printStackTrace()}
+
+                    binding.refreshGroupList.isRefreshing = false
                 }
 
                 override fun onFailure(call: Call<AllGroups>, t: Throwable) {
                     showSnackBar(binding.constraintGroups, t.localizedMessage!!)
+                    binding.refreshGroupList.isRefreshing = false
                 }
 
             })
     }
 
     private fun showEmptyGroup(){
-        binding.recyclerEvents.visibility = INVISIBLE
+        binding.refreshGroupList.visibility = INVISIBLE
         binding.btnCreateGroup.visibility = VISIBLE
         binding.imageView6.visibility = VISIBLE
     }
 
     private fun showGroupList(){
-        binding.recyclerEvents.visibility = VISIBLE
+        binding.refreshGroupList.visibility = VISIBLE
         binding.btnCreateGroup.visibility = INVISIBLE
         binding.imageView6.visibility = INVISIBLE
     }
 
     override fun onResume() {
         super.onResume()
+        getAllGroups()
         (activity as MainMenuActivity).updateBottomNavChange(1)
         (activity as MainMenuActivity).showBottomNav()
     }
@@ -126,7 +147,42 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
         findNavController().navigate(R.id.action_groupsFragment_to_editGroup, bundle)
     }
 
-    override fun membersViewClick() {
-        findNavController().navigate(R.id.action_groupsFragment_to_membersFragment)
+    override fun membersViewClick(groupId: String) {
+        val bundle = bundleOf(GROUP_ID to groupId)
+        findNavController().navigate(R.id.action_groupsFragment_to_membersFragment, bundle)
+    }
+
+    override fun deleteGroup(groupId: String) {
+        binding.refreshGroupList.isRefreshing = true
+        Repository.deleteGroup(groupId, SessionManager.instance.getUserId())
+            .enqueue(object : Callback<DefaultResponse>{
+                override fun onResponse(
+                    call: Call<DefaultResponse>,
+                    response: Response<DefaultResponse>
+                ) {
+                    try {
+
+                        if (response.isSuccessful){
+                            if (response.body()?.status == "1"){
+
+                                showSnackBar(binding.constraintGroups, response.body()?.message!!)
+
+                                getAllGroups()
+
+                            }else{
+                                showAlertDialog("Failed!", requireContext(), response.body()?.message)
+                            }
+                        }
+
+                    }catch (e: Exception){e.printStackTrace()}
+                    binding.refreshGroupList.isRefreshing = false
+                }
+
+                override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                    showSnackBar(binding.constraintGroups, t.localizedMessage!!)
+                    binding.refreshGroupList.isRefreshing = false
+                }
+
+            })
     }
 }

@@ -20,6 +20,10 @@ object AppConstants {
     const val DOD_ID = "dod-id"
     const val UID = "uid"
 
-    const val GROUP_ID = "uid"
+    const val GROUP_ID = "group-id"
+    const val MEMBER_NAME = "member-name"
+    const val MEMBER_EMAIL = "member-email"
+    const val MEMBER_PHONE = "member-phone"
+    const val STATUS = "status"
 
 }

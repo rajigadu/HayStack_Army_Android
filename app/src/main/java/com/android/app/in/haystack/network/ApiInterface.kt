@@ -16,6 +16,7 @@ import com.android.app.`in`.haystack.network.config.AppConfig.GROUP_MEMBERS
 import com.android.app.`in`.haystack.network.config.AppConfig.LOG_IN
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SOLDIER
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SPOUSE
+import com.android.app.`in`.haystack.network.config.AppConfig.TERMS_AND_CONDITIONS
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
 import com.android.app.`in`.haystack.network.response.create_group.Group
@@ -26,6 +27,7 @@ import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpRespo
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiInterface {

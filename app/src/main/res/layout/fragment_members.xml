@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintMembers"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,11 +17,12 @@
         app:menu="@menu/members_toolbar_menu"
         app:navigationIcon="@drawable/arrow_left"
         app:navigationIconTint="@color/black"
-        app:title="Members"
+        app:title="Group Members"
         app:titleCentered="true"
         app:titleTextAppearance="@style/ToolbarTitle" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refreshMembersList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

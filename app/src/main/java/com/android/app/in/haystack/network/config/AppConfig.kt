@@ -13,6 +13,7 @@ object AppConfig {
     const val EDIT_PROFILE = "editprofile.php"
     const val CHANGE_PASSWORD = "changepassword.php"
     const val CONTACT_US = "contact-us.php"
+    const val TERMS_AND_CONDITIONS = "termsconditions.php"
     const val CREATE_GROUP = "creategroup.php"
     const val ADD_MEMBER_GROUP = "addmember.php"
     const val GET_ALL_GROUPS = "allgroups.php"

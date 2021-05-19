@@ -48,6 +48,10 @@ class Profile: Fragment() {
             findNavController().navigate(R.id.action_profile_to_editProfile)
         }
 
+        binding.layoutTermsAndConditions.setOnClickListener {
+            findNavController().navigate(R.id.action_profile_to_termsAndConditions)
+        }
+
     }
 
 

@@ -6,6 +6,7 @@ import com.android.app.`in`.haystack.network.ApiInterface
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
 import com.android.app.`in`.haystack.network.response.create_group.Group
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
+import com.android.app.`in`.haystack.network.response.group_members.GroupMembers
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
 import com.android.app.`in`.haystack.utils.AppConstants.DEVICE_TYPE
@@ -70,14 +71,14 @@ object Repository {
     fun addMemberToGroup(groupId: String, userId: String, member: String, number: String, email: String):
             Call<DefaultResponse> = client.addMemberToGroup(groupId, userId, member, number, email)
 
-    fun getGroupMembers(groupId: String, userId: String) = client.getGroupMembers(groupId, userId)
+    fun getGroupMembers(groupId: String, userId: String): Call<GroupMembers> = client.getGroupMembers(groupId, userId)
 
     fun editGroupMember(groupId: String, member: String, number: String, email: String, userId: String) =
         client.editGroupMember(groupId, member, number, email, userId)
 
-    fun deleteGroupMember(groupId: String, memberId: String, userId: String) =
+    fun deleteGroupMember(groupId: String, memberId: String, userId: String): Call<DefaultResponse> =
         client.deleteGroupMember(groupId, userId, memberId)
 
-    fun deleteGroup(groupId: String, userId: String) = client.deleteGroup(groupId, userId)
+    fun deleteGroup(groupId: String, userId: String): Call< DefaultResponse> = client.deleteGroup(groupId, userId)
 
 }

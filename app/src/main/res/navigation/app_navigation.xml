@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_groupsFragment_to_membersFragment"
             app:destination="@id/membersFragment" />
+        <action
+            android:id="@+id/action_groupsFragment_to_editMember"
+            app:destination="@id/editMember" />
     </fragment>
     <fragment
         android:id="@+id/profile"
@@ -49,6 +52,9 @@
         <action
             android:id="@+id/action_profile_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profile_to_termsAndConditions"
+            app:destination="@id/termsAndConditions" />
     </fragment>
     <fragment
         android:id="@+id/referAFriend"
@@ -145,11 +151,6 @@
             app:destination="@id/eventsInfoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentSearchCategories"
-        android:name="com.android.app.in.haystack.view.fragments.FragmentSearchCategories"
-        android:label="FragmentSearchCategories"
-        tools:layout="@layout/fragment_search_categories"/>
-    <fragment
         android:id="@+id/membersFragment"
         android:name="com.android.app.in.haystack.view.fragments.MembersFragment"
         android:label="MembersFragment"
@@ -202,4 +203,9 @@
             android:id="@+id/action_eventCreated_to_createEvent"
             app:destination="@id/createEvent" />
     </fragment>
+    <fragment
+        android:id="@+id/termsAndConditions"
+        android:name="com.android.app.in.haystack.view.fragments.TermsAndConditions"
+        android:label="TermsAndConditions"
+        tools:layout="@layout/fragment_terms_and_conditions"/>
 </navigation>
