@@ -1,11 +1,15 @@
 package com.android.app.`in`.haystack.view.activity
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
@@ -13,12 +17,14 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivityMainMenuBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 class MainMenuActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityMainMenuBinding
     private lateinit var navController: NavHostController
     private var selectedId: Int? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

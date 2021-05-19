@@ -4,9 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivityLoginBinding
 import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.network.repository.Repository
@@ -14,6 +17,7 @@ import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.utils.Extensions.getDeviceUid
 import com.android.app.`in`.haystack.utils.Extensions.shortSnackBar
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +25,7 @@ import retrofit2.Response
 class LogInActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var bottomSheet: BottomSheetDialog
     var userName: String? = null
     var password: String? = null
 
@@ -56,8 +61,7 @@ class LogInActivity: AppCompatActivity() {
 
     private fun validateUserCredentials() {
         val deviceId = getDeviceUid(this)
-        binding.loginProgress.visibility = VISIBLE
-        binding.signIn.visibility = INVISIBLE
+        showBottomSheet()
         Repository.userLogIn(userName!!, password!!, deviceId).enqueue(
             object : Callback<LogIn>{
                 override fun onResponse(call: Call<LogIn>, response: Response<LogIn>) {
@@ -78,17 +82,30 @@ class LogInActivity: AppCompatActivity() {
 
                     }catch (e: Exception){e.printStackTrace()}
 
-                    binding.loginProgress.visibility = INVISIBLE
-                    binding.signIn.visibility = VISIBLE
+                    hideBottomSheet()
                 }
 
                 override fun onFailure(call: Call<LogIn>, t: Throwable) {
-                    Log.e("TAG","error: "+t.localizedMessage)
                     shortSnackBar(t.message!!, binding.constraintLogin)
-                    binding.loginProgress.visibility = INVISIBLE
-                    binding.signIn.visibility = VISIBLE
+                    hideBottomSheet()
                 }
 
             })
+    }
+
+    private fun showBottomSheet(){
+        bottomSheet = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+        val view = LayoutInflater.from(applicationContext)
+            .inflate(
+                R.layout.authentication_progress_bottom_sheet,
+                findViewById<ConstraintLayout>(R.id.bottom_sheet)
+            )
+        bottomSheet.setCancelable(false)
+        bottomSheet.setContentView(view)
+        bottomSheet.show()
+    }
+
+    private  fun hideBottomSheet(){
+        bottomSheet.hide()
     }
 }

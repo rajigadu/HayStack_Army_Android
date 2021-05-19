@@ -1,8 +1,12 @@
 package com.android.app.`in`.haystack.view.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivitySpouseRegistrationBinding
 import com.android.app.`in`.haystack.network.repository.Repository
@@ -10,6 +14,7 @@ import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpRespo
 import com.android.app.`in`.haystack.utils.Extensions.getDeviceUid
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,6 +23,7 @@ import retrofit2.Response
 class SpouseRegistration: AppCompatActivity() {
 
     private lateinit var binding: ActivitySpouseRegistrationBinding
+    private lateinit var bottomSheet: BottomSheetDialog
 
     private var fName: String? = null
     private var lName: String? = null
@@ -68,6 +74,7 @@ class SpouseRegistration: AppCompatActivity() {
     }
 
     private fun completeSpouseRegistration() {
+        showBottomSheet()
         val deviceId = getDeviceUid(this)
         Repository.spouseRegistration(fName!!, lName!!, email!!, userName!!, password!!,
             sponsorsEmail!!, relationToSm!!, deviceId = deviceId).enqueue(
@@ -88,11 +95,13 @@ class SpouseRegistration: AppCompatActivity() {
                             }
                         }
 
-                    }catch (e: Exception){}
+                    }catch (e: Exception){e.printStackTrace()}
+                    hideBottomSheet()
                 }
 
                 override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
                     showSnackBar(binding.constraintSpouseSignUp, t.localizedMessage!!)
+                    hideBottomSheet()
                 }
 
             })
@@ -164,5 +173,28 @@ class SpouseRegistration: AppCompatActivity() {
             }
             else -> return true
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showBottomSheet(){
+        bottomSheet = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+        val view = LayoutInflater.from(applicationContext)
+            .inflate(
+                R.layout.authentication_progress_bottom_sheet,
+                findViewById<ConstraintLayout>(R.id.bottom_sheet)
+            )
+        val title = view.findViewById<TextView>(R.id.progress_title)
+        val subTitle = view.findViewById<TextView>(R.id.progress_sub_title)
+
+        title.text = "Spouse Registration"
+        subTitle.text = "Verifying Registration Details, Please wait..."
+
+        bottomSheet.setCancelable(false)
+        bottomSheet.setContentView(view)
+        bottomSheet.show()
+    }
+
+    private  fun hideBottomSheet(){
+        bottomSheet.hide()
     }
 }

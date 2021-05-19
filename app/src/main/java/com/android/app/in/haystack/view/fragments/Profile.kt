@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentProfileBinding
+import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.view.activity.LogInActivity
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class Profile: Fragment() {
 
@@ -32,8 +34,7 @@ class Profile: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.layoutLogout.setOnClickListener {
-            startActivity(Intent(requireContext(), LogInActivity::class.java))
-            requireActivity().finish()
+            showConfirmationDialog()
         }
 
         binding.layoutChangePassword.setOnClickListener {
@@ -52,6 +53,27 @@ class Profile: Fragment() {
             findNavController().navigate(R.id.action_profile_to_termsAndConditions)
         }
 
+    }
+
+    private fun showConfirmationDialog() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            .setTitle("Logout")
+            .setMessage(" Are you sure want to logout.?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialogInterface, i ->
+                dialogInterface.dismiss()
+                SessionManager.instance.clearSessionData()
+                startActivity(Intent(requireContext(), LogInActivity::class.java))
+                requireActivity().finish()
+            }
+            .setNegativeButton("No"){ dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            .create()
+        if (dialog.window != null)
+            dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
+
+        dialog.show()
     }
 
 

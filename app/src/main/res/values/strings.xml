@@ -88,4 +88,6 @@
     <string name="host_number">Host Number</string>
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
+    <string name="log_in">Log In</string>
+    <string name="login_credential_validating">Username and Password are validating, please wait...</string>
 </resources>

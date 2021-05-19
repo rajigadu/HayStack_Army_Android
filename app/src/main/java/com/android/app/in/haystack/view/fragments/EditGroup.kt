@@ -6,6 +6,8 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -41,7 +43,6 @@ class EditGroup: Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -65,6 +66,8 @@ class EditGroup: Fragment() {
     }
 
     private fun updateEditedGroup() {
+        binding.btnUpdateEditGroup.visibility = INVISIBLE
+        binding.animationLoader.visibility = VISIBLE
         val userId = SessionManager.instance.getUserId()
         Repository.editGroup(groupName!!, groupDesc!!, groupId!!, userId)
             .enqueue(object : Callback<DefaultResponse>{
@@ -89,10 +92,15 @@ class EditGroup: Fragment() {
                         }
 
                     }catch (e: Exception){e.printStackTrace()}
+
+                    binding.btnUpdateEditGroup.visibility = VISIBLE
+                    binding.animationLoader.visibility = INVISIBLE
                 }
 
                 override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
                     showSnackBar(binding.constraintEditGroup, t.localizedMessage!!)
+                    binding.btnUpdateEditGroup.visibility = VISIBLE
+                    binding.animationLoader.visibility = INVISIBLE
                 }
 
             })

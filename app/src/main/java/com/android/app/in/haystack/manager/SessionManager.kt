@@ -43,6 +43,8 @@ class SessionManager constructor(val context: Context) {
         editor.apply()
     }
 
+    fun clearSessionData() = sPreference.edit().clear().apply()
+
     fun saveUid(uid: String) = sPreference.edit().putString(UID, uid).apply()
 
 

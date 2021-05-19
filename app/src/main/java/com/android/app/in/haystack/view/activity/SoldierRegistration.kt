@@ -3,8 +3,12 @@ package com.android.app.`in`.haystack.view.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent.ACTION_UP
+import android.view.LayoutInflater
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivitySoldierRegistrationBinding
 import com.android.app.`in`.haystack.network.repository.Repository
@@ -13,6 +17,7 @@ import com.android.app.`in`.haystack.utils.Extensions.getDeviceUid
 import com.android.app.`in`.haystack.utils.Extensions.hideKeyboard
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +26,7 @@ import retrofit2.Response
 class SoldierRegistration: AppCompatActivity() {
 
     private lateinit var binding: ActivitySoldierRegistrationBinding
+    private lateinit var bottomSheet: BottomSheetDialog
     private var fName: String? = null
     private var lName: String? = null
     private var dodId: String? = null
@@ -45,10 +51,10 @@ class SoldierRegistration: AppCompatActivity() {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
         
-        binding.constraintSingUpSoldier.setOnTouchListener { view, motionEvent ->
+        binding.constraintEditLayout.setOnTouchListener { view, motionEvent ->
             when(motionEvent.action){
                 ACTION_UP ->{
-                    binding.constraintSingUpSoldier.hideKeyboard()
+                    binding.constraintEditLayout.hideKeyboard()
                     return@setOnTouchListener true
                 }
             }
@@ -58,6 +64,7 @@ class SoldierRegistration: AppCompatActivity() {
         binding.btnSignUp.setOnClickListener {
             if (validated()){
                 if (password == confirmPassword){
+                    Log.e("TAG", "mail: $govtEmail")
                     if (govtEmail!!.contains("@")){
                         completeSoldierRegistration()
                     }else{
@@ -75,6 +82,7 @@ class SoldierRegistration: AppCompatActivity() {
     }
 
     private fun completeSoldierRegistration() {
+        showBottomSheet()
         val deviceId = getDeviceUid(this)
         Repository.soldierRegistration(fName!!, lName!!, govtEmail!!, userName!!, password!!, dodId!!, deviceId = deviceId)
             .enqueue(object : Callback<SignUpResponse>{
@@ -95,10 +103,12 @@ class SoldierRegistration: AppCompatActivity() {
                         }
 
                     }catch (e: Exception){e.printStackTrace()}
+                    hideBottomSheet()
                 }
 
                 override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                    showSnackBar(binding.constraintSingUpSoldier, t.localizedMessage)
+                    showSnackBar(binding.constraintSingUpSoldier, t.localizedMessage!!)
+                    hideBottomSheet()
                 }
 
             })
@@ -168,6 +178,29 @@ class SoldierRegistration: AppCompatActivity() {
             }
             else -> return true
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showBottomSheet(){
+        bottomSheet = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+        val view = LayoutInflater.from(applicationContext)
+            .inflate(
+                R.layout.authentication_progress_bottom_sheet,
+                findViewById<ConstraintLayout>(R.id.bottom_sheet)
+            )
+        val title = view.findViewById<TextView>(R.id.progress_title)
+        val subTitle = view.findViewById<TextView>(R.id.progress_sub_title)
+
+        title.text = "Soldier Registration"
+        subTitle.text = "Verifying Registration Details, Please wait..."
+
+        bottomSheet.setCancelable(false)
+        bottomSheet.setContentView(view)
+        bottomSheet.show()
+    }
+
+    private  fun hideBottomSheet(){
+        bottomSheet.hide()
     }
 
 }
