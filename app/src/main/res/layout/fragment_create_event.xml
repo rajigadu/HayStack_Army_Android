@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintCreateEvent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -48,7 +49,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/event_name"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView15"
@@ -75,7 +76,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/street_address"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPostalAddress|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view"
@@ -101,7 +102,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/city"
                 android:imeOptions="actionNext"
-                android:inputType="text"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view1"/>
@@ -165,7 +166,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/zip_code"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="number|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view3"/>
@@ -179,7 +180,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/state"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view2"/>
@@ -193,7 +194,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/host_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view4"/>
@@ -207,7 +208,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/contact_info"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view5"/>
@@ -221,7 +222,7 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/contact_info"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view6"/>
@@ -298,9 +299,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/labelStart">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputStartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/thursday_06"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp"
                     android:drawableEnd="@drawable/chevron_down"
                     android:inputType="textNoSuggestions" />
@@ -318,9 +320,10 @@
                 tools:layout_editor_absoluteY="24dp">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/thursday_06"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp"
                     android:drawableEnd="@drawable/chevron_down"
                     android:inputType="textNoSuggestions" />
@@ -362,9 +365,10 @@
                 app:layout_constraintStart_toStartOf="@id/view8">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/startTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/clock_time"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp"
                     android:drawableEnd="@drawable/chevron_down"
                     android:inputType="textNoSuggestions" />
@@ -381,9 +385,10 @@
                 app:layout_constraintEnd_toEndOf="@+id/view9">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/endTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/clock_time"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp"
                     android:drawableEnd="@drawable/chevron_down"
                     android:inputType="textNoSuggestions" />
@@ -440,8 +445,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/event_descr">
 
                 <EditText
+                    android:id="@+id/eventDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/enter_description"
+                    android:gravity="start"
+                    android:maxLength="1000"
                     android:minLines="5" />
 
             </com.google.android.material.textfield.TextInputLayout>

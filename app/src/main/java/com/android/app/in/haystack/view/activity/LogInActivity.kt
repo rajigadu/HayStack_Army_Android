@@ -1,6 +1,7 @@
 package com.android.app.`in`.haystack.view.activity
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -32,6 +33,7 @@ class LogInActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

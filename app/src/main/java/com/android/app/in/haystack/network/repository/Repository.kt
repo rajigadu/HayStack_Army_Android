@@ -4,14 +4,16 @@ import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.network.ApiClient
 import com.android.app.`in`.haystack.network.ApiInterface
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
+import com.android.app.`in`.haystack.network.response.categories.AllCategories
 import com.android.app.`in`.haystack.network.response.create_group.Group
+import com.android.app.`in`.haystack.network.response.event.Event
+import com.android.app.`in`.haystack.network.response.event.EventCreated
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
 import com.android.app.`in`.haystack.network.response.group_members.GroupMembers
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
 import com.android.app.`in`.haystack.utils.AppConstants.DEVICE_TYPE
 import com.android.app.`in`.haystack.utils.Extensions.getUniqueRandomNumber
-import com.android.app.`in`.haystack.view.activity.SpouseRegistration
 import retrofit2.Call
 
 object Repository {
@@ -80,5 +82,16 @@ object Repository {
         client.deleteGroupMember(groupId, userId, memberId)
 
     fun deleteGroup(groupId: String, userId: String): Call< DefaultResponse> = client.deleteGroup(groupId, userId)
+
+    fun getAllCategories(): Call<AllCategories> = client.getAllCategories()
+
+    fun createEvent(event: Event): Call<EventCreated> {
+        return client.createEvent(
+            event.eventName, event.streetAddress, event.city, event.id, event.state, event.zipCode,
+            event.startDate, event.startTime, event.endDate, event.endTime, event.hostName, event.contactInfo,
+            event.hostType, event.eventType, event.country, event.latitude, event.longitude,
+            event.category
+        )
+    }
 
 }

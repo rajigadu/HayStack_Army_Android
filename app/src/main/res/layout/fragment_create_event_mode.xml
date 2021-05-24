@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,15 +54,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/advertiseEventGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginTop="@dimen/margin_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/how_would_y"
                 app:layout_constraintTop_toBottomOf="@+id/how_would_y">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/advertisePublic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -71,6 +74,7 @@
                     tools:ignore="RtlSymmetry" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/advertisePrivate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
@@ -90,10 +94,10 @@
                 android:textAppearance="@style/how_would_y"
                 android:layout_marginTop="@dimen/margin_24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                app:layout_constraintTop_toBottomOf="@+id/advertiseEventGroup" />
 
             <RadioGroup
-                android:id="@+id/radioGroup2"
+                android:id="@+id/hostContactInfoGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_24dp"
@@ -102,6 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/would_you_1">
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/hostContactPublic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -111,6 +116,7 @@
                     tools:ignore="RtlSymmetry" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/hostContactPrivate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
@@ -130,9 +136,9 @@
                 android:textColor="@color/white"
                 android:textAllCaps="false"
                 android:fontFamily="@font/lato_bold"
-                app:layout_constraintEnd_toEndOf="@+id/radioGroup2"
-                app:layout_constraintStart_toStartOf="@+id/radioGroup2"
-                app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+                app:layout_constraintEnd_toEndOf="@+id/hostContactInfoGroup"
+                app:layout_constraintStart_toStartOf="@+id/hostContactInfoGroup"
+                app:layout_constraintTop_toBottomOf="@+id/hostContactInfoGroup" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

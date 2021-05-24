@@ -1,9 +1,11 @@
 package com.android.app.`in`.haystack.network
 
 import com.android.app.`in`.haystack.network.config.AppConfig.ADD_MEMBER_GROUP
+import com.android.app.`in`.haystack.network.config.AppConfig.ALL_CATEGORIES
 import com.android.app.`in`.haystack.network.config.AppConfig.ALL_MEMBERS
 import com.android.app.`in`.haystack.network.config.AppConfig.CHANGE_PASSWORD
 import com.android.app.`in`.haystack.network.config.AppConfig.CONTACT_US
+import com.android.app.`in`.haystack.network.config.AppConfig.CREATE_EVENT
 import com.android.app.`in`.haystack.network.config.AppConfig.CREATE_GROUP
 import com.android.app.`in`.haystack.network.config.AppConfig.DELETE_GROUP
 import com.android.app.`in`.haystack.network.config.AppConfig.DELETE_GROUP_MEMBER
@@ -19,7 +21,9 @@ import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SPOUSE
 import com.android.app.`in`.haystack.network.config.AppConfig.TERMS_AND_CONDITIONS
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
+import com.android.app.`in`.haystack.network.response.categories.AllCategories
 import com.android.app.`in`.haystack.network.response.create_group.Group
+import com.android.app.`in`.haystack.network.response.event.EventCreated
 import com.android.app.`in`.haystack.network.response.group_members.GroupMembers
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.members.Members
@@ -178,5 +182,31 @@ interface ApiInterface {
         @Field("groupid") groupId: String,
         @Field("id") userId: String
     ): Call<DefaultResponse>
+
+    @GET(ALL_CATEGORIES)
+    fun getAllCategories(): Call<AllCategories>
+
+    @FormUrlEncoded
+    @POST(CREATE_EVENT)
+    fun createEvent(
+        @Field("event_name") eventName: String,
+        @Field("streetaddress") streetAddress: String,
+        @Field("city") city: String,
+        @Field("id") id: String,
+        @Field("state") state: String,
+        @Field("zipcode") zipCode: String,
+        @Field("startdate") startDate: String,
+        @Field("starttime") startTime: String,
+        @Field("enddate") endDate: String,
+        @Field("endtime") endTime: String,
+        @Field("hostname") hostName: String,
+        @Field("contactinfo") contactInfo: String,
+        @Field("hosttype") hostType: String,
+        @Field("eventtype") eventType: String,
+        @Field("country") country: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("category") category: String
+    ): Call<EventCreated>
 
 }

@@ -13,7 +13,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fitsSystemWindows="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                 android:focusable="true"
                 android:background="?selectableItemBackground"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textSignUp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textSignUp">

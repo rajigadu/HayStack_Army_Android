@@ -264,7 +264,7 @@
                 android:focusable="true"
                 android:background="?selectableItemBackground"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textSignUp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textSignUp">

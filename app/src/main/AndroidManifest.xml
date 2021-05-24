@@ -22,8 +22,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDS1bnwE9zS911Gg4v7OlWia8KdeFcYxmY" />
 
-        <activity android:name=".view.activity.SplashScreen"
-            android:screenOrientation="portrait">
+        <activity android:name=".view.activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,24 +30,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.LogInActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".view.activity.SignUpActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".view.activity.SoldierRegistration"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".view.activity.ForgotPasswordActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".view.activity.MainMenuActivity"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
         <activity android:name=".view.activity.SpouseRegistration"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
-            android:screenOrientation="portrait"/>
-
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"/>
 
     </application>
 

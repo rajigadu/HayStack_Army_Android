@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_32dp"
-                android:layout_marginTop="@dimen/marginMedium"
+                android:layout_marginTop="@dimen/margin_32dp"
                 android:layout_marginEnd="@dimen/margin_32dp"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
@@ -100,7 +100,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:cardBackgroundColor="@color/colorPrimary"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView"
                 app:layout_constraintEnd_toEndOf="@+id/view2"
                 app:layout_constraintTop_toTopOf="@+id/textView">
@@ -108,34 +108,11 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right" />
 
             </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/loginProgress"
-                android:layout_width="@dimen/btnWidthSignIn"
-                android:layout_height="@dimen/btnHeightSignIn"
-                android:background="?selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="50dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="@+id/view2"
-                app:layout_constraintTop_toTopOf="@+id/textView">
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/haystack_loader"/>
-
-            </com.google.android.material.card.MaterialCardView>
-
 
             <TextView
                 android:id="@+id/forgot_pass"

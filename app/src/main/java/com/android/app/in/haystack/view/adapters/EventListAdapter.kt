@@ -2,8 +2,14 @@ package com.android.app.`in`.haystack.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.android.app.`in`.haystack.R
@@ -23,13 +29,34 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
         @SuppressLint("SetTextI18n")
         fun bindView(data: Data) {
             binding.groupName.text = data.gname
-            binding.membersCount.text = "People (${data.membercount})"
+
+            if (data.membercount.toInt() < 1){
+                binding.membersCount.text = "Add Member"
+                binding.membersLayout.visibility = INVISIBLE
+                binding.addMember.visibility = VISIBLE
+            }else {
+                binding.membersLayout.visibility = VISIBLE
+                binding.addMember.visibility = INVISIBLE
+                binding.membersCount.text = "People (${data.membercount})"
+
+                for (members in data.member) {
+                    val text = TextView(context)
+                    text.text = members.member.substring(0,1)
+                    text.layoutParams = ViewGroup.LayoutParams(70, 70)
+                    text.gravity = Gravity.CENTER
+                    text.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    text.typeface = ResourcesCompat.getFont(context, R.font.lato_bold)
+                    text.background = ContextCompat.getDrawable(context, R.drawable.rounded_text_bag)
+                    binding.membersLayout.addView(text)
+                }
+            }
+
 
             binding.editEventGroup.setOnClickListener {
                 groupItemClick.groupItemEdit(data.id)
             }
 
-            binding.members.setOnClickListener {
+            binding.membersLayout.setOnClickListener {
                 groupItemClick.membersViewClick(data.id)
             }
 
