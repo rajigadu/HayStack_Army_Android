@@ -14,10 +14,13 @@ import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentEditMemberBinding
 import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.network.repository.Repository
+import com.android.app.`in`.haystack.network.response.event.Event
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
+import com.android.app.`in`.haystack.utils.AppConstants.ARG_SERIALIZABLE
 import com.android.app.`in`.haystack.utils.AppConstants.MEMBER_EMAIL
 import com.android.app.`in`.haystack.utils.AppConstants.MEMBER_NAME
 import com.android.app.`in`.haystack.utils.AppConstants.MEMBER_PHONE
+import com.android.app.`in`.haystack.utils.AppConstants.POSITION
 import com.android.app.`in`.haystack.utils.AppConstants.STATUS
 import com.android.app.`in`.haystack.utils.Extensions
 import com.android.app.`in`.haystack.utils.Extensions.hideKeyboard
@@ -36,6 +39,8 @@ class EditMember: Fragment() {
     private var name: String? = null
     private var email: String? = null
     private var phone: String? = null
+    private var events: Event? = null
+    private var position: Int? = null
 
 
     override fun onCreateView(
@@ -61,6 +66,13 @@ class EditMember: Fragment() {
             binding.inputName.setText(name)
             binding.inputEmail.setText(email)
             binding.inputMobile.setText(phone)
+        }else if (status == "2"){
+            events = arguments?.getSerializable(ARG_SERIALIZABLE) as Event
+            position = arguments?.getInt(POSITION)
+
+            binding.inputName.setText(events?.allmembers!![position!!].member)
+            binding.inputEmail.setText(events?.allmembers!![position!!].email)
+            binding.inputMobile.setText(events?.allmembers!![position!!].number)
         }
 
         binding.toolbarEditMember.setNavigationOnClickListener {
@@ -79,17 +91,26 @@ class EditMember: Fragment() {
 
         binding.btnUpdate.setOnClickListener {
             name = binding.inputName.text.toString().trim()
-            email = binding.inputName.text.toString().trim()
-            phone = binding.inputName.text.toString().trim()
+            email = binding.inputEmail.text.toString().trim()
+            phone = binding.inputMobile.text.toString().trim()
 
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(email) || TextUtils.isEmpty(phone)){
                 showSnackBar(binding.constraintEditMember, "Please enter all the fields")
                 return@setOnClickListener
             }
 
-            if (status == "1") updateMemberDetails()
-            else addNewMember()
+            when (status) {
+                "1" -> updateMemberDetails()
+                "2" -> updateMemberList()
+                else -> addNewMember()
+            }
         }
+    }
+
+    private fun updateMemberList() {
+        events?.allmembers!![position!!].number = phone!!
+        events?.allmembers!![position!!].email = email!!
+        events?.allmembers!![position!!].member = name!!
     }
 
     private fun addNewMember() {

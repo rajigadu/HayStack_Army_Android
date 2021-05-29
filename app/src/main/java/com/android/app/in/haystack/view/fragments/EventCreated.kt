@@ -27,9 +27,9 @@ class EventCreated: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarEventCreated.setNavigationOnClickListener {
+        /*binding.toolbarEventCreated.setNavigationOnClickListener {
             findNavController().popBackStack()
-        }
+        }*/
 
         binding.btnClose.setOnClickListener {
             findNavController().navigate(R.id.action_eventCreated_to_homeFragment)

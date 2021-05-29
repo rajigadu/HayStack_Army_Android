@@ -4,13 +4,16 @@ object AppConstants {
 
 
     const val PERMISSION_REQ_LOCATION = 101
+    const val RC_SELECT_IMAGE = 102
+    const val RC_CAMERA_IMAGE = 103
 
 
 
 
     const val DEVICE_TYPE = "ANDROID"
     const val ARG_OBJECTS = "arguments-objects"
-    const val ARG_SERIALIZABLE = "arguments-objects"
+    const val ARG_SERIALIZABLE = "arguments-serializable"
+    const val POSITION = "position"
 
     const val LOGNIED_USER = "lognied-user"
     const val USER_ID = "user-id"

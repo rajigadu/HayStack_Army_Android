@@ -16,6 +16,7 @@ import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.categories.AllCategories
 import com.android.app.`in`.haystack.network.response.categories.Data
 import com.android.app.`in`.haystack.network.response.event.Event
+import com.android.app.`in`.haystack.utils.AppConstants.ARG_OBJECTS
 import com.android.app.`in`.haystack.utils.AppConstants.ARG_SERIALIZABLE
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
@@ -30,6 +31,7 @@ class CategoriesFragment: Fragment() {
     private lateinit var binding: FragmentCategoriesBinding
     private lateinit var categoriesListAdapter: CategoriesListAdapter
     private var events: Event?= null
+    private var navigation: String?= null
     private var listCategories = arrayListOf<Data>()
 
 
@@ -46,8 +48,11 @@ class CategoriesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        events = arguments?.getSerializable(ARG_SERIALIZABLE) as Event
-        Log.e("TAG", "events: $events")
+        navigation = arguments?.getString(ARG_OBJECTS)
+        if (navigation == "1") {
+            events = arguments?.getSerializable(ARG_SERIALIZABLE) as Event
+            Log.e("TAG", "events: $events")
+        }
 
         binding.refreshCategories.setColorSchemeColors(ContextCompat.getColor(requireContext(),
             R.color.colorPrimary))
@@ -70,11 +75,23 @@ class CategoriesFragment: Fragment() {
 
         binding.btnContinue.setOnClickListener {
             val selectedCategories = categoriesListAdapter.getSelectedCategories()
-            for (elements in selectedCategories) Log.e("TAG", "elements: $elements")
-            val categories = selectedCategories.joinToString(",")
-            events?.category = categories
-            val bundle = bundleOf(ARG_SERIALIZABLE to events)
-            findNavController().navigate(R.id.action_categoriesFragment_to_createEventMode, bundle)
+            if (selectedCategories.isNotEmpty()) {
+                for (elements in selectedCategories) Log.e("TAG", "elements: $elements")
+                val categories = selectedCategories.joinToString(",")
+                events?.category = categories
+                val bundle = bundleOf(ARG_SERIALIZABLE to events)
+                if (navigation == "1") {
+                    findNavController().navigate(
+                        R.id.action_categoriesFragment_to_createEventMode,
+                        bundle
+                    )
+                }else{
+                    findNavController().navigate(R.id.action_categoriesFragment_to_searchFragment)
+                }
+            }else {
+                showSnackBar(binding.constraintCategories, "Please select categories")
+                return@setOnClickListener
+            }
         }
     }
 

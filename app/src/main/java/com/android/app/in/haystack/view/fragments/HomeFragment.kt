@@ -18,10 +18,12 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.FragmentHomeBinding
+import com.android.app.`in`.haystack.utils.AppConstants.ARG_OBJECTS
 import com.android.app.`in`.haystack.utils.AppConstants.PERMISSION_REQ_LOCATION
 import com.android.app.`in`.haystack.utils.Extensions.getUniqueRandomNumber
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBarSettings
@@ -88,7 +90,8 @@ class HomeFragment: Fragment(), MultiplePermissionsListener {
         binding.searchView.setOnTouchListener { view, motionEvent ->
             when(motionEvent.action){
                 ACTION_UP -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+                    val bundle = bundleOf(ARG_OBJECTS to "0")
+                    findNavController().navigate(R.id.action_homeFragment_to_categoriesFragment, bundle)
                 }
             }
             return@setOnTouchListener true

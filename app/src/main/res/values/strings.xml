@@ -90,4 +90,12 @@
     <string name="new_password">New Password</string>
     <string name="log_in">Log In</string>
     <string name="login_credential_validating">Username and Password are validating, please wait...</string>
+    <string name="date_picker">MATERIAL_DATE_PICKER</string>
+    <string name="time_picker">MATERIAL_TIME_PICKER</string>
+    <string name="country">Country</string>
+    <string name="package_">package</string>
+    <string name="gallery">Gallery</string>
+    <string name="cancel">Cancel</string>
+    <string name="camera">Camera</string>
+    <string name="upload_from">Upload From</string>
 </resources>

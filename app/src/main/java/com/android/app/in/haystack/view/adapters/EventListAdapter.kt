@@ -28,7 +28,7 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
     inner class ViewHolder(val binding: LayoutGroupsListItemViewBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bindView(data: Data) {
-            binding.groupName.text = data.gname
+            binding.eventName.text = data.gname
 
             if (data.membercount.toInt() < 1){
                 binding.membersCount.text = "Add Member"

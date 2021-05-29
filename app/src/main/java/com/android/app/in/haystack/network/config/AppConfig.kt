@@ -25,8 +25,10 @@ object AppConfig {
     const val DELETE_GROUP = "deletegroup.php"
     const val CREATE_EVENT = "create-event.php"
     const val EDIT_EVENT = "editevent.php"
-    const val MY_EVENT = "myevents.php"
+    const val MY_EVENTS = "myevents.php"
     const val ALL_CATEGORIES = "allcategory.php"
     const val LIST_INTEREST_EVENTS = "myinterestevents.php"
     const val LIST_ATTEND_EVENTS = "myattendevents.php"
+    const val LIST_COUNTRIES = "country.php"
+    const val LIST_STATES = "state.php"
 }

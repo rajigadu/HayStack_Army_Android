@@ -1,13 +1,10 @@
 package com.android.app.`in`.haystack.view.activity
 
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.app.`in`.haystack.R
@@ -16,8 +13,9 @@ import com.android.app.`in`.haystack.manager.SessionManager
 import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.utils.Extensions.getDeviceUid
-import com.android.app.`in`.haystack.utils.Extensions.shortSnackBar
+import com.android.app.`in`.haystack.utils.Extensions.longSnackBar
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
+import com.android.app.`in`.haystack.utils.Extensions.showErrorResponse
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import retrofit2.Call
 import retrofit2.Callback
@@ -88,7 +86,7 @@ class LogInActivity: AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<LogIn>, t: Throwable) {
-                    shortSnackBar(t.message!!, binding.constraintLogin)
+                    showErrorResponse(t, binding.constraintLogin)
                     hideBottomSheet()
                 }
 

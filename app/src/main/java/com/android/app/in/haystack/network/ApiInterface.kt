@@ -15,24 +15,34 @@ import com.android.app.`in`.haystack.network.config.AppConfig.EDIT_PROFILE
 import com.android.app.`in`.haystack.network.config.AppConfig.FORGOT_PASSWORD
 import com.android.app.`in`.haystack.network.config.AppConfig.GET_ALL_GROUPS
 import com.android.app.`in`.haystack.network.config.AppConfig.GROUP_MEMBERS
+import com.android.app.`in`.haystack.network.config.AppConfig.LIST_ATTEND_EVENTS
+import com.android.app.`in`.haystack.network.config.AppConfig.LIST_COUNTRIES
+import com.android.app.`in`.haystack.network.config.AppConfig.LIST_INTEREST_EVENTS
+import com.android.app.`in`.haystack.network.config.AppConfig.LIST_STATES
 import com.android.app.`in`.haystack.network.config.AppConfig.LOG_IN
+import com.android.app.`in`.haystack.network.config.AppConfig.MY_EVENTS
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SOLDIER
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SPOUSE
 import com.android.app.`in`.haystack.network.config.AppConfig.TERMS_AND_CONDITIONS
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
 import com.android.app.`in`.haystack.network.response.all_groups.AllGroups
+import com.android.app.`in`.haystack.network.response.attend_events.AttendEvents
 import com.android.app.`in`.haystack.network.response.categories.AllCategories
+import com.android.app.`in`.haystack.network.response.countries.Countries
 import com.android.app.`in`.haystack.network.response.create_group.Group
+import com.android.app.`in`.haystack.network.response.event.Event
 import com.android.app.`in`.haystack.network.response.event.EventCreated
 import com.android.app.`in`.haystack.network.response.group_members.GroupMembers
+import com.android.app.`in`.haystack.network.response.interest_events.InterestEvents
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.members.Members
+import com.android.app.`in`.haystack.network.response.my_events.MyEvents
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
+import com.android.app.`in`.haystack.network.response.states.States
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -69,7 +79,7 @@ interface ApiInterface {
     @FormUrlEncoded
     @POST(LOG_IN)
     fun userLogIn(
-        @Field("email") email: String?,
+        @Field("username") email: String?,
         @Field("password") password: String?,
         @Field("device_type") deviceType: String,
         @Field("device_id") deviceId: String,
@@ -186,27 +196,41 @@ interface ApiInterface {
     @GET(ALL_CATEGORIES)
     fun getAllCategories(): Call<AllCategories>
 
-    @FormUrlEncoded
+    @Multipart
     @POST(CREATE_EVENT)
-    fun createEvent(
-        @Field("event_name") eventName: String,
-        @Field("streetaddress") streetAddress: String,
-        @Field("city") city: String,
-        @Field("id") id: String,
-        @Field("state") state: String,
-        @Field("zipcode") zipCode: String,
-        @Field("startdate") startDate: String,
-        @Field("starttime") startTime: String,
-        @Field("enddate") endDate: String,
-        @Field("endtime") endTime: String,
-        @Field("hostname") hostName: String,
-        @Field("contactinfo") contactInfo: String,
-        @Field("hosttype") hostType: String,
-        @Field("eventtype") eventType: String,
-        @Field("country") country: String,
-        @Field("latitude") latitude: String,
-        @Field("longitude") longitude: String,
-        @Field("category") category: String
-    ): Call<EventCreated>
+    fun createNewEvent(@PartMap hashMap: HashMap<String, RequestBody>): Call<EventCreated>
+
+    @FormUrlEncoded
+    @POST(MY_EVENTS)
+    fun myEvents(
+        @Field("id") userId: String,
+        @Field("currentdate") currentDate: String,
+        @Field("endtime") endTime: String?
+    ): Call<MyEvents>
+
+    @FormUrlEncoded
+    @POST(LIST_ATTEND_EVENTS)
+    fun attendEvents(
+        @Field("id") userId: String,
+        @Field("currentdate") currentDate: String,
+        @Field("endtime") endtime: String?,
+    ): Call<AttendEvents>
+
+    @FormUrlEncoded
+    @POST(LIST_INTEREST_EVENTS)
+    fun interestEvents(
+        @Field("id") userId: String,
+        @Field("currentdate") currentDate: String,
+        @Field("endtime") endtime: String?,
+    ): Call<InterestEvents>
+
+    @GET(LIST_COUNTRIES)
+    fun getCountries(): Call<Countries>
+
+    @FormUrlEncoded
+    @POST(LIST_STATES)
+    fun getStates(
+        @Field("countryname") countryName: String
+    ): Call<States>
 
 }

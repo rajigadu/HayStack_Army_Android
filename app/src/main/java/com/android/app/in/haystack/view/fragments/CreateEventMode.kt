@@ -37,6 +37,7 @@ class CreateEventMode: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         events = arguments?.getSerializable(ARG_SERIALIZABLE) as Event
+        Log.e("TAG", "events: $events")
 
         binding.toolbarEventMode.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -52,9 +53,8 @@ class CreateEventMode: Fragment() {
             if (advertiseEvent.isNullOrEmpty() || hostContactInfo.isNullOrEmpty()){
                 return@setOnClickListener
             }
-            events?.eventType = advertiseEvent
-            events?.hostType = hostContactInfo
-            Log.e("TAG", "events: $events")
+            events?.eventtype = advertiseEvent
+            events?.hosttype = hostContactInfo
             val bundle = bundleOf(ARG_SERIALIZABLE to events)
             findNavController().navigate(R.id.action_createEventMode_to_addMembersFragment, bundle)
         }

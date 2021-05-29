@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.android.app.`in`.haystack.databinding.FragmentMyEventsBinding
+import com.android.app.`in`.haystack.databinding.FragmentEventsBinding
 import com.android.app.`in`.haystack.view.activity.MainMenuActivity
-import com.android.app.`in`.haystack.view.viewpager.EventsViewPagerAdapter
-import com.android.app.`in`.haystack.view.viewpager.EventsViewPagerFragment
+import com.android.app.`in`.haystack.view.viewpager.*
 import com.google.android.material.tabs.TabLayoutMediator
 
-class MyEvents: Fragment() {
+class EventsViewpagerFragment: Fragment() {
 
-    private lateinit var binding: FragmentMyEventsBinding
+    private lateinit var binding: FragmentEventsBinding
     private var tabTitles = arrayOf("My Events", "Interests", "Attend", "Invited")
     private lateinit var viewPagerAdapter: EventsViewPagerAdapter
 
@@ -24,7 +23,7 @@ class MyEvents: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMyEventsBinding.inflate(layoutInflater)
+        binding = FragmentEventsBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -33,10 +32,10 @@ class MyEvents: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewPagerAdapter = EventsViewPagerAdapter(requireActivity())
-        viewPagerAdapter.addFragment(EventsViewPagerFragment())
-        viewPagerAdapter.addFragment(EventsViewPagerFragment())
-        viewPagerAdapter.addFragment(EventsViewPagerFragment())
-        viewPagerAdapter.addFragment(EventsViewPagerFragment())
+        viewPagerAdapter.addFragment(MyEventsFragment())
+        viewPagerAdapter.addFragment(InterestsEventsFragment())
+        viewPagerAdapter.addFragment(AttendEventsFragment())
+        viewPagerAdapter.addFragment(InvitedEventsFragment())
         binding.myBookingViewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.myEventsTabs, binding.myBookingViewPager) { tab, position ->
             tab.text = tabTitles[position]

@@ -13,8 +13,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/arrow_left"
-        app:navigationIconTint="@color/black"
         app:title="Create Event"
         app:titleCentered="true"
         app:titleTextAppearance="@style/ToolbarTitle" />

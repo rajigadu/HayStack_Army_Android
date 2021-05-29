@@ -11,6 +11,7 @@ import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivitySpouseRegistrationBinding
 import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
+import com.android.app.`in`.haystack.utils.Extensions
 import com.android.app.`in`.haystack.utils.Extensions.getDeviceUid
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
@@ -100,7 +101,7 @@ class SpouseRegistration: AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                    showSnackBar(binding.constraintSpouseSignUp, t.localizedMessage!!)
+                    Extensions.showErrorResponse(t, binding.constraintSpouseSignUp)
                     hideBottomSheet()
                 }
 

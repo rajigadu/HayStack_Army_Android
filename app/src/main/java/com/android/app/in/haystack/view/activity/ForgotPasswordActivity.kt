@@ -3,13 +3,17 @@ package com.android.app.`in`.haystack.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.databinding.ActivityForgotPasswordBinding
 import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.group_members.DefaultResponse
+import com.android.app.`in`.haystack.utils.Extensions
 import com.android.app.`in`.haystack.utils.Extensions.showAlertDialog
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,6 +23,7 @@ class ForgotPasswordActivity: AppCompatActivity() {
 
 
     private lateinit var binding: ActivityForgotPasswordBinding
+    private lateinit var bottomSheet: BottomSheetDialog
     private var email: String? = null
 
 
@@ -42,6 +47,7 @@ class ForgotPasswordActivity: AppCompatActivity() {
     }
 
     private fun sendRestPasswordLink() {
+        showBottomSheet()
         Repository.forgotPassword(email!!).enqueue(object : Callback<DefaultResponse>{
             override fun onResponse(
                 call: Call<DefaultResponse>,
@@ -58,10 +64,12 @@ class ForgotPasswordActivity: AppCompatActivity() {
                     }
 
                 }catch (e: Exception){e.printStackTrace()}
+                hideBottomSheet()
             }
 
             override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
-                showSnackBar(binding.constraintForgotPassword, t.localizedMessage!!)
+                Extensions.showErrorResponse(t, binding.constraintForgotPassword)
+                hideBottomSheet()
             }
 
         })
@@ -81,6 +89,22 @@ class ForgotPasswordActivity: AppCompatActivity() {
             dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
 
         dialog.show()
+    }
+
+    private fun showBottomSheet(){
+        bottomSheet = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
+        val view = LayoutInflater.from(applicationContext)
+            .inflate(
+                R.layout.authentication_progress_bottom_sheet,
+                findViewById<ConstraintLayout>(R.id.bottom_sheet)
+            )
+        bottomSheet.setCancelable(false)
+        bottomSheet.setContentView(view)
+        bottomSheet.show()
+    }
+
+    private  fun hideBottomSheet(){
+        bottomSheet.hide()
     }
 
 }
