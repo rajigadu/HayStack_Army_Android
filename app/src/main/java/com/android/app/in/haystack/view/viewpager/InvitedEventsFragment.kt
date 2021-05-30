@@ -73,6 +73,10 @@ class InvitedEventsFragment: Fragment() {
 
                         if (response.isSuccessful){
                             if (response.body()?.status == "1"){
+                                if (response.body()?.data != null){
+                                    listInvitedEvents.clear()
+                                    listInvitedEvents.addAll(listOf(response.body()?.data!!))
+                                }
 
                             }else{
                                 longSnackBar(response.body()?.message!!, binding.constraintMyEvents)

@@ -39,9 +39,9 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
                 binding.addMember.visibility = INVISIBLE
                 binding.membersCount.text = "People (${data.membercount})"
 
-                for (members in data.member) {
+                for (element in data.member.indices) {
                     val text = TextView(context)
-                    text.text = members.member.substring(0,1)
+                    text.text = data.member[element].member.substring(0,1)
                     text.layoutParams = ViewGroup.LayoutParams(70, 70)
                     text.gravity = Gravity.CENTER
                     text.setTextColor(ContextCompat.getColor(context, R.color.white))

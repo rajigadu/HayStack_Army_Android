@@ -11,6 +11,8 @@ import com.android.app.`in`.haystack.utils.AppConstants.LOGNIED_USER
 import com.android.app.`in`.haystack.utils.AppConstants.L_NAME
 import com.android.app.`in`.haystack.utils.AppConstants.UID
 import com.android.app.`in`.haystack.utils.AppConstants.USER_ID
+import com.android.app.`in`.haystack.utils.AppConstants.USER_LATITUDE
+import com.android.app.`in`.haystack.utils.AppConstants.USER_LONGITUDE
 import com.android.app.`in`.haystack.utils.AppConstants.USER_NAME
 
 class SessionManager constructor(val context: Context) {
@@ -46,6 +48,13 @@ class SessionManager constructor(val context: Context) {
     fun clearSessionData() = sPreference.edit().clear().apply()
 
     fun saveUid(uid: String) = sPreference.edit().putString(UID, uid).apply()
+
+    fun saveUserLatLong(latitude: Double, longitude: Double) {
+        val editor = sPreference.edit()
+        editor.putString(USER_LATITUDE, latitude.toString())
+        editor.putString(USER_LONGITUDE, longitude.toString())
+        editor.apply()
+    }
 
 
     companion object {

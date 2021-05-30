@@ -41,7 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <TextView
                 android:id="@+id/inputEventName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -49,9 +49,6 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/event_name"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/imageView15"
                 app:layout_constraintStart_toStartOf="@+id/imageView15"
@@ -68,7 +65,7 @@
                 app:layout_constraintStart_toStartOf="@+id/inputEventName"
                 app:layout_constraintTop_toBottomOf="@+id/inputEventName" />
 
-            <EditText
+            <TextView
                 android:id="@+id/inputStreetAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,8 +73,6 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/street_address"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view"
@@ -94,7 +89,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputStreetAddress" />
 
-            <EditText
+            <TextView
                 android:id="@+id/inputCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,8 +97,6 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/city"
-                android:imeOptions="actionNext"
-                android:inputType="text"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view1"/>
@@ -158,7 +151,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputContactInfoOne"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/inputZipCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -166,13 +159,11 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/zip_code"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view3"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/inputState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,13 +171,11 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/state"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view2"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/inputHostName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -194,13 +183,11 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/host_name"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view4"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/inputContactInfoOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,13 +195,11 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/contact_info"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view5"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/inputContactInfoTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -222,8 +207,6 @@
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:hint="@string/contact_info"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/view6"/>
@@ -290,44 +273,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/inputEnd"
                 tools:layout_editor_absoluteX="24dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:id="@+id/inputStart"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
+                android:textSize="@dimen/font_16sp"
+                android:fontFamily="@font/lato"
                 app:layout_constraintEnd_toEndOf="@+id/view8"
                 app:layout_constraintStart_toStartOf="@+id/view8"
-                app:layout_constraintTop_toBottomOf="@+id/labelStart">
+                app:layout_constraintTop_toBottomOf="@+id/labelStart"/>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/thursday_06"
-                    android:textSize="@dimen/font_14sp"
-                    android:drawableEnd="@drawable/chevron_down"
-                    android:inputType="textNoSuggestions" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:id="@+id/inputEnd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
+                android:textSize="@dimen/font_16sp"
+                android:fontFamily="@font/lato"
                 app:layout_constraintEnd_toEndOf="@+id/view9"
                 app:layout_constraintStart_toStartOf="@+id/view9"
-                app:layout_constraintTop_toTopOf="@+id/inputStart"
-                tools:layout_editor_absoluteY="24dp">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/thursday_06"
-                    android:textSize="@dimen/font_14sp"
-                    android:drawableEnd="@drawable/chevron_down"
-                    android:inputType="textNoSuggestions" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toTopOf="@+id/inputStart" />
 
             <TextView
                 android:id="@+id/labelStartTime"
@@ -354,43 +318,25 @@
                 app:layout_constraintStart_toStartOf="@+id/view9"
                 app:layout_constraintEnd_toEndOf="@id/view9"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:id="@+id/inputStartTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
+                android:fontFamily="@font/lato"
+                android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/labelStartTime"
                 app:layout_constraintEnd_toEndOf="@+id/view8"
-                app:layout_constraintStart_toStartOf="@id/view8">
+                app:layout_constraintStart_toStartOf="@id/view8"/>
 
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/clock_time"
-                    android:textSize="@dimen/font_14sp"
-                    android:drawableEnd="@drawable/chevron_down"
-                    android:inputType="textNoSuggestions" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
                 android:id="@+id/inputEndTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:boxBackgroundMode="none"
+                android:fontFamily="@font/lato"
+                android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toTopOf="@id/inputStartTime"
                 app:layout_constraintStart_toStartOf="@+id/view9"
-                app:layout_constraintEnd_toEndOf="@+id/view9">
-
-                <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/clock_time"
-                    android:textSize="@dimen/font_14sp"
-                    android:drawableEnd="@drawable/chevron_down"
-                    android:inputType="textNoSuggestions" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="@+id/view9"/>
 
             <View
                 android:id="@+id/view10"
@@ -444,7 +390,12 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minLines="5" />
+                    android:editable="false"
+                    android:minLines="5"
+                    android:inputType="textCapWords"
+                    android:textSize="@dimen/font_16sp"
+                    android:fontFamily="@font/lato"
+                    tools:ignore="Deprecated" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

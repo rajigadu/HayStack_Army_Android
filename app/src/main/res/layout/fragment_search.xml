@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/arrow_left"
             app:navigationIconTint="@color/black"
-            app:title="Search"
+            app:title="Event Search"
             app:titleCentered="true"
             app:titleTextAppearance="@style/ToolbarTitle" />
 
@@ -28,6 +29,21 @@
             android:layout_height="0dp"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarSearch" />
+
+        <SearchView
+            android:id="@+id/addressSearchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/padding12dp"
+            android:paddingEnd="@dimen/padding_8dp"
+            android:theme="@style/searchViewText"
+            android:queryHint="@string/search_event_location"
+            android:inputType="text|textCapWords"
+            android:background="@drawable/location_search_background"
+            android:layout_margin="@dimen/margin_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/toolbarSearch"
             app:layout_constraintTop_toBottomOf="@+id/toolbarSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

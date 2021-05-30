@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import com.android.app.`in`.haystack.R
 import com.android.app.`in`.haystack.network.config.AppConfig.BASE_URL
 import com.android.app.`in`.haystack.network.config.AppConfig.LOG_IN
@@ -106,7 +107,10 @@ object Extensions {
                 //Log.e("TAG", "code: $code")
                 longSnackBar("Some Error occurred, $code!", constraintLogin)
             }
-            else -> longSnackBar("Something went wrong, please try again", constraintLogin)
+            else -> {
+                Log.e("TAG", "error: "+throwable.localizedMessage)
+                longSnackBar("Something went wrong, please try again", constraintLogin)
+            }
         }
     }
 

@@ -65,7 +65,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
     private var lastClickTime: Long = 0
     private var listCountries = arrayListOf<String>()
     private var listStates = arrayListOf<String>()
-    private var selectedCountry: String? = ""
+    private var selectedCountry: String? = "United States"
     private var selectedState: String? = ""
     private var selectedImageUri: Uri? = null
 
@@ -215,6 +215,8 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
         events = Event()
 
         getCountriesList()
+
+        getStatesList()
 
     }
 

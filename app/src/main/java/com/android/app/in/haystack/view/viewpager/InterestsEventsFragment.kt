@@ -73,12 +73,10 @@ class InterestsEventsFragment: Fragment() {
 
                         if (response.isSuccessful){
                             if (response.body()?.status == "1"){
-                                if (response.body()?.data?.size!! > 0) {
+                                if (response.body()?.data != null) {
                                     listInterestEvents.clear()
-                                    listInterestEvents.addAll(response.body()?.data!!)
+                                    listInterestEvents.addAll(listOf(response.body()?.data!!))
                                     interestEventsAdapter.update(listInterestEvents)
-                                }else{
-
                                 }
                             }else{
                                 longSnackBar(response.body()?.message!!, binding.constraintMyEvents)

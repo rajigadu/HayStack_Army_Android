@@ -39,11 +39,11 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     def retrofitVersion = "2.9.0"
     def interceptorVersion = "3.12.12"
-    def lottieVersion = "3.4.4"
+    def lottieVersion = "3.7.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0-beta01'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.13.2'
@@ -76,6 +76,11 @@ dependencies {
 
     //lottie-animations
     implementation "com.airbnb.android:lottie:$lottieVersion"
+
+    //google-maps
+    implementation "com.google.android.gms:play-services-maps:17.0.1"
+    implementation "com.google.android.gms:play-services-location:18.0.0"
+    implementation "com.google.android.libraries.places:places:2.4.0"
 
     kotlin {
         experimental {

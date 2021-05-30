@@ -16,6 +16,7 @@ import com.android.app.`in`.haystack.network.repository.Repository
 import com.android.app.`in`.haystack.network.response.categories.AllCategories
 import com.android.app.`in`.haystack.network.response.categories.Data
 import com.android.app.`in`.haystack.network.response.event.Event
+import com.android.app.`in`.haystack.network.response.search_events.SearchByEvent
 import com.android.app.`in`.haystack.utils.AppConstants.ARG_OBJECTS
 import com.android.app.`in`.haystack.utils.AppConstants.ARG_SERIALIZABLE
 import com.android.app.`in`.haystack.utils.Extensions.showSnackBar
@@ -33,6 +34,7 @@ class CategoriesFragment: Fragment() {
     private var events: Event?= null
     private var navigation: String?= null
     private var listCategories = arrayListOf<Data>()
+    private var searchEvent: SearchByEvent? = null
 
 
     override fun onCreateView(
@@ -86,7 +88,10 @@ class CategoriesFragment: Fragment() {
                         bundle
                     )
                 }else{
-                    findNavController().navigate(R.id.action_categoriesFragment_to_searchFragment)
+                    searchEvent = SearchByEvent()
+                    searchEvent?.category = categories
+                    val bundle = bundleOf(ARG_SERIALIZABLE to searchEvent)
+                    findNavController().navigate(R.id.action_categoriesFragment_to_searchFragment, bundle)
                 }
             }else {
                 showSnackBar(binding.constraintCategories, "Please select categories")

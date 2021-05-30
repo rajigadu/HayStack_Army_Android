@@ -1,5 +1,7 @@
 package com.android.app.`in`.haystack.network
 
+import com.android.app.`in`.haystack.network.config.AppConfig.ADD_ATTEND_EVENTS
+import com.android.app.`in`.haystack.network.config.AppConfig.ADD_INTEREST_EVENTS
 import com.android.app.`in`.haystack.network.config.AppConfig.ADD_MEMBER_GROUP
 import com.android.app.`in`.haystack.network.config.AppConfig.ALL_CATEGORIES
 import com.android.app.`in`.haystack.network.config.AppConfig.ALL_MEMBERS
@@ -21,6 +23,8 @@ import com.android.app.`in`.haystack.network.config.AppConfig.LIST_INTEREST_EVEN
 import com.android.app.`in`.haystack.network.config.AppConfig.LIST_STATES
 import com.android.app.`in`.haystack.network.config.AppConfig.LOG_IN
 import com.android.app.`in`.haystack.network.config.AppConfig.MY_EVENTS
+import com.android.app.`in`.haystack.network.config.AppConfig.NEAREST_EVENTS
+import com.android.app.`in`.haystack.network.config.AppConfig.SEARCH_EVENTS
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SOLDIER
 import com.android.app.`in`.haystack.network.config.AppConfig.SIGN_UP_SPOUSE
 import com.android.app.`in`.haystack.network.config.AppConfig.TERMS_AND_CONDITIONS
@@ -37,6 +41,8 @@ import com.android.app.`in`.haystack.network.response.interest_events.InterestEv
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.members.Members
 import com.android.app.`in`.haystack.network.response.my_events.MyEvents
+import com.android.app.`in`.haystack.network.response.nearest_events.NearestEvents
+import com.android.app.`in`.haystack.network.response.search_events.SearchEvents
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
 import com.android.app.`in`.haystack.network.response.states.States
 import okhttp3.MultipartBody
@@ -215,6 +221,55 @@ interface ApiInterface {
         @Field("currentdate") currentDate: String,
         @Field("endtime") endtime: String?,
     ): Call<AttendEvents>
+
+    @FormUrlEncoded
+    @POST(ADD_ATTEND_EVENTS)
+    fun addAttendEvents(
+        @Field("eventid") eventId: String,
+        @Field("id") userId: String,
+        @Field("userid") hostId: String?,
+    ): Call<AttendEvents>
+
+    @FormUrlEncoded
+    @POST(ADD_INTEREST_EVENTS)
+    fun addInterestEvents(
+        @Field("eventid") eventId: String,
+        @Field("id") hostId: String,
+        @Field("userid") userId: String?,
+    ): Call<AttendEvents>
+
+    @FormUrlEncoded
+    @POST(NEAREST_EVENTS)
+    fun nearestEvents(
+        @Field("device_id") deviceId: String,
+        @Field("device_type") deviceType: String,
+        @Field("device_token") deviceToken: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("category") category: String?,
+        @Field("searchtype") searchType: String?,
+        @Field("currentdate") currentDate: String?,
+        @Field("endtime") endTime: String?,
+    ): Call<NearestEvents>
+
+    @FormUrlEncoded
+    @POST(SEARCH_EVENTS)
+    fun searchEvents(
+        @Field("id") userId: String,
+        @Field("searchType") searchType: String,
+        @Field("country") country: String,
+        @Field("state") state: String,
+        @Field("city") city: String,
+        @Field("startdate") startDate: String?,
+        @Field("enddate") endDate: String?,
+        @Field("starttime") startTime: String?,
+        @Field("endtime") endTime: String?,
+        @Field("distance_miles") distanceMile: String?,
+        @Field("nationwide") nationWide: String?,
+        @Field("latitude") latitude: String?,
+        @Field("longitude") longitude: String?,
+        @Field("category") category: String?,
+    ): Call<SearchEvents>
 
     @FormUrlEncoded
     @POST(LIST_INTEREST_EVENTS)

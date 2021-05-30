@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintDateRange"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -52,11 +53,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputStartDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/chevron_down"
                     android:hint="@string/start_date"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?selectableItemBackground"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -82,11 +90,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/view12">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/chevron_down"
                     android:hint="@string/start_time"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?selectableItemBackground"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -112,11 +127,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/view13">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputEndDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/chevron_down"
                     android:hint="@string/end_date"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?selectableItemBackground"
+                    android:imeOptions="actionNext"
                     android:textSize="@dimen/font_14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -142,11 +164,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/view14">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/inputEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/chevron_down"
-                    android:hint="@string/thursday_06"
-                    android:inputType="textNoSuggestions"
+                    android:hint="@string/end_time"
+                    android:inputType="none"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?selectableItemBackground"
+                    android:imeOptions="actionDone"
                     android:textSize="@dimen/font_14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>

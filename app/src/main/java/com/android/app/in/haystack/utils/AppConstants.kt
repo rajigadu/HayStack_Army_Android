@@ -6,6 +6,7 @@ object AppConstants {
     const val PERMISSION_REQ_LOCATION = 101
     const val RC_SELECT_IMAGE = 102
     const val RC_CAMERA_IMAGE = 103
+    const val AUTOCOMPLETE_REQUEST_CODE = 104
 
 
 
@@ -23,6 +24,8 @@ object AppConstants {
     const val GOVT_EMAIL = "govt-email"
     const val DOD_ID = "dod-id"
     const val UID = "uid"
+    const val USER_LATITUDE = "user-latitude"
+    const val USER_LONGITUDE = "user-longitude"
 
     const val GROUP_ID = "group-id"
     const val MEMBER_NAME = "member-name"

@@ -1,6 +1,7 @@
 package com.android.app.`in`.haystack.view.viewpager
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,19 +71,14 @@ class AttendEventsFragment: Fragment() {
                     call: Call<AttendEvents>,
                     response: Response<AttendEvents>
                 ) {
-
+                    Log.e("TAG", "response: $response")
                     try {
-
                         if (response.isSuccessful){
                             if (response.body()?.status == "1"){
 
-                                if (response.body()?.data?.size!! > 0){
-
+                                if (response.body()?.data != null){
                                     listAttendEvents.clear()
-                                    listAttendEvents.addAll(response.body()?.data!!)
-
-                                }else{
-
+                                    listAttendEvents.addAll(listOf(response.body()?.data!!))
                                 }
 
                             }else{

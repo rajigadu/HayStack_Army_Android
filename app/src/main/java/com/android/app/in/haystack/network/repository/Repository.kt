@@ -17,6 +17,9 @@ import com.android.app.`in`.haystack.network.response.group_members.GroupMembers
 import com.android.app.`in`.haystack.network.response.interest_events.InterestEvents
 import com.android.app.`in`.haystack.network.response.login.LogIn
 import com.android.app.`in`.haystack.network.response.my_events.MyEvents
+import com.android.app.`in`.haystack.network.response.nearest_events.NearestEvents
+import com.android.app.`in`.haystack.network.response.search_events.SearchByEvent
+import com.android.app.`in`.haystack.network.response.search_events.SearchEvents
 import com.android.app.`in`.haystack.network.response.soldier_signup.SignUpResponse
 import com.android.app.`in`.haystack.network.response.states.States
 import com.android.app.`in`.haystack.utils.AppConstants.DEVICE_TYPE
@@ -204,5 +207,21 @@ object Repository {
     fun getMyEvents(currentDate: String, endTime: String?): Call<MyEvents> {
         val userId = SessionManager.instance.getUserId()
         return client.myEvents(userId, currentDate, endTime!!)
+    }
+
+    fun getNearestEvents(deviceId: String, latitude: String, longitude: String, category: String, searchType: String,
+                         currentDate: String, endTime: String): Call<NearestEvents> {
+        val deviceType = DEVICE_TYPE
+        val deviceToken = getUniqueRandomNumber()
+        return client.nearestEvents(deviceId, deviceType, deviceToken, latitude, longitude, category,
+            searchType, currentDate, endTime)
+    }
+
+    fun searchEvent(searchEvents: SearchByEvent): Call<SearchEvents> {
+        val userId = SessionManager.instance.getUserId()
+        return client.searchEvents(userId, searchEvents.searchType, searchEvents.country, searchEvents.state,
+        searchEvents.city, searchEvents.startDate, searchEvents.endDate, searchEvents.startTime,
+        searchEvents.endTime, searchEvents.distanceMile, searchEvents.nationWide, searchEvents.latitude,
+            searchEvents.longitude, searchEvents.category)
     }
 }

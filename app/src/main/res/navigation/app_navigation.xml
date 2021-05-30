@@ -191,6 +191,9 @@
         <action
             android:id="@+id/action_searchFragment_to_dateRangeFragment"
             app:destination="@id/dateRangeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_manualSearch"
+            app:destination="@id/manualSearch" />
     </fragment>
     <fragment
         android:id="@+id/addMembersFragment"
@@ -218,4 +221,13 @@
         android:name="com.android.app.in.haystack.view.fragments.TermsAndConditions"
         android:label="TermsAndConditions"
         tools:layout="@layout/fragment_terms_and_conditions"/>
+    <fragment
+        android:id="@+id/manualSearch"
+        android:name="com.android.app.in.haystack.view.fragments.ManualSearch"
+        android:label="ManualSearch"
+        tools:layout="@layout/fragment_manual_search">
+        <action
+            android:id="@+id/action_manualSearch_to_dateRangeFragment"
+            app:destination="@id/dateRangeFragment" />
+    </fragment>
 </navigation>
