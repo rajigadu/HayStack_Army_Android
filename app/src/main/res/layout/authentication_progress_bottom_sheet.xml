@@ -28,6 +28,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/margin_8dp"
         android:fontFamily="@font/lato"
+        android:textStyle="italic"
         android:gravity="center"
         android:textColor="@color/black"
         android:text="@string/login_credential_validating"

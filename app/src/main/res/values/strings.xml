@@ -1,4 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="google_maps_key">AIzaSyDNDBLkWyUYbAKvfMVANCyiCG4PL3XTUZA</string>
+
     <string name="app_name">HayStack-63d RD</string>
     <string name="name_or_email">Name or Email</string>
     <string name="password">Password</string>
@@ -17,7 +19,7 @@
     <string name="accept_terms">I accept Terms Conditions</string>
     <string name="sign_up">Signup</string>
     <string name="relationship_to_sm">Relationship to SM</string>
-    <string name="email_address">Emal Address</string>
+    <string name="email_address">Email Address</string>
     <string name="username">User Name</string>
     <string name="sponsors_govt_email_address">Sponsors Govt Email Address</string>
     <string name="content_description">Inspect</string>
@@ -105,4 +107,9 @@
     <string name="search_event_location">Search Event Location...</string>
     <string name="select_city">Enter City</string>
     <string name="no_more_events">No more Events</string>
+    <string name="skip">Skip</string>
+    <string name="restart">Restart</string>
+    <string name="update_downloaded">Update Downloaded</string>
+    <string name="channel_id">com.android.app.`in`.hystack_army.service.notification</string>
+    <string name="update_event">Update Event</string>
 </resources>

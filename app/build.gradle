@@ -1,13 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.android.app.in.haystack"
+        applicationId "com.haystack.app.in.army"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
@@ -36,7 +37,6 @@ android {
 
 dependencies {
 
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     def retrofitVersion = "2.9.0"
     def interceptorVersion = "3.12.12"
     def lottieVersion = "3.7.0"
@@ -81,6 +81,15 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:17.0.1"
     implementation "com.google.android.gms:play-services-location:18.0.0"
     implementation "com.google.android.libraries.places:places:2.4.0"
+
+    //Firebase BOM
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.play:core-ktx:1.8.1'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+
 
     kotlin {
         experimental {

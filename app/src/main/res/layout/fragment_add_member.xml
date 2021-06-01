@@ -163,6 +163,19 @@
                 app:layout_constraintStart_toStartOf="@+id/btnChooseFromAddressBook"
                 app:layout_constraintTop_toBottomOf="@+id/btnChooseFromAddressBook" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSkip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_bold"
+                android:padding="@dimen/padding_12dp"
+                android:text="@string/skip"
+                android:textAllCaps="false"
+                android:layout_marginTop="@dimen/margin_8dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnInvite"
+                app:layout_constraintStart_toStartOf="@+id/btnInvite"
+                app:layout_constraintTop_toBottomOf="@+id/btnInvite" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

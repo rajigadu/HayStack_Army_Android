@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -14,8 +15,7 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@id/customBottomNavigation"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/app_navigation"
-        tools:layout_editor_absoluteX="1dp" />
+        app:navGraph="@navigation/app_navigation" />
 
     <!--<com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"

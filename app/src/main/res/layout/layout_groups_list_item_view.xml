@@ -9,10 +9,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/eventItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:cardElevation="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?selectableItemBackground"
         app:cardBackgroundColor="@color/colorGroupsCardView"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"

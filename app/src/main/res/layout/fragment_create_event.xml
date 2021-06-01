@@ -456,6 +456,7 @@
                         android:hint="@string/enter_description"
                         android:gravity="start"
                         android:maxLength="1000"
+                        android:fontFamily="@font/lato"
                         android:inputType="text|textCapWords"
                         android:minLines="5" />
 

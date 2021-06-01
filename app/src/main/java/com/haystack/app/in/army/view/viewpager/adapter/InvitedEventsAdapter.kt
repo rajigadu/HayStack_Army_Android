@@ -1,0 +1,48 @@
+package com.haystack.app.`in`.army.view.viewpager.adapter
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.haystack.app.`in`.army.databinding.LayoutGroupsListItemViewBinding
+import com.haystack.app.`in`.army.network.response.interest_events.DataX
+import java.util.ArrayList
+
+class InvitedEventsAdapter(var context: Context)
+    : RecyclerView.Adapter<InvitedEventsAdapter.ViewHolder>() {
+
+    private var listInvitedEvents = arrayListOf<DataX>()
+
+    inner class ViewHolder(val binding: LayoutGroupsListItemViewBinding): RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun bindView(myEvents: DataX) {
+            binding.deleteGroup.visibility = View.INVISIBLE
+            binding.eventName.text = myEvents.event_name
+        }
+    }
+
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        return ViewHolder(
+            LayoutGroupsListItemViewBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bindView(listInvitedEvents[position])
+    }
+
+    override fun getItemCount(): Int = listInvitedEvents.size
+
+    fun update(listMyEvents: ArrayList<DataX>){
+        this.listInvitedEvents = listMyEvents
+        notifyDataSetChanged()
+    }
+}

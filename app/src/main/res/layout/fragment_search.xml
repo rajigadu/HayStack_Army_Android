@@ -31,20 +31,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbarSearch" />
 
-        <SearchView
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/addressSearchView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="46dp"
             android:paddingStart="@dimen/padding12dp"
             android:paddingEnd="@dimen/padding_8dp"
-            android:theme="@style/searchViewText"
-            android:queryHint="@string/search_event_location"
+            android:drawableStart="@drawable/search"
+            android:drawablePadding="@dimen/padding12dp"
+            android:drawableTint="@android:color/darker_gray"
+            style="@style/searchViewText"
+            android:hint="@string/search_event_location"
             android:inputType="text|textCapWords"
             android:background="@drawable/location_search_background"
             android:layout_margin="@dimen/margin_24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/toolbarSearch"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarSearch" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbarSearch"
+            tools:targetApi="m" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
