@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentMyEventsBinding
 import com.haystack.app.`in`.army.network.repository.Repository
-import com.haystack.app.`in`.army.network.response.interest_events.DataX
+import com.haystack.app.`in`.army.network.response.interest_events.InterestEventsData
 import com.haystack.app.`in`.army.network.response.interest_events.InterestEvents
 import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
@@ -20,13 +20,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class InvitedEventsFragment: Fragment() {
+class InvitedEventsFragment: Fragment(), InvitedEventsAdapter.InvitedEventsItemClick {
 
     private lateinit var binding: FragmentMyEventsBinding
     private lateinit var invitedEventsAdapter: InvitedEventsAdapter
     private var currentDate: String? = null
     private var endTime: String? = ""
-    private var listInvitedEvents = arrayListOf<DataX>()
+    private var listInvitedEvents = arrayListOf<InterestEventsData>()
 
 
     override fun onCreateView(
@@ -61,7 +61,7 @@ class InvitedEventsFragment: Fragment() {
 
     private fun invitedEvents() {
         binding.refreshMyEvents.isRefreshing = true
-        currentDate = getCurrentDate()
+        currentDate = getCurrentDate()/*
         Repository.getInterestEvents(currentDate!!, endTime!!).enqueue(
             object : Callback<InterestEvents> {
                 override fun onResponse(
@@ -97,11 +97,15 @@ class InvitedEventsFragment: Fragment() {
                     binding.refreshMyEvents.isRefreshing = false
                 }
 
-            })
+            })*/
     }
 
     override fun onResume() {
         super.onResume()
         invitedEvents()
+    }
+
+    override fun deleteInvitedEvent(interestEvents: InterestEventsData) {
+
     }
 }

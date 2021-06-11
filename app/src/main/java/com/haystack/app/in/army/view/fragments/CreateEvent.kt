@@ -40,6 +40,7 @@ import com.haystack.app.`in`.army.utils.AppConstants.ARG_OBJECTS
 import com.haystack.app.`in`.army.utils.AppConstants.ARG_SERIALIZABLE
 import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.convertedDateFormat
+import com.haystack.app.`in`.army.utils.Extensions.getRealPathUri
 import com.haystack.app.`in`.army.utils.Extensions.showErrorResponse
 import com.haystack.app.`in`.army.utils.Extensions.showSnackBar
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
@@ -48,10 +49,14 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 
 class CreateEvent: Fragment(),MultiplePermissionsListener {
@@ -65,6 +70,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
     private var selectedCountry: String? = "United States"
     private var selectedState: String? = ""
     private var selectedImageUri: Uri? = null
+    private lateinit var eventImageBody: MultipartBody
 
     private val permissionCamera = listOf(
         Manifest.permission.CAMERA,
@@ -102,7 +108,8 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
                     showSnackBar(binding.constraintCreateEvent, "Please select event image")
                     return@setOnClickListener
                 }
-                events.image = selectedImageUri!!.toString()
+                events.image = selectedImageUri.toString()
+
                 val bundle = bundleOf(
                     ARG_SERIALIZABLE to events,
                     ARG_OBJECTS to "1"

@@ -8,53 +8,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:padding="@dimen/padding_24dp">
+    android:paddingStart="@dimen/padding_24dp"
+    android:paddingEnd="@dimen/padding_24dp"
+    android:paddingBottom="@dimen/padding_24dp">
 
     <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView"
+        android:id="@+id/mapRadius"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:layout_marginStart="@dimen/margin_32dp"
-        android:layout_marginEnd="@dimen/margin_32dp"
         android:background="@drawable/retangle_background"
         android:drawableEnd="@drawable/map_radius"
         android:fontFamily="@font/lato"
         android:hint="@string/radius"
-        android:inputType="none"
+        android:imeOptions="actionDone"
+        android:inputType="number"
         android:paddingStart="@dimen/padding12dp"
-        android:paddingEnd="@dimen/padding12dp"
+        android:paddingEnd="@dimen/padding_8dp"
         android:textSize="@dimen/font_16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/nationWide"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/nationWide"
-        app:layout_constraintTop_toTopOf="@+id/nationWide" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkNationWide" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/checkNationWide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_bold"
         android:text="@string/nationwide"
         android:textColor="@color/black"
         android:textSize="@dimen/font_14sp"
-        app:layout_constraintStart_toStartOf="@+id/nationWide"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/nationWide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:switchMinWidth="56dp"
-        android:enabled="true"
-        android:checked="true"
-        style="@style/Widget.MaterialComponents.CompoundButton.Switch"
-        android:drawablePadding="@dimen/padding_16dp"
-        app:useMaterialThemeColors="true"
-        app:trackTint="@android:color/holo_green_light"
-        app:thumbTint="@color/white"
+        android:paddingStart="@dimen/paddingMedium"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnManualSearch"
@@ -63,9 +50,9 @@
         android:fontFamily="@font/lato_bold"
         android:padding="@dimen/padding12dp"
         android:text="@string/manual_search"
-        android:layout_marginTop="@dimen/margin_24dp"
+        android:layout_marginTop="@dimen/marginMedium"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextView"
+        app:layout_constraintTop_toBottomOf="@+id/mapRadius"
         tools:layout_editor_absoluteX="24dp" />
 
     <com.google.android.material.button.MaterialButton

@@ -28,7 +28,8 @@ class CategoriesListAdapter(val context: Context)
             Glide.with(context).load(data.photo).apply(RequestOptions().fitCenter()).into(
                 object : CustomTarget<Drawable>(50,50){
                     override fun onLoadCleared(placeholder: Drawable?) {
-                        binding.categoriesItem.setCompoundDrawablesWithIntrinsicBounds(placeholder, null, null, null)
+                        binding.categoriesItem.setCompoundDrawablesWithIntrinsicBounds(placeholder,
+                            null, null, null)
                     }
                     override fun onResourceReady(
                         resource: Drawable,

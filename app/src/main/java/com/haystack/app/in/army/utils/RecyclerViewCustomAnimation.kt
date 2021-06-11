@@ -22,5 +22,4 @@ class RecyclerViewCustomAnimation: DefaultItemAnimator() {
         return super.animateRemove(holder)
     }
 
-
 }

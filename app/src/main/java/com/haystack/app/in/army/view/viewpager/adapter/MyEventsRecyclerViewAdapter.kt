@@ -5,6 +5,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.LayoutGroupsListItemViewBinding
 import com.haystack.app.`in`.army.network.response.my_events.MyEventsData
 import com.haystack.app.`in`.army.view.viewpager.MyEventsFragment
@@ -31,7 +33,30 @@ class MyEventsRecyclerViewAdapter(var context: Context)
             binding.editEventGroup.setOnClickListener {
                 eventsOnClick?.editMyEvent(myEvents)
             }
+
+            binding.deleteGroup.setOnClickListener {
+                showConfirmationDialog(myEvents)
+            }
         }
+    }
+
+    private fun showConfirmationDialog(myEvents: MyEventsData) {
+        val dialog = MaterialAlertDialogBuilder(context!!, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            .setTitle("Delete Event?")
+            .setMessage("Are you sure want to delete this event.?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialogInterface, i ->
+                dialogInterface.dismiss()
+                eventsOnClick?.deleteMyEvent(myEvents)
+            }
+            .setNegativeButton("No") { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            .create()
+        if (dialog.window != null)
+            dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
+
+        dialog.show()
     }
 
 
@@ -60,7 +85,7 @@ class MyEventsRecyclerViewAdapter(var context: Context)
 
     interface MyEventsOnClickListener{
         fun myEventsItemCLick(events: MyEventsData)
-        fun deleteMyEvent()
+        fun deleteMyEvent(events: MyEventsData)
         fun editMyEvent(events: MyEventsData)
     }
 }

@@ -1,6 +1,7 @@
 package com.haystack.app.`in`.army.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentEventSearchBinding
+import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.search_events.SearchByEvent
 import com.haystack.app.`in`.army.network.response.search_events.SearchEvents
@@ -70,6 +72,8 @@ class EventsSearch: Fragment(), EventSearchListAdapter.EventSearchListItemClick 
     }
 
     private fun getSearchEvents() {
+        searchEvent.id = SessionManager.instance.getUserId()
+        Log.e("TAG", "searchEvent: $searchEvent")
         binding.refreshSearchEvents.isRefreshing = true
         Repository.searchEvent(searchEvent).enqueue(object : Callback<SearchEvents>{
             override fun onResponse(call: Call<SearchEvents>, response: Response<SearchEvents>) {

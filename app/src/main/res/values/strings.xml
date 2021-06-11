@@ -1,5 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="google_maps_key">AIzaSyDNDBLkWyUYbAKvfMVANCyiCG4PL3XTUZA</string>
+<resources>
+    <string name="google_maps_key">AIzaSyAK7N4kOTSAWpSlzoOQk9_dKp9Sci2sshY</string>
 
     <string name="app_name">HayStack-63d RD</string>
     <string name="name_or_email">Name or Email</string>
@@ -112,4 +112,7 @@
     <string name="update_downloaded">Update Downloaded</string>
     <string name="channel_id">com.android.app.`in`.hystack_army.service.notification</string>
     <string name="update_event">Update Event</string>
+    <string name="inspect">Inspect</string>
+    <string name="interest">Interest</string>
+    <string name="my_events">My Events</string>
 </resources>

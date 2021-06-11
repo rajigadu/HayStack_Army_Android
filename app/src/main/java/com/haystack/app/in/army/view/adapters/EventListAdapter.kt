@@ -2,6 +2,7 @@ package com.haystack.app.`in`.army.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View.INVISIBLE
@@ -38,7 +39,13 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
                 binding.addMember.visibility = INVISIBLE
                 binding.membersCount.text = "People (${data.membercount})"
 
-                for (element in data.member.indices) {
+                var membersCount = data.membercount.toInt()
+                if (membersCount > 3){
+                    membersCount = 3
+                }
+
+                binding.membersLayout.removeAllViews()
+                for (element in 0 until membersCount) {
                     val text = TextView(context)
                     text.text = data.member[element].member.substring(0,1)
                     text.layoutParams = ViewGroup.LayoutParams(70, 70)
@@ -92,7 +99,6 @@ class EventListAdapter(val context: Context, val fragment: GroupsFragment)
 
     override fun onBindViewHolder(holder: EventListAdapter.ViewHolder, position: Int) {
         groupItemClick = fragment
-
         holder.bindView(listGroups[position])
     }
 

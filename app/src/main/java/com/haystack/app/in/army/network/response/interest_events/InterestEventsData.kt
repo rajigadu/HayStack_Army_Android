@@ -1,6 +1,6 @@
-package com.haystack.app.`in`.army.network.response.attend_events
+package com.haystack.app.`in`.army.network.response.interest_events
 
-data class Data(
+data class InterestEventsData(
     val category: String,
     val city: String,
     val contactinfo: String,

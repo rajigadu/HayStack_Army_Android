@@ -6,20 +6,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.LayoutGroupsListItemViewBinding
-import com.haystack.app.`in`.army.network.response.interest_events.DataX
+import com.haystack.app.`in`.army.network.response.attend_events.AttendEventsData
+import com.haystack.app.`in`.army.network.response.interest_events.InterestEventsData
+import com.haystack.app.`in`.army.view.viewpager.InterestsEventsFragment
 import java.util.ArrayList
 
 class InterestEventsAdapter(var context: Context)
     : RecyclerView.Adapter<InterestEventsAdapter.ViewHolder>() {
 
-    private var listInterestEvents = arrayListOf<DataX>()
+    private var listInterestEvents = arrayListOf<InterestEventsData>()
+    private lateinit var eventOnClick: InterestedEventsItemClick
+
+
 
     inner class ViewHolder(val binding: LayoutGroupsListItemViewBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bindView(myEvents: DataX) {
+        fun bindView(interestEvents: InterestEventsData) {
             binding.deleteGroup.visibility = View.INVISIBLE
-            binding.eventName.text = myEvents.event_name
+            binding.eventName.text = interestEvents.event_name
+
+            binding.deleteGroup.setOnClickListener {
+                showConfirmationDialog(interestEvents)
+            }
         }
     }
 
@@ -41,8 +52,32 @@ class InterestEventsAdapter(var context: Context)
 
     override fun getItemCount(): Int = listInterestEvents.size
 
-    fun update(listMyEvents: ArrayList<DataX>){
+    fun update(listMyEvents: ArrayList<InterestEventsData>, onClick: InterestsEventsFragment){
         this.listInterestEvents = listMyEvents
+        this.eventOnClick = onClick
         notifyDataSetChanged()
+    }
+
+    private fun showConfirmationDialog(interestEvents: InterestEventsData) {
+        val dialog = MaterialAlertDialogBuilder(context!!, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+            .setTitle("Delete Event?")
+            .setMessage("Are you sure want to delete this event.?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialogInterface, i ->
+                dialogInterface.dismiss()
+                eventOnClick.deleteInterestedEvent(interestEvents)
+            }
+            .setNegativeButton("No") { dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            .create()
+        if (dialog.window != null)
+            dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
+
+        dialog.show()
+    }
+
+    interface InterestedEventsItemClick{
+        fun deleteInterestedEvent(interestEvent: InterestEventsData)
     }
 }

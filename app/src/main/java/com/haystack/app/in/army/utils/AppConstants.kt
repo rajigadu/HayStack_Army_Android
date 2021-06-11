@@ -38,4 +38,8 @@ object AppConstants {
     const val MEMBER_PHONE = "member-phone"
     const val STATUS = "status"
 
+    const val EVENT_TYPE_ATTEND = "attend"
+    const val EVENT_TYPE_INTEREST = "interest"
+    const val EVENT_TYPE_INVITE = "invite"
+
 }

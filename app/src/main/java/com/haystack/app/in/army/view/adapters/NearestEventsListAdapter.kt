@@ -2,17 +2,20 @@ package com.haystack.app.`in`.army.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.LayoutNearestEventsItemBinding
+import com.haystack.app.`in`.army.network.config.AppConfig.IMAGE_BASE_URL
 import com.haystack.app.`in`.army.network.response.nearest_events.NearestEventData
 import com.haystack.app.`in`.army.view.fragments.HomeFragment
 import java.util.ArrayList
 
-class NearestEventsAdapter(var context: Context)
-    : RecyclerView.Adapter<NearestEventsAdapter.ViewHolder>() {
+class NearestEventsListAdapter(var context: Context)
+    : RecyclerView.Adapter<NearestEventsListAdapter.ViewHolder>() {
 
     private var listNearestEvents = arrayListOf<NearestEventData>()
     private var clickListener: NearestEventsOnClick? = null
@@ -29,8 +32,10 @@ class NearestEventsAdapter(var context: Context)
                 clickListener?.nearestEventClick(nearEvents)
             }
 
+            Log.e("TAG", "images: "+nearEvents.photo)
             Glide.with(context)
-                .load(nearEvents.photo)
+                .load(IMAGE_BASE_URL + nearEvents.photo)
+                .placeholder(R.drawable.events_default_bg_)
                 .into(binding.eventImage)
         }
     }

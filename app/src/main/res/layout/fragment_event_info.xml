@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Event Info"
         app:titleCentered="true"
+        app:menu="@menu/event_info_menu"
         app:navigationIconTint="@color/black"
         app:navigationIcon="@drawable/arrow_left"
         app:titleTextAppearance="@style/ToolbarTitle" />

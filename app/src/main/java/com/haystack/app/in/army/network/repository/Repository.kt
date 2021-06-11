@@ -1,8 +1,8 @@
 package com.haystack.app.`in`.army.network.repository
 
 import android.content.Context
-import android.net.Uri
 import android.util.Log
+import androidx.core.net.toUri
 import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.ApiClient
 import com.haystack.app.`in`.army.network.ApiInterface
@@ -21,15 +21,17 @@ import com.haystack.app.`in`.army.network.response.group_members.GroupMembers
 import com.haystack.app.`in`.army.network.response.interest_events.InterestEvents
 import com.haystack.app.`in`.army.network.response.login.LogIn
 import com.haystack.app.`in`.army.network.response.my_events.MyEvents
+import com.haystack.app.`in`.army.network.response.near_events.NearEvents
 import com.haystack.app.`in`.army.network.response.nearest_events.NearestEvents
+import com.haystack.app.`in`.army.network.response.post_data.GetNearEvents
 import com.haystack.app.`in`.army.network.response.search_events.SearchByEvent
 import com.haystack.app.`in`.army.network.response.search_events.SearchEvents
 import com.haystack.app.`in`.army.network.response.soldier_signup.SignUpResponse
 import com.haystack.app.`in`.army.network.response.states.States
 import com.haystack.app.`in`.army.utils.AppConstants.DEVICE_TYPE
-import com.haystack.app.`in`.army.utils.Extensions.getRealPathUri
-import com.haystack.app.`in`.army.utils.Extensions.getUniqueRandomNumber
+import com.haystack.app.`in`.army.utils.Extensions
 import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import java.io.File
@@ -38,7 +40,7 @@ object Repository {
 
     private val client by lazy { ApiClient.retrofitService }
     private val authClient by lazy {
-        com.haystack.app.`in`.army.network.ApiClient.createBearerAuthService(
+        ApiClient.createBearerAuthService(
             ApiInterface::class.java, false)
     }
 
@@ -126,42 +128,6 @@ object Repository {
         val rqLongitude = RequestBody.create(MediaType.parse("text/plain"), event.longitude)
         val rqCategory = RequestBody.create(MediaType.parse("text/plain"), event.category)
 
-        var rqImage: RequestBody? = null
-
-        Log.e("TAG","uri: "+event.image)
-        if (event.image.isNotEmpty()){
-            val uri = Uri.parse(event.image)
-            val file = File(getRealPathUri(requireContext, uri))
-            rqImage = RequestBody.create(MediaType.parse("application/octet-stream"), file)
-        }
-
-
-        /*multipartMap["event_name"] = event.event_name
-        multipartMap["event_description"] = event.event_description
-        multipartMap["streetaddress"] = event.streetaddress
-        multipartMap["id"] = event.id
-        multipartMap["state"] = event.state
-        multipartMap["zipcode"] = event.zipcode
-        multipartMap["startdate"] = event.startdate
-        multipartMap["starttime"] = event.starttime
-        multipartMap["enddate"] = event.enddate
-        multipartMap["endtime"] = event.endtime
-        multipartMap["hostname"] = event.hostname
-        multipartMap["contactinfo"] = event.contactinfo
-        multipartMap["hosttype"] = event.hosttype
-        multipartMap["eventtype"] = event.eventtype
-        multipartMap["country"] = event.country
-        multipartMap["latitude"] = event.latitude
-        multipartMap["longitude"] = event.longitude
-        multipartMap["category"] = event.category
-
-        //multipartMap["image"] = image
-
-        for (elements in 0 until event.allmembers.size){
-            multipartMap["allmembers[$elements][member]"] = event.allmembers[elements].member
-            multipartMap["allmembers[$elements][email]"] = event.allmembers[elements].email
-            multipartMap["allmembers[$elements][number]"] = event.allmembers[elements].number
-        }*/
 
         multipartMap["event_name"] = rqEventName
         multipartMap["event_description"] = rqEventDesc
@@ -182,7 +148,15 @@ object Repository {
         multipartMap["latitude"] = rqLatitude
         multipartMap["longitude"] = rqLongitude
         multipartMap["category"] = rqCategory
-        multipartMap["image"] = rqImage!!
+
+        val file = File(Extensions.getRealPathUri(requireContext, event.image!!.toUri())!!) as File?
+        var body: MultipartBody.Part? = null
+
+        if (file != null) {
+            val reqBody = RequestBody.create(
+                MediaType.parse("multipart/form-data"), file)
+            body = MultipartBody.Part.createFormData("image", file.name, reqBody)
+        }
 
         for (elements in 0 until event.allmembers.size){
             multipartMap["allmembers[$elements][member]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].member)
@@ -190,9 +164,9 @@ object Repository {
             multipartMap["allmembers[$elements][number]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].number)
         }
 
-        Log.e("TAG", "multipart: $multipartMap")
+        Log.e("TAG", "multipartBuilder: $multipartMap")
 
-        return client.createNewEvent(multipartMap)
+        return client.createNewEvent(multipartMap, body)
     }
 
     fun updateEvent(context: Context, event: UpdateEvent): Call<DefaultResponse> {
@@ -221,15 +195,6 @@ object Repository {
         val rqLongitude = RequestBody.create(MediaType.parse("text/plain"), event.longitude)
         val rqCategory = RequestBody.create(MediaType.parse("text/plain"), event.category)
 
-        var rqImage: RequestBody? = null
-
-        /*Log.e("TAG","uri: "+event.image)
-        if (event.image.isNotEmpty()){
-            val uri = Uri.parse(event.image)
-            val file = File(getRealPathUri(context, uri))
-            rqImage = RequestBody.create(MediaType.parse("image"), file)
-        }*/
-
         multipartMap["event_name"] = rqEventName
         //multipartMap["event_description"] = rqEventDesc
         multipartMap["streetaddress"] = rqStreetAddress
@@ -250,39 +215,6 @@ object Repository {
         multipartMap["category"] = rqCategory
         multipartMap["userid"] = rqUserId
         multipartMap["eventid"] = rqEventId
-
-        /*multipartMap["event_name"] = event.event_name
-        //multipartMap["event_description"] = rqEventDesc
-        multipartMap["streetaddress"] = event.streetaddress
-        multipartMap["city"] = event.city
-        multipartMap["id"] = event.id
-        multipartMap["state"] = event.state
-        multipartMap["zipcode"] = event.zipcode
-        multipartMap["startdate"] = event.startDate
-        multipartMap["starttime"] = event.startTime
-        multipartMap["enddate"] = event.endDate
-        multipartMap["endtime"] = event.endTime
-        multipartMap["hostname"] = event.hostname
-        multipartMap["contactinfo"] = event.contactInfo
-        multipartMap["hosttype"] = event.hosttype
-        multipartMap["country"] = event.country
-        multipartMap["latitude"] = event.latitude
-        multipartMap["longitude"] = event.longitude
-        multipartMap["category"] = event.category
-        multipartMap["userid"] = event.userid
-        multipartMap["eventid"] = event.eventId*/
-
-
-        //multipartMap["eventtype"] = rqEventType
-
-
-        //multipartMap["image"] = rqImage!!
-
-        /*for (elements in 0 until event.allmembers.size){
-            multipartMap["allmembers[$elements][member]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].member)
-            multipartMap["allmembers[$elements][email]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].email)
-            multipartMap["allmembers[$elements][number]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].number)
-        }*/
 
         Log.e("TAG", "multipart: $multipartMap")
 
@@ -318,8 +250,9 @@ object Repository {
 
     fun searchEvent(searchEvents: SearchByEvent): Call<SearchEvents> {
         val userId = SessionManager.instance.getUserId()
-        return client.searchEvents(userId, searchEvents.searchType, searchEvents.country, searchEvents.state,
-        searchEvents.city, searchEvents.startDate, searchEvents.endDate, searchEvents.startTime,
+        return client.searchEvents(userId,
+            searchEvents.searchType!!, searchEvents.country!!, searchEvents.state!!,
+        searchEvents.city!!, searchEvents.startDate, searchEvents.endDate, searchEvents.startTime,
         searchEvents.endTime, searchEvents.distanceMile, searchEvents.nationWide, searchEvents.latitude,
             searchEvents.longitude, searchEvents.category, searchEvents.zipcode)
     }
@@ -329,4 +262,15 @@ object Repository {
 
     fun eventAddToAttend(eventId: String, hostId: String): Call<AddAttendEvent> = client.addAttendEvents(
         eventId, hostId, SessionManager.instance.getUserId())
+
+    fun getNearEvents(nearEvents: GetNearEvents): Call<NearEvents> = client.nearEvents(
+        nearEvents.currentDate, nearEvents.distanceInMile, nearEvents.searchType,
+        nearEvents.city, nearEvents.lat, nearEvents.lon, nearEvents.endTime, nearEvents.category,
+        nearEvents.id, nearEvents.nationWide
+    )
+
+    fun deleteMyEvents(eventId: String, userId: String): Call<DefaultResponse> = client.deleteMyEvents(eventId, userId)
+
+    fun deleteOtherEvents(eventId: String, userId: String, eventType: String): Call<DefaultResponse> =
+        client.deleteOtherEvents(eventId, userId, eventType)
 }

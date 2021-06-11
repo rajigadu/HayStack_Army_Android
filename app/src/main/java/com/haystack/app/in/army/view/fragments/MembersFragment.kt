@@ -53,7 +53,8 @@ class MembersFragment: Fragment(), MembersListAdapter.MembersListItemClick {
 
         groupId = arguments?.getString(GROUP_ID)
 
-        binding.refreshMembersList.setColorSchemeColors(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+        binding.refreshMembersList.setColorSchemeColors(ContextCompat.getColor(requireContext(),
+            R.color.colorPrimary))
 
         binding.refreshMembersList.setOnRefreshListener {
             listMembers.clear()

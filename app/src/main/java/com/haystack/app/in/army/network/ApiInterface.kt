@@ -11,6 +11,8 @@ import com.haystack.app.`in`.army.network.config.AppConfig.CREATE_EVENT
 import com.haystack.app.`in`.army.network.config.AppConfig.CREATE_GROUP
 import com.haystack.app.`in`.army.network.config.AppConfig.DELETE_GROUP
 import com.haystack.app.`in`.army.network.config.AppConfig.DELETE_GROUP_MEMBER
+import com.haystack.app.`in`.army.network.config.AppConfig.DELETE_MY_EVENTS
+import com.haystack.app.`in`.army.network.config.AppConfig.DELETE_OTHER_EVENTS
 import com.haystack.app.`in`.army.network.config.AppConfig.EDIT_EVENT
 import com.haystack.app.`in`.army.network.config.AppConfig.EDIT_GROUP
 import com.haystack.app.`in`.army.network.config.AppConfig.EDIT_GROUP_MEMBER
@@ -25,6 +27,7 @@ import com.haystack.app.`in`.army.network.config.AppConfig.LIST_STATES
 import com.haystack.app.`in`.army.network.config.AppConfig.LOG_IN
 import com.haystack.app.`in`.army.network.config.AppConfig.MY_EVENTS
 import com.haystack.app.`in`.army.network.config.AppConfig.NEAREST_EVENTS
+import com.haystack.app.`in`.army.network.config.AppConfig.NEAR_EVENTS
 import com.haystack.app.`in`.army.network.config.AppConfig.SEARCH_EVENTS
 import com.haystack.app.`in`.army.network.config.AppConfig.SIGN_UP_SOLDIER
 import com.haystack.app.`in`.army.network.config.AppConfig.SIGN_UP_SPOUSE
@@ -42,10 +45,12 @@ import com.haystack.app.`in`.army.network.response.interest_events.InterestEvent
 import com.haystack.app.`in`.army.network.response.login.LogIn
 import com.haystack.app.`in`.army.network.response.members.Members
 import com.haystack.app.`in`.army.network.response.my_events.MyEvents
+import com.haystack.app.`in`.army.network.response.near_events.NearEvents
 import com.haystack.app.`in`.army.network.response.nearest_events.NearestEvents
 import com.haystack.app.`in`.army.network.response.search_events.SearchEvents
 import com.haystack.app.`in`.army.network.response.soldier_signup.SignUpResponse
 import com.haystack.app.`in`.army.network.response.states.States
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -204,7 +209,9 @@ interface ApiInterface {
 
     @Multipart
     @POST(CREATE_EVENT)
-    fun createNewEvent(@PartMap hashMap: HashMap<String, RequestBody>): Call<EventCreated>
+    fun createNewEvent(@PartMap hashMap: HashMap<String, RequestBody>,
+                       @Part body: MultipartBody.Part?
+    ): Call<EventCreated>
 
     @Multipart
     @POST(EDIT_EVENT)
@@ -259,11 +266,11 @@ interface ApiInterface {
     @FormUrlEncoded
     @POST(SEARCH_EVENTS)
     fun searchEvents(
-        @Field("id") userId: String,
-        @Field("searchType") searchType: String,
-        @Field("country") country: String,
-        @Field("state") state: String,
-        @Field("city") city: String,
+        @Field("id") userId: String?,
+        @Field("searchType") searchType: String?,
+        @Field("country") country: String?,
+        @Field("state") state: String?,
+        @Field("city") city: String?,
         @Field("startdate") startDate: String?,
         @Field("enddate") endDate: String?,
         @Field("starttime") startTime: String?,
@@ -292,5 +299,35 @@ interface ApiInterface {
     fun getStates(
         @Field("countryname") countryName: String
     ): Call<States>
+
+    @FormUrlEncoded
+    @POST(NEAR_EVENTS)
+    fun nearEvents(
+        @Field("currentdate") currentDate: String?,
+        @Field("DistanceinMiles") distanceInMile: String?,
+        @Field("searchtype") searchType: String?,
+        @Field("city") city: String?,
+        @Field("lat") latitude: String?,
+        @Field("long") longitude: String?,
+        @Field("endtime") endTime: String?,
+        @Field("categorys") categorys: String?,
+        @Field("id") userId: String?,
+        @Field("NationWide") nationWide: String?
+    ): Call<NearEvents>
+
+    @FormUrlEncoded
+    @POST(DELETE_MY_EVENTS)
+    fun deleteMyEvents(
+        @Field("eventid") eventId: String,
+        @Field("id") userId: String
+    ): Call<DefaultResponse>
+
+    @FormUrlEncoded
+    @POST(DELETE_OTHER_EVENTS)
+    fun deleteOtherEvents(
+        @Field("eventid") eventId: String,
+        @Field("id") userId: String,
+        @Field("type") eventType: String
+    ): Call<DefaultResponse>
 
 }

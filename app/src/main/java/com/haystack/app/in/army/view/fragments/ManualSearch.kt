@@ -1,12 +1,16 @@
 package com.haystack.app.`in`.army.view.fragments
 
 import android.annotation.SuppressLint
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -28,7 +32,7 @@ import retrofit2.Response
 class ManualSearch: Fragment() {
 
     private lateinit var binding: FragmentManualSearchBinding
-    private var selectedCountry: String? = ""
+    private var selectedCountry: String? = "United States"
     private var listStates = arrayListOf<String>()
     private var searchEvent: SearchByEvent? = null
     private var lastClickTime: Long = 0
@@ -56,6 +60,7 @@ class ManualSearch: Fragment() {
 
         searchEvent = arguments?.getSerializable(ARG_SERIALIZABLE) as SearchByEvent
         Log.e("TAG", "searchEvent: $searchEvent")
+        binding.inputCountry.setText(selectedCountry)
 
         clickListeners()
 
@@ -71,6 +76,7 @@ class ManualSearch: Fragment() {
 
         binding.btnContinue.setOnClickListener {
             if (validated()){
+                getEventLatLong()
                 val bundle = bundleOf(ARG_SERIALIZABLE to searchEvent)
                 findNavController().navigate(R.id.action_manualSearch_to_dateRangeFragment, bundle)
             }
@@ -108,7 +114,7 @@ class ManualSearch: Fragment() {
     private fun validated(): Boolean {
         searchEvent?.country = binding.inputCountry.text.toString().trim()
         searchEvent?.state = binding.inputState.text.toString().trim()
-        zipCode = binding.inputZipCode.text.toString().trim()
+        searchEvent?.zipcode = binding.inputZipCode.text.toString().trim()
         searchEvent?.city = binding.inputCity.text.toString().trim()
 
 
@@ -128,7 +134,7 @@ class ManualSearch: Fragment() {
                 return false
             }
 
-            zipCode?.isEmpty()!! -> {
+            searchEvent?.zipcode!!.isEmpty() -> {
                 longSnackBar("Enter Zip code", binding.constraintManualSearch)
                 return false
             }
@@ -180,7 +186,6 @@ class ManualSearch: Fragment() {
         })
     }
 
-
     private fun showCountriesListDialogView() {
         var array = arrayOf<String>()
         array = listCountries.toArray(array)
@@ -189,7 +194,7 @@ class ManualSearch: Fragment() {
             .setTitle("Select Event Country")
             .setCancelable(false)
             .setPositiveButton("Ok"){ dialog, which ->
-                //getStatesList()
+                getStatesList()
                 binding.inputCountry.setText(selectedCountry)
             }
             .setSingleChoiceItems(array,-1){ dialog, which ->
@@ -199,6 +204,7 @@ class ManualSearch: Fragment() {
     }
 
     private fun getStatesList() {
+        binding.progressCardView.visibility = VISIBLE
         Repository.getAllStatesOfTheCountry(selectedCountry!!).enqueue(
             object : Callback<States> {
                 override fun onResponse(call: Call<States>, response: Response<States>) {
@@ -216,13 +222,32 @@ class ManualSearch: Fragment() {
                         }
 
                     }catch (e: Exception){e.printStackTrace()}
+                    binding.progressCardView.visibility = INVISIBLE
                 }
 
                 override fun onFailure(call: Call<States>, t: Throwable) {
                     Extensions.showErrorResponse(t, binding.constraintManualSearch)
+                    binding.progressCardView.visibility = INVISIBLE
                 }
 
             })
+    }
+
+    private fun getEventLatLong() {
+        val geoCoder = Geocoder(requireContext())
+        var listAddress = listOf<Address>()
+        val locationName = searchEvent?.city + "," + searchEvent?.city + "," + searchEvent?.state +
+                "," + searchEvent?.zipcode
+
+        try {
+            listAddress = geoCoder.getFromLocationName(locationName, 5)
+            if (listAddress != null){
+                val location: Address = listAddress[0]
+                searchEvent?.latitude = location.latitude.toString()
+                searchEvent?.longitude = location.longitude.toString()
+            }
+
+        }catch (e: java.lang.Exception){e.printStackTrace()}
     }
 
     override fun onResume() {

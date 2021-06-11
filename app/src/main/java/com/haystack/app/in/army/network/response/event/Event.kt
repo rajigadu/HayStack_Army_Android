@@ -1,5 +1,6 @@
 package com.haystack.app.`in`.army.network.response.event
 
+import okhttp3.MultipartBody
 import java.io.Serializable
 
 
@@ -7,7 +8,7 @@ data class Event(
     var event_name: String,
     var event_description: String,
     var streetaddress: String,
-    var image: String,
+    var image: String?,
     var city: String,
     var id: String,
     var state: String,
@@ -26,7 +27,7 @@ data class Event(
     var category: String,
     var allmembers: ArrayList<AllMembers>
 ): Serializable{
-    constructor():this("","","", "","", "", "","","", "",
+    constructor():this("","","", null,"", "", "","","", "",
     "", "", "", "", "","", "", "", "",
         "", arrayListOf()
     )

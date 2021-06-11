@@ -3,6 +3,7 @@ package com.haystack.app.`in`.army.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.android.gms.maps.model.LatLng
 import com.haystack.app.`in`.army.network.response.login.LogIn
 import com.haystack.app.`in`.army.utils.AppConstants.DOD_ID
 import com.haystack.app.`in`.army.utils.AppConstants.FB_TOKEN
@@ -27,6 +28,11 @@ class SessionManager constructor(val context: Context) {
 
 
 
+
+    fun getUserLatLng(): LatLng = LatLng(
+            sPreference.getString(USER_LATITUDE, "")!!.toDouble(),
+            sPreference.getString(USER_LONGITUDE, "")!!.toDouble()
+        )
 
     fun getLoginUser(): String = sPreference.getString(LOGNIED_USER, "")!!
 

@@ -77,25 +77,26 @@ class CategoriesFragment: Fragment() {
 
         binding.btnContinue.setOnClickListener {
             val selectedCategories = categoriesListAdapter.getSelectedCategories()
+            searchEvent = SearchByEvent()
             if (selectedCategories.isNotEmpty()) {
                 for (elements in selectedCategories) Log.e("TAG", "elements: $elements")
                 val categories = selectedCategories.joinToString(",")
                 events?.category = categories
-                val bundle = bundleOf(ARG_SERIALIZABLE to events)
-                if (navigation == "1") {
-                    findNavController().navigate(
-                        R.id.action_categoriesFragment_to_createEventMode,
-                        bundle
-                    )
-                }else{
-                    searchEvent = SearchByEvent()
-                    searchEvent?.category = categories
-                    val bundle = bundleOf(ARG_SERIALIZABLE to searchEvent)
-                    findNavController().navigate(R.id.action_categoriesFragment_to_searchFragment, bundle)
-                }
-            }else {
+                searchEvent?.category = categories
+            }/*else {
                 showSnackBar(binding.constraintCategories, "Please select categories")
                 return@setOnClickListener
+            }*/
+
+            if (navigation == "1") {
+                val bundle = bundleOf(ARG_SERIALIZABLE to events)
+                findNavController().navigate(
+                    R.id.action_categoriesFragment_to_createEventMode,
+                    bundle
+                )
+            }else{
+                val bundle = bundleOf(ARG_SERIALIZABLE to searchEvent)
+                findNavController().navigate(R.id.action_categoriesFragment_to_searchFragment, bundle)
             }
         }
     }
@@ -126,8 +127,10 @@ class CategoriesFragment: Fragment() {
             }
 
             override fun onFailure(call: Call<AllCategories>, t: Throwable) {
-                showSnackBar(binding.constraintCategories, "Something went wrong")
-                binding.refreshCategories.isRefreshing = false
+                try {
+                    showSnackBar(binding.constraintCategories, "Something went wrong")
+                    binding.refreshCategories.isRefreshing = false
+                }catch (e: Exception){e.printStackTrace()}
             }
 
         })

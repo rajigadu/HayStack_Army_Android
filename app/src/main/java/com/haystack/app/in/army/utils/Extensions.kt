@@ -56,14 +56,14 @@ object Extensions {
     }
 
     @SuppressLint("SimpleDateFormat")
-    fun convertedDateFormat(date: String): String{
+    fun convertedDateFormat(date: String?): String{
         var formattedDate: Date? = null
         var convertDate: String? = null
         val sdf = SimpleDateFormat("dd MMM yyyy")
         try {
 
-            formattedDate = sdf.parse(date)
-            convertDate = SimpleDateFormat("MM-dd-yyyy").format(formattedDate)
+            formattedDate = sdf.parse(date!!)
+            convertDate = SimpleDateFormat("MM-dd-yyyy").format(formattedDate!!)
 
         }catch (e: Exception){e.printStackTrace()}
         return convertDate!!
@@ -73,10 +73,28 @@ object Extensions {
     fun getDeviceUid(context: Context): String{
         return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
+
     @SuppressLint("SimpleDateFormat")
     fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("MM-dd-yyyy")
         return sdf.format(Date())
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun getCurrentTime(): String {
+        var timeState = "AM"
+        val calendar = Calendar.getInstance()
+        var hour = calendar.get(Calendar.HOUR_OF_DAY).toString()
+        var minute = calendar.get(Calendar.MINUTE).toString()
+
+        if (hour.toInt() > 11) timeState = "PM"
+        if (hour.toInt() > 12) hour = (hour.toInt() -12).toString()
+
+        if (hour.length == 1) hour = "0$hour"
+        if (minute.length == 1) minute = "0$minute"
+        if (hour == "00") hour = "12"
+
+        return "$hour:$minute $timeState"
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -92,7 +110,7 @@ object Extensions {
 
     fun longSnackBar(message: String, view: View) = Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
 
-    fun showErrorResponse(throwable: Throwable, constraintLogin: ConstraintLayout) {
+    fun showErrorResponse(throwable: Throwable, constraintLogin: View) {
         when(throwable){
             is IOException -> {
                 longSnackBar("Network Error, Please check your Internet", constraintLogin)

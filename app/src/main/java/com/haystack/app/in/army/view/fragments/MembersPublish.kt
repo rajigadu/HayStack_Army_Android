@@ -1,20 +1,34 @@
 package com.haystack.app.`in`.army.view.fragments
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.location.Address
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentMembersPublishBinding
@@ -30,6 +44,7 @@ import com.haystack.app.`in`.army.utils.Extensions.showErrorResponse
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
 import com.haystack.app.`in`.army.view.adapters.NewlyAddedMembersAdapter
 import com.haystack.app.`in`.army.network.response.event.EventCreated
+import com.haystack.app.`in`.army.utils.Extensions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +58,9 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
     private lateinit var addedMembersAdapter: NewlyAddedMembersAdapter
     private var events: Event? = null
     private var listMembers = arrayListOf<AllMembers>()
+
+    private var editTextFullName: EditText? = null
+    private var editTextMobile: EditText? = null
 
 
     override fun onCreateView(
@@ -58,13 +76,13 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        events = arguments?.getSerializable(AppConstants.ARG_SERIALIZABLE) as Event
-        Log.e("TAG", "events: $events")
+        initiateView()
 
-        listMembers.clear()
-        if (events!!.allmembers.size > 0){
-            listMembers.addAll(events!!.allmembers)
-        }
+        clickListeners()
+
+    }
+
+    private fun clickListeners() {
 
         binding.toolbarMembersPublish.setNavigationOnClickListener {
             findNavController().popBackStack()
@@ -73,8 +91,7 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
         binding.toolbarMembersPublish.setOnMenuItemClickListener {
             when(it.itemId) {
                 R.id.addMember -> {
-                    val bundle = bundleOf(ARG_SERIALIZABLE to events)
-                    findNavController().navigate(R.id.action_membersPublish_to_addMembersFragment, bundle)
+                    showAddMemberBottomSheet()
                     true
                 }
                 else -> false
@@ -85,7 +102,17 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
         binding.btnPublish.setOnClickListener {
             showBottomSheet()
             getEventLatLong()
-            publishCreatedEvent()
+        }
+    }
+
+    private fun initiateView() {
+
+        events = arguments?.getSerializable(AppConstants.ARG_SERIALIZABLE) as Event
+        Log.e("TAG", "events: $events")
+
+        listMembers.clear()
+        if (events!!.allmembers.size > 0){
+            listMembers.addAll(events!!.allmembers)
         }
 
         addedMembersAdapter = NewlyAddedMembersAdapter()
@@ -93,6 +120,133 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
             layoutManager = LinearLayoutManager(requireContext())
             adapter = addedMembersAdapter
             addedMembersAdapter.update(requireContext(), listMembers, this@MembersPublish)
+        }
+
+        binding.refreshMembers.setColorSchemeColors(
+            ContextCompat.getColor(requireContext(), R.color.colorPrimary)
+        )
+        binding.refreshMembers.setOnRefreshListener {
+            listMembers.clear()
+            if (events!!.allmembers.size > 0){
+                listMembers.addAll(events!!.allmembers)
+            }
+            addedMembersAdapter.update(requireContext(),listMembers, this)
+            binding.refreshMembers.isRefreshing = false
+        }
+    }
+
+    private fun showAddMemberBottomSheet() {
+        val bottomSheet = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.add_member_bottom_sheet, null)
+        bottomSheet.setContentView(view)
+        bottomSheet.setCancelable(false)
+        bottomSheet.show()
+
+        val toolbarBottomSheet = view.findViewById<MaterialToolbar>(R.id.toolbarAddMemberBottomSheet)
+        editTextFullName = view.findViewById(R.id.inputName)
+        val editTextEmail = view.findViewById<EditText>(R.id.inputEmail)
+        editTextMobile = view.findViewById(R.id.inputMobile)
+        val btnInvite = view.findViewById<MaterialButton>(R.id.btnInvite)
+        val btnChooseFromGroup = view.findViewById<MaterialButton>(R.id.btnAddFromGroup)
+        val btnChooseFromContacts = view.findViewById<MaterialButton>(R.id.btnChooseFromAddressBook)
+
+        toolbarBottomSheet.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.actionClose -> {
+                    bottomSheet.hide()
+                    listMembers.clear()
+                    if (events!!.allmembers.size > 0){
+                        listMembers.addAll(events!!.allmembers)
+                    }
+                    addedMembersAdapter.update(requireContext(),listMembers, this)
+                    return@setOnMenuItemClickListener true
+                }
+            }
+            return@setOnMenuItemClickListener false
+        }
+
+        btnInvite.setOnClickListener {
+            val fullName = editTextFullName?.text.toString().trim()
+            val email = editTextEmail.text.toString().trim()
+            val mobile = editTextMobile?.text.toString().trim()
+
+            if (TextUtils.isEmpty(fullName) || TextUtils.isEmpty(email) || TextUtils.isEmpty(mobile)) {
+                Toast.makeText(requireContext(), "Please fill all the fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            events?.allmembers?.add(AllMembers(fullName, email, mobile))
+
+            editTextFullName?.setText("")
+            editTextEmail.setText("")
+            editTextMobile?.setText("")
+
+        }
+
+        btnChooseFromContacts.setOnClickListener {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_CONTACTS
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                requestPermissionResult.launch(Manifest.permission.READ_CONTACTS)
+                return@setOnClickListener
+            }
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+            readContactActivityResult.launch(intent)
+        }
+    }
+
+    private val requestPermissionResult = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()) { granted ->
+
+        if (granted) {
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI)
+            readContactActivityResult.launch(intent)
+        }
+    }
+
+    private val readContactActivityResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) { result ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+
+            try {
+
+                val uriContactData: Uri = result.data?.data!!
+
+                val c: Cursor = requireActivity().contentResolver.query(
+                    uriContactData,
+                    null, null, null, null
+                )!!
+
+                var number = ""
+
+                if (c.count >= 1) {
+                    if (c.moveToFirst()) {
+                        val id = c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID))
+                        val hasPhone = c.getString(c.getColumnIndex(
+                            ContactsContract.Contacts.HAS_PHONE_NUMBER))
+
+                        if (hasPhone.equals("1", true)) {
+                            val phones: Cursor = requireActivity().contentResolver.query(
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id,
+                                null, null
+                            )!!
+                            phones.moveToFirst()
+                            number = phones.getString(phones.getColumnIndex("data1"))
+                        }
+                        val name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+
+                        editTextFullName?.setText(name)
+                        editTextMobile?.setText(number)
+                    }
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e("TAG", "exception: ${e.message}")
+            }
         }
     }
 
@@ -110,8 +264,12 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
                 events?.latitude = location.latitude.toString()
                 events?.longitude = location.longitude.toString()
             }
+            publishCreatedEvent()
 
-        }catch (e: Exception){e.printStackTrace()}
+        }catch (e: Exception){
+            e.printStackTrace()
+            hideBottomSheet()
+        }
     }
 
     private fun publishCreatedEvent() {

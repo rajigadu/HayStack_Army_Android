@@ -21,6 +21,9 @@ import com.haystack.app.`in`.army.databinding.FragmentDateRangeBinding
 import com.haystack.app.`in`.army.network.response.search_events.SearchByEvent
 import com.haystack.app.`in`.army.utils.AppConstants.ARG_SERIALIZABLE
 import com.haystack.app.`in`.army.utils.Extensions
+import com.haystack.app.`in`.army.utils.Extensions.convertedDateFormat
+import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
+import com.haystack.app.`in`.army.utils.Extensions.getCurrentTime
 import com.haystack.app.`in`.army.utils.Extensions.longSnackBar
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
 
@@ -54,6 +57,18 @@ class DateRangeFragment: Fragment() {
 
         clickListeners()
 
+        setInitialValuesInEdittext()
+
+    }
+
+    private fun setInitialValuesInEdittext() {
+        binding.inputStartDate.setText(getCurrentDate())
+        binding.inputEndDate.setText(getCurrentDate())
+        binding.inputStartTime.setText(getCurrentTime())
+        binding.inputEndTime.setText(getCurrentTime())
+
+        searchEvent?.startDate = binding.inputStartDate.text.toString().trim()
+        searchEvent?.endDate = binding.inputEndDate.text.toString().trim()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -64,6 +79,9 @@ class DateRangeFragment: Fragment() {
         }
 
         binding.btnContinue.setOnClickListener {
+            searchEvent?.startTime = binding.inputStartTime.text.toString().trim()
+            searchEvent?.endTime = binding.inputEndTime.text.toString().trim()
+
             if (validated()){
                 val bundle = bundleOf(ARG_SERIALIZABLE to searchEvent)
                 findNavController().navigate(R.id.action_dateRangeFragment_to_eventsSearch, bundle)
@@ -202,10 +220,10 @@ class DateRangeFragment: Fragment() {
         datePicker.isCancelable = false
         datePicker.addOnPositiveButtonClickListener {
             if (datePickerTitle == "Select Event Start Date") {
-                searchEvent?.startDate = Extensions.convertedDateFormat(datePicker.headerText)
+                searchEvent?.startDate = convertedDateFormat(datePicker.headerText)
                 binding.inputStartDate.setText(datePicker.headerText)
             }else{
-                searchEvent?.endDate = Extensions.convertedDateFormat(datePicker.headerText)
+                searchEvent?.endDate = convertedDateFormat(datePicker.headerText)
                 binding.inputEndDate.setText(datePicker.headerText)
             }
 

@@ -29,7 +29,8 @@
                 android:id="@+id/eventImage"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:src="@drawable/party"
+                android:scaleType="fitXY"
+                android:src="@drawable/events_default_bg_"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 

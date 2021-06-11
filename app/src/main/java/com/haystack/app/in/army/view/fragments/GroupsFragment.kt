@@ -21,6 +21,7 @@ import com.haystack.app.`in`.army.utils.AppConstants.GROUP_ID
 import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
 import com.haystack.app.`in`.army.utils.Extensions.showSnackBar
+import com.haystack.app.`in`.army.utils.RecyclerViewCustomAnimation
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
 import com.haystack.app.`in`.army.view.adapters.EventListAdapter
 import retrofit2.Call
@@ -69,6 +70,7 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
         binding.recyclerEvents.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = eventListAdapter
+            itemAnimator = RecyclerViewCustomAnimation()
         }
 
         binding.btnCreateGroup.setOnClickListener {

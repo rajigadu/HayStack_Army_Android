@@ -4,6 +4,7 @@ object AppConfig {
 
 
     const val BASE_URL = "https://haystackevents.com/haystack-army/ios/"
+    const val IMAGE_BASE_URL = "https://haystackevents.com/haystack-army/images/"
 
 
     const val SIGN_UP_SOLDIER = "registration.php"
@@ -35,4 +36,7 @@ object AppConfig {
     const val LIST_ATTEND_EVENTS = "myattendevents.php"
     const val LIST_COUNTRIES = "country.php"
     const val LIST_STATES = "state.php"
+    const val NEAR_EVENTS = "near-events.php"
+    const val DELETE_MY_EVENTS = "deleteevent.php"
+    const val DELETE_OTHER_EVENTS = "deleteall.php"
 }

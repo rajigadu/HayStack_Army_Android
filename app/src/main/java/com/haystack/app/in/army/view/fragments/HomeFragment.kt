@@ -39,7 +39,7 @@ import com.haystack.app.`in`.army.utils.Extensions.longSnackBar
 import com.haystack.app.`in`.army.utils.Extensions.showErrorResponse
 import com.haystack.app.`in`.army.utils.Extensions.showSnackBarSettings
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
-import com.haystack.app.`in`.army.view.adapters.NearestEventsAdapter
+import com.haystack.app.`in`.army.view.adapters.NearestEventsListAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -53,10 +53,10 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapter.NearestEventsOnClick {
+class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAdapter.NearestEventsOnClick {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var nearestEventsAdapter: NearestEventsAdapter
+    private lateinit var nearestEventsListAdapter: NearestEventsListAdapter
 
     private val permissionsLocation = arrayOf(
         Manifest.permission.ACCESS_FINE_LOCATION,
@@ -77,8 +77,6 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
 
 
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -95,6 +93,46 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
 
         initiateView()
 
+        onClickListener()
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun onClickListener() {
+
+
+        binding.searchView.setOnTouchListener { view, motionEvent ->
+            when(motionEvent.action){
+                ACTION_UP -> {
+                    val bundle = bundleOf(ARG_OBJECTS to "0")
+                    findNavController().navigate(R.id.action_homeFragment_to_categoriesFragment, bundle)
+                }
+            }
+            return@setOnTouchListener true
+        }
+
+        binding.btnMyEvents.setOnClickListener {
+            val bundle = bundleOf(ARG_OBJECTS to 0)
+            findNavController().navigate(R.id.action_homeFragment_to_myEvents, bundle)
+        }
+
+        binding.btnInterestEvents.setOnClickListener {
+            val bundle = bundleOf(ARG_OBJECTS to 1)
+            findNavController().navigate(R.id.action_homeFragment_to_myEvents, bundle)
+        }
+
+        binding.btnAttendEvents.setOnClickListener {
+            val bundle = bundleOf(ARG_OBJECTS to 2)
+            findNavController().navigate(R.id.action_homeFragment_to_myEvents, bundle)
+        }
+
+        binding.btnInviteEvents.setOnClickListener {
+            val bundle = bundleOf(ARG_OBJECTS to 3)
+            findNavController().navigate(R.id.action_homeFragment_to_myEvents, bundle)
+        }
+
+        binding.refreshNearestEvents.setColorSchemeColors(ContextCompat.getColor(
+            requireContext(), R.color.colorPrimary))
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -110,26 +148,10 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
             .onSameThread()
             .check()
 
-        binding.searchView.setOnTouchListener { view, motionEvent ->
-            when(motionEvent.action){
-                ACTION_UP -> {
-                    val bundle = bundleOf(ARG_OBJECTS to "0")
-                    findNavController().navigate(R.id.action_homeFragment_to_categoriesFragment, bundle)
-                }
-            }
-            return@setOnTouchListener true
-        }
-        binding.btnMyEvents.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_myEvents)
-        }
-
-        binding.refreshNearestEvents.setColorSchemeColors(ContextCompat.getColor(
-            requireContext(), R.color.colorPrimary))
-
-        nearestEventsAdapter = NearestEventsAdapter(requireContext())
+        nearestEventsListAdapter = NearestEventsListAdapter(requireContext())
         binding.nearestEventsList.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = nearestEventsAdapter
+            adapter = nearestEventsListAdapter
         }
     }
 
@@ -202,10 +224,10 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
                             binding.noEventsImgView.visibility = INVISIBLE
                             binding.noEventsText.visibility = INVISIBLE
 
-                            if (response.body()?.data?.size!! > 0){
+                            if (response.body()?.data != null){
                                 listNearestEvents.clear()
                                 listNearestEvents.addAll(response.body()?.data!!)
-                                nearestEventsAdapter.update(listNearestEvents, this@HomeFragment)
+                                nearestEventsListAdapter.update(listNearestEvents, this@HomeFragment)
                             }
 
                         }else{
@@ -220,7 +242,10 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
             }
 
             override fun onFailure(call: Call<NearestEvents>, t: Throwable) {
-                showErrorResponse(t, binding.constraintHome)
+                try {
+                    if (binding.constraintHome != null)showErrorResponse(t, binding.constraintHome)
+                }catch (e: Exception){e.printStackTrace()}
+
                 binding.refreshNearestEvents.isRefreshing = false
 
             }
@@ -241,24 +266,31 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsAdapte
                 longitude!!,
                 1)
 
+            if (addresses!![0] != null) {
+                val city: String = addresses!![0].locality
+                val state: String = addresses[0].adminArea
+                val country: String = addresses[0].countryName
+                val postalCode: String = addresses[0].postalCode
+                val knownName: String = addresses[0].featureName // Only if available else return NULL
+
+                binding.userLocation.text = "$city, $state, $country, $postalCode"
+            }
+
         }catch (e: IOException){e.printStackTrace()}
 
-        if (addresses!![0].getAddressLine(0) != null){
-            userLocation = addresses!![0].getAddressLine(0)
-        }
-        if (addresses[0].getAddressLine(1) != null){
-            userLocation = addresses!![0].getAddressLine(0)
-        }
+        /*if (addresses?.isNotEmpty()!!){
 
-        Log.e("TAG", "user location: $userLocation")
+            if (addresses[0].getAddressLine(0) != null){
+                userLocation = addresses[0].getAddressLine(0)
+            }
+            if (addresses[0].getAddressLine(1) != null){
+                userLocation = addresses[0].getAddressLine(0)
+            }
 
-        val city: String = addresses[0].locality
-        val state: String = addresses[0].adminArea
-        val country: String = addresses[0].countryName
-        val postalCode: String = addresses[0].postalCode
-        val knownName: String = addresses[0].featureName // Only if available else return NULL
+        }*/
 
-        binding.userLocation.text = "$city, $state, $country, $postalCode"
+        //Log.e("TAG", "user location: $userLocation")
+
     }
 
     @SuppressLint("MissingPermission")

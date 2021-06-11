@@ -1,5 +1,6 @@
 package com.haystack.app.`in`.army.view.viewpager
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,29 +8,38 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentMyEventsBinding
+import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.attend_events.AttendEvents
-import com.haystack.app.`in`.army.network.response.attend_events.Data
+import com.haystack.app.`in`.army.network.response.attend_events.AttendEventsData
+import com.haystack.app.`in`.army.network.response.group_members.DefaultResponse
+import com.haystack.app.`in`.army.utils.AppConstants.EVENT_TYPE_ATTEND
 import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
 import com.haystack.app.`in`.army.utils.Extensions.longSnackBar
+import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
+import com.haystack.app.`in`.army.utils.Extensions.showSnackBar
 import com.haystack.app.`in`.army.view.viewpager.adapter.AttendEventsAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AttendEventsFragment: Fragment() {
+class AttendEventsFragment: Fragment(), AttendEventsAdapter.AttendEventsItemClick {
 
     private lateinit var binding: FragmentMyEventsBinding
     private lateinit var attendEventsAdapter: AttendEventsAdapter
+    private lateinit var bottomSheet: BottomSheetDialog
     private var currentDate: String? = null
     private var endTime: String? = ""
-    private var listAttendEvents = arrayListOf<Data>()
+    private var listAttendEvents = arrayListOf<AttendEventsData>()
 
 
     override fun onCreateView(
@@ -82,6 +92,7 @@ class AttendEventsFragment: Fragment() {
                                     listAttendEvents.clear()
                                     listAttendEvents.addAll(listOf(response.body()?.data!!))
                                 }
+                                attendEventsAdapter.update(listAttendEvents, this@AttendEventsFragment)
 
                             }else{
                                 binding.noEventsImage.visibility = VISIBLE
@@ -105,5 +116,67 @@ class AttendEventsFragment: Fragment() {
     override fun onResume() {
         super.onResume()
         attendedEvents()
+    }
+
+    override fun deleteAttendEvent(attendEvent: AttendEventsData, position: Int) {
+        showBottomSheet()
+        Repository.deleteOtherEvents(attendEvent.id, SessionManager.instance.getUserId(), EVENT_TYPE_ATTEND)
+            .enqueue(object : Callback<DefaultResponse>{
+                override fun onResponse(
+                    call: Call<DefaultResponse>,
+                    response: Response<DefaultResponse>
+                ) {
+                    try {
+
+                        if (response.isSuccessful){
+                            if (response.body()?.status == "1"){
+                                showAlertDialog(
+                                    "Event Deleted",
+                                    requireContext(),
+                                    response.body()?.message)
+                                listAttendEvents.removeAt(position)
+                                attendedEvents()
+                            }else{
+                                showAlertDialog(
+                                    "Error Occurred",
+                                    requireContext(),
+                                    response.body()?.message)
+                                attendedEvents()
+                            }
+                        }
+
+                    }catch (e: Exception){e.printStackTrace()}
+                    hideBottomSheet()
+                }
+
+                override fun onFailure(call: Call<DefaultResponse>, t: Throwable) {
+                    showSnackBar(binding.constraintMyEvents, "something went wrong")
+                    hideBottomSheet()
+                }
+
+            })
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showBottomSheet(){
+        bottomSheet = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        val view = LayoutInflater.from(requireContext().applicationContext)
+            .inflate(
+                R.layout.authentication_progress_bottom_sheet,
+                requireActivity().findViewById<ConstraintLayout>(R.id.bottom_sheet)
+            )
+        val title = view.findViewById<TextView>(R.id.progress_title)
+        val subtitle = view.findViewById<TextView>(R.id.progress_sub_title)
+
+        title.text = "Deleting Event"
+        subtitle.text = "Deleting event, please wait...."
+
+        bottomSheet.setCancelable(false)
+        bottomSheet.setContentView(view)
+        bottomSheet.show()
+    }
+
+    private  fun hideBottomSheet(){
+        bottomSheet.hide()
     }
 }

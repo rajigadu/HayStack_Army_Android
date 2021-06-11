@@ -162,26 +162,29 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_bold"
-                            android:text="MyEvents"
+                            android:text="@string/my_events"
                             android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnInterestEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8dp"
                             android:fontFamily="@font/lato_bold"
-                            android:text="Interest"
+                            android:text="@string/interest"
                             android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAttendEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8dp"
                             android:fontFamily="@font/lato_bold"
-                            android:text="Attend"
+                            android:text="@string/attend"
                             android:textAllCaps="false" />
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnInviteEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8dp"

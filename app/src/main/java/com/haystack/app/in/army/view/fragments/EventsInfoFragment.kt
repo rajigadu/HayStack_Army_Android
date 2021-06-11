@@ -1,7 +1,10 @@
 package com.haystack.app.`in`.army.view.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -9,6 +12,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -16,10 +20,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentEventInfoBinding
+import com.haystack.app.`in`.army.network.config.AppConfig.IMAGE_BASE_URL
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.add_attend_events.AddAttendEvent
 import com.haystack.app.`in`.army.network.response.add_interest_events.AddInterestEvents
 import com.haystack.app.`in`.army.network.response.my_events.MyEventsData
+import com.haystack.app.`in`.army.network.response.near_events.NearEventsData
 import com.haystack.app.`in`.army.network.response.nearest_events.NearestEventData
 import com.haystack.app.`in`.army.network.response.search_events.SearchEventsData
 import com.haystack.app.`in`.army.utils.AppConstants.ARG_OBJECTS
@@ -38,6 +44,10 @@ class EventsInfoFragment: Fragment() {
     private lateinit var eventInfo: SearchEventsData
     private lateinit var myEvents: MyEventsData
     private lateinit var nearestEvents: NearestEventData
+    private lateinit var nearEvents: NearEventsData
+
+    private var latitude: String? = null
+    private var longitude: String? = null
 
 
     override fun onCreateView(
@@ -67,6 +77,10 @@ class EventsInfoFragment: Fragment() {
                 nearestEvents = arguments?.getSerializable(ARG_SERIALIZABLE) as NearestEventData
                 setNearestEventsData(nearestEvents)
             }
+            "Near Events" -> {
+                nearEvents = arguments?.getSerializable(ARG_SERIALIZABLE) as NearEventsData
+                setNearEventsData(nearEvents)
+            }
         }
 
         binding.toolbarEventInfo.setNavigationOnClickListener {
@@ -78,13 +92,58 @@ class EventsInfoFragment: Fragment() {
         }
 
         binding.btnInterested.setOnClickListener {
-            //findNavController().navigate(R.id.action_eventsInfoFragment_to_myEvents)
             addEventsToInterested()
         }
 
         binding.btnAttend.setOnClickListener {
-            //findNavController().navigate(R.id.action_eventsInfoFragment_to_myEvents)
             addEventsToAttend()
+        }
+
+        binding.toolbarEventInfo.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.actionMap -> {
+                    val gmmIntentUri = Uri.parse("geo:$latitude,$longitude")
+                    val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                    mapIntent.setPackage("com.google.android.apps.maps")
+                    mapIntent.resolveActivity(requireActivity().packageManager)?.let {
+                        startActivity(mapIntent)
+                    }
+                    //Log.e("TAG", "gmmIntentUri: $gmmIntentUri")
+
+                    return@setOnMenuItemClickListener true
+                }
+                else -> return@setOnMenuItemClickListener false
+            }
+        }
+    }
+
+    private fun setNearEventsData(nearEvents: NearEventsData) {
+        binding.btnAttend.visibility = GONE
+        binding.btnInterested.visibility = GONE
+        binding.btnNotInterested.visibility = GONE
+
+        binding.textEventName.text = nearEvents.event_name
+        binding.textHostName.text = nearEvents.hostname
+        binding.textContactInfo.text = nearEvents.contactinfo
+        binding.textCountry.text = nearEvents.country
+        binding.textState.text = nearEvents.state
+        binding.textCity.text = nearEvents.city
+        binding.textZipCode.text = nearEvents.zipcode
+        binding.textStreetAddress.text = nearEvents.streetaddress
+        binding.textStartDate.text = nearEvents.startdate
+        binding.textStartTime.text = nearEvents.starttime
+        binding.textEndDate.text = nearEvents.enddate
+        binding.textEndTime.text = nearEvents.endtime
+        binding.textEventDesciption.setText(nearEvents.event_description)
+
+        latitude = nearEvents.latitude
+        longitude = nearEvents.longitude
+
+        if (nearestEvents.photo.isNotEmpty()) {
+            Glide.with(requireContext())
+                .load(IMAGE_BASE_URL + nearestEvents.photo)
+                .placeholder(R.drawable.events_default_bg_)
+                .into(binding.eventImage)
         }
     }
 
@@ -107,9 +166,13 @@ class EventsInfoFragment: Fragment() {
         binding.textEndTime.text = nearestEvents.endtime
         binding.textEventDesciption.setText(nearestEvents.event_description)
 
+        latitude = nearestEvents.latitude
+        longitude = nearestEvents.longitude
+
         if (nearestEvents.photo.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(nearestEvents.photo)
+                .load(IMAGE_BASE_URL + nearestEvents.photo)
+                .placeholder(R.drawable.events_default_bg_)
                 .into(binding.eventImage)
         }
     }
@@ -133,9 +196,13 @@ class EventsInfoFragment: Fragment() {
         binding.textEndTime.text = myEvents.endtime
         binding.textEventDesciption.setText(myEvents.event_description)
 
+        latitude = myEvents.latitude
+        longitude = myEvents.longitude
+
         if (myEvents.photo.isNotEmpty()) {
             Glide.with(requireContext())
-                .load(myEvents.photo)
+                .load(IMAGE_BASE_URL + myEvents.photo)
+                .placeholder(R.drawable.events_default_bg_)
                 .into(binding.eventImage)
         }
     }
@@ -228,8 +295,12 @@ class EventsInfoFragment: Fragment() {
         binding.textEndTime.text = eventInfo.endtime
         binding.textEventDesciption.setText(eventInfo.event_description)
 
+        latitude = eventInfo.latitude
+        longitude = eventInfo.longitude
+
         Glide.with(requireContext())
-            .load(nearestEvents.photo)
+            .load(IMAGE_BASE_URL + eventInfo.photo)
+            .placeholder(R.drawable.events_default_bg_)
             .into(binding.eventImage)
     }
 
@@ -263,8 +334,14 @@ class EventsInfoFragment: Fragment() {
             .setCancelable(false)
             .setPositiveButton("Ok") { dialogInterface, i ->
                 dialogInterface.dismiss()
-                if (s == "Attend") findNavController().navigate(R.id.attendEventsFragment)
-                else findNavController().navigate(R.id.interestsEventsFragment)
+                if (s == "Attend") {
+                    val bundle = bundleOf(ARG_OBJECTS to 2)
+                    findNavController().navigate(R.id.action_eventsInfoFragment_to_myEvents, bundle)
+                }
+                else {
+                    val bundle = bundleOf(ARG_OBJECTS to 1)
+                    findNavController().navigate(R.id.interestsEventsFragment, bundle)
+                }
             }
             .create()
         if (dialog.window != null)
