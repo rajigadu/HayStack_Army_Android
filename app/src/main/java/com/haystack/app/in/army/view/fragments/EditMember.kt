@@ -45,7 +45,7 @@ class EditMember: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditMemberBinding.inflate(layoutInflater)
         return binding.root
     }

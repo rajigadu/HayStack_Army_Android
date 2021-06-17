@@ -64,7 +64,7 @@ interface ApiInterface {
         @Field("fname") firstName: String,
         @Field("lname") lastName: String,
         @Field("email") email: String,
-        @Field("dod_id") dod_id: String,
+        //@Field("dod_id") dod_id: String,
         @Field("username") username: String,
         @Field("password") password: String,
         @Field("device_type") deviceType: String,

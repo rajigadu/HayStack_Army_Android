@@ -7,9 +7,10 @@ import android.os.Handler
 import android.os.Looper
 import com.haystack.app.`in`.army.R
 
+ private const val SPLASH_DELAY: Long = 3000
+
  class SplashScreen : AppCompatActivity() {
 
-     private val splash_delay: Long = 3000
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +22,7 @@ import com.haystack.app.`in`.army.R
 
      private fun initView() {
          com.haystack.app.`in`.army.manager.SessionManager.init(this)
-         Handler(Looper.getMainLooper()).postDelayed(mRunnable, splash_delay)
+         Handler(Looper.getMainLooper()).postDelayed(mRunnable, SPLASH_DELAY)
      }
 
      private val mRunnable = Runnable {

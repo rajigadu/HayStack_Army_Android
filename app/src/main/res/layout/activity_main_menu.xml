@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/constraintMain"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/constraintMain"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -47,6 +45,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/inspect"
             android:background="@android:color/transparent"
             android:src="@drawable/home" />
 
@@ -56,6 +55,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/inspect"
             android:background="@android:color/transparent"
             android:src="@drawable/refer" />
 
@@ -66,7 +66,8 @@
             android:layout_gravity="center_vertical"
             app:fabSize="normal"
             app:srcCompat="@drawable/math_plus"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/inspect" />
 
         <ImageButton
             android:id="@+id/navProfile"
@@ -74,16 +75,17 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/inspect"
             android:background="@android:color/transparent"
             android:src="@drawable/user" />
 
         <ImageButton
-
             android:id="@+id/navRefer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/inspect"
             android:background="@android:color/transparent"
             android:src="@drawable/user_profile" />
 

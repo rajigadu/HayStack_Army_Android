@@ -63,7 +63,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp" />
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view"
@@ -84,7 +85,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view1"
@@ -105,7 +107,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view2"
@@ -131,7 +134,8 @@
                     android:focusable="true"
                     android:foreground="?selectableItemBackground"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view3"
@@ -157,7 +161,8 @@
                     android:foreground="?selectableItemBackground"
                     android:drawableEnd="@drawable/chevron_down"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view4"
@@ -178,7 +183,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="text|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view5"
@@ -199,7 +205,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="number|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp"/>
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view12"
@@ -220,7 +227,8 @@
                     android:imeOptions="actionNext"
                     android:inputType="textPostalAddress|textCapWords"
                     android:singleLine="true"
-                    android:textSize="@dimen/font_16sp" />
+                    android:textSize="@dimen/font_16sp"
+                    android:autofillHints="" />
 
                 <View
                     android:id="@+id/view6"
@@ -458,7 +466,8 @@
                         android:maxLength="1000"
                         android:fontFamily="@font/lato"
                         android:inputType="text|textCapWords"
-                        android:minLines="5" />
+                        android:minLines="5"
+                        android:autofillHints="" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

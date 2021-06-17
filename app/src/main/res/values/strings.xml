@@ -45,8 +45,8 @@
     <string name="haystack">HayStack</string>
     <string name="search_for_an_event">Search for an Event</string>
     <string name="thursday_06">Thursday,06 May</string>
-    <string name="banglore_in">Banglore, India</string>
-    <string name="pupular_eve">Pupular Event</string>
+    <string name="banglore_in">Bangalore, India</string>
+    <string name="popular_eve">Popular Event</string>
     <string name="create_new_group">Create New Group</string>
     <string name="city">City</string>
     <string name="event_name">Event Name</string>
@@ -76,7 +76,7 @@
     <string name="_continue">Continue</string>
     <string name="add_from_group">Add From Group</string>
     <string name="publish">Publish</string>
-    <string name="congratulat">Congratulations</string>
+    <string name="congrats">Congratulations</string>
     <string name="your_event_">Your event has been published</string>
     <string name="create_another_event">create Another Event</string>
     <string name="close">Close</string>
@@ -100,7 +100,7 @@
     <string name="cancel">Cancel</string>
     <string name="camera">Camera</string>
     <string name="upload_from">Upload From</string>
-    <string name="nationwide">NationWide</string>
+    <string name="nationwide">Nationwide</string>
     <string name="select_your_country">Select Your Country</string>
     <string name="select_state">Select Your State</string>
     <string name="enter_your_zipcode">Enter Zipcode</string>
@@ -115,4 +115,6 @@
     <string name="inspect">Inspect</string>
     <string name="interest">Interest</string>
     <string name="my_events">My Events</string>
+    <string name="location_not_detected">Location Not Detected</string>
+    <string name="reference_mailId">Referance mail id</string>
 </resources>

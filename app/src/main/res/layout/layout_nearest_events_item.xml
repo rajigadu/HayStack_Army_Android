@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:scaleType="fitXY"
+                android:contentDescription="@string/inspect"
                 android:src="@drawable/events_default_bg_"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
@@ -38,7 +39,10 @@
                 android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/paddingMedium">
+                android:paddingStart="@dimen/paddingMedium"
+                android:paddingEnd="@dimen/padding_16dp"
+                android:paddingTop="@dimen/paddingLarge"
+                android:paddingBottom="@dimen/paddingLarge">
 
                 <TextView
                     android:id="@+id/eventName"

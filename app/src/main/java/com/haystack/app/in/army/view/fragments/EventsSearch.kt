@@ -40,7 +40,7 @@ class EventsSearch: Fragment(), EventSearchListAdapter.EventSearchListItemClick 
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEventSearchBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -4,10 +4,6 @@ object AppConstants {
 
 
     const val PERMISSION_REQ_LOCATION = 101
-    const val RC_SELECT_IMAGE = 102
-    const val RC_CAMERA_IMAGE = 103
-    const val AUTOCOMPLETE_REQUEST_CODE = 104
-    const val PERMISSION_READ_CONTACTS = 105
     const val REQ_CODE_VERSION_UPDATE = 106
 
     const val NOTIFICATION_CHANNEL_ID = "com.android.app.`in`.hystack_army.service.notification"
@@ -40,6 +36,5 @@ object AppConstants {
 
     const val EVENT_TYPE_ATTEND = "attend"
     const val EVENT_TYPE_INTEREST = "interest"
-    const val EVENT_TYPE_INVITE = "invite"
 
 }

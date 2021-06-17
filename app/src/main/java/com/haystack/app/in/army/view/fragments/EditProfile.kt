@@ -32,7 +32,7 @@ class EditProfile: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditProfileBinding.inflate(layoutInflater)
         return binding.root
     }

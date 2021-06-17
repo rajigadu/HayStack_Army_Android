@@ -44,9 +44,8 @@ class NotificationIdService: FirebaseMessagingService() {
         }
     }
 
-    fun showNotification(context: Context, title: String?, message: String?) {
-        val ii: Intent
-        ii = Intent(context, MainMenuActivity::class.java)
+    private fun showNotification(context: Context, title: String?, message: String?) {
+        val ii: Intent = Intent(context, MainMenuActivity::class.java)
         ii.data = Uri.parse("custom://" + System.currentTimeMillis())
         ii.action = "actionstring" + System.currentTimeMillis()
         ii.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP

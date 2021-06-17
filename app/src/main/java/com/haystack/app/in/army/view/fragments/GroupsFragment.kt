@@ -18,7 +18,6 @@ import com.haystack.app.`in`.army.network.response.all_groups.AllGroups
 import com.haystack.app.`in`.army.network.response.all_groups.Data
 import com.haystack.app.`in`.army.network.response.group_members.DefaultResponse
 import com.haystack.app.`in`.army.utils.AppConstants.GROUP_ID
-import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
 import com.haystack.app.`in`.army.utils.Extensions.showSnackBar
 import com.haystack.app.`in`.army.utils.RecyclerViewCustomAnimation
@@ -40,7 +39,7 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGroupsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -99,7 +98,7 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
                                 }
 
                             }else{
-                                Extensions.showAlertDialog(
+                                showAlertDialog(
                                     "Some Error Occurred!",
                                     requireContext(),
                                     response.body()?.message

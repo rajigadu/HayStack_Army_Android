@@ -11,6 +11,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:visibility="invisible"
+        android:contentDescription="@string/inspect"
         app:layout_constraintBottom_toBottomOf="@+id/refreshMyEvents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -58,6 +58,7 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginEnd="100dp"
                 android:src="@drawable/logo"
+                android:contentDescription="@string/inspect"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +83,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                tools:targetApi="m" />
+                tools:targetApi="m"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view12"
@@ -114,7 +116,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/view12"
                 app:layout_constraintStart_toStartOf="@+id/view12"
                 app:layout_constraintTop_toBottomOf="@+id/view12"
-                tools:targetApi="m" />
+                tools:targetApi="m"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view13"
@@ -141,7 +144,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/view13"
                 app:layout_constraintStart_toStartOf="@+id/view13"
                 app:layout_constraintTop_toBottomOf="@+id/view13"
-                tools:targetApi="m" />
+                tools:targetApi="m"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view14"
@@ -167,7 +171,9 @@
                 app:layout_constraintEnd_toEndOf="@+id/view14"
                 app:layout_constraintStart_toStartOf="@+id/view14"
                 app:layout_constraintTop_toBottomOf="@+id/view14"
-                tools:targetApi="m" />
+                tools:targetApi="m"
+                android:autofillHints=""
+                android:inputType="text" />
 
             <View
                 android:id="@+id/view15"

@@ -20,7 +20,6 @@ import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentDateRangeBinding
 import com.haystack.app.`in`.army.network.response.search_events.SearchByEvent
 import com.haystack.app.`in`.army.utils.AppConstants.ARG_SERIALIZABLE
-import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.convertedDateFormat
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentTime
@@ -34,16 +33,11 @@ class DateRangeFragment: Fragment() {
     private var searchEvent: SearchByEvent? = null
     private var lastClickTime: Long = 0
 
-    private var startDate: String? = null
-    private var startTime: String? = null
-    private var endDate: String? = null
-    private var endTime: String? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDateRangeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -239,7 +233,4 @@ class DateRangeFragment: Fragment() {
 
     }
 
-    private val constraintsBuilder =
-        CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointForward.now())
 }

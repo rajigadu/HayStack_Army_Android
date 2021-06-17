@@ -70,7 +70,7 @@ class EditEvents: Fragment(), MultiplePermissionsListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditEventBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -221,7 +221,7 @@ class EditEvents: Fragment(), MultiplePermissionsListener {
     }
 
     private fun getStatesList() {
-        Repository.getAllStatesOfTheCountry(selectedCountry!!).enqueue(
+        Repository.getAllStatesOfTheCountry(selectedCountry).enqueue(
             object : Callback<States>{
                 override fun onResponse(call: Call<States>, response: Response<States>) {
                     try {

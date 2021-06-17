@@ -41,7 +41,7 @@ class MyEventsRecyclerViewAdapter(var context: Context)
     }
 
     private fun showConfirmationDialog(myEvents: MyEventsData) {
-        val dialog = MaterialAlertDialogBuilder(context!!, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        val dialog = MaterialAlertDialogBuilder(context, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
             .setTitle("Delete Event?")
             .setMessage("Are you sure want to delete this event.?")
             .setCancelable(false)

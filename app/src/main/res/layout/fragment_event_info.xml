@@ -38,6 +38,7 @@
                 android:layout_height="250dp"
                 android:elevation="4dp"
                 android:scaleType="fitXY"
+                android:contentDescription="@string/inspect"
                 android:src="@drawable/menu_img"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -415,7 +416,8 @@
                     android:inputType="text|textCapWords"
                     android:textSize="@dimen/font_16sp"
                     android:fontFamily="@font/lato"
-                    tools:ignore="Deprecated" />
+                    tools:ignore="Deprecated"
+                    android:autofillHints="" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

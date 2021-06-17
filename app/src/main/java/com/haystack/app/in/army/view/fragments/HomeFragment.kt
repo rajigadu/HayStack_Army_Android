@@ -81,7 +81,7 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -133,6 +133,10 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
 
         binding.refreshNearestEvents.setColorSchemeColors(ContextCompat.getColor(
             requireContext(), R.color.colorPrimary))
+
+        binding.refreshNearestEvents.setOnRefreshListener {
+            nearestEvents()
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -147,6 +151,7 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
             .withListener(this)
             .onSameThread()
             .check()
+
 
         nearestEventsListAdapter = NearestEventsListAdapter(requireContext())
         binding.nearestEventsList.apply {
@@ -267,7 +272,7 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
                 1)
 
             if (addresses!![0] != null) {
-                val city: String = addresses!![0].locality
+                val city: String = addresses[0].locality
                 val state: String = addresses[0].adminArea
                 val country: String = addresses[0].countryName
                 val postalCode: String = addresses[0].postalCode

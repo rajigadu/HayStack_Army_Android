@@ -84,7 +84,8 @@ class SoldierRegistration: AppCompatActivity() {
     private fun completeSoldierRegistration() {
         showBottomSheet()
         val deviceId = getDeviceUid(this)
-        Repository.soldierRegistration(fName!!, lName!!, govtEmail!!, userName!!, password!!, dodId!!, deviceId = deviceId)
+        Repository.soldierRegistration(fName!!, lName!!, govtEmail!!, userName!!, password!!, "",
+            deviceId = deviceId)
             .enqueue(object : Callback<SignUpResponse>{
                 override fun onResponse(
                     call: Call<SignUpResponse>,
@@ -134,7 +135,7 @@ class SoldierRegistration: AppCompatActivity() {
     private fun validated(): Boolean {
         fName = binding.inputFirstName.text.toString().trim()
         lName = binding.inputLastName.text.toString().trim()
-        dodId = binding.inputDodId.text.toString().trim()
+        //dodId = binding.inputDodId.text.toString().trim()
         govtEmail = binding.inputGovtEmail.text.toString().trim()
         userName = binding.inputUsername.text.toString().trim()
         password = binding.inputPassword.text.toString().trim()
@@ -151,11 +152,11 @@ class SoldierRegistration: AppCompatActivity() {
                 binding.inputLastName.error = "Enter Last Name"
                 return false
             }
-            dodId!!.isEmpty() -> {
+            /*dodId!!.isEmpty() -> {
                 binding.inputDodId.requestFocus()
                 binding.inputDodId.error = "Enter DOD Id"
                 return false
-            }
+            }*/
             govtEmail!!.isEmpty() -> {
                 binding.inputGovtEmail.requestFocus()
                 binding.inputGovtEmail.error = "Enter govt email address"

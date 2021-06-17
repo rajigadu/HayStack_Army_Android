@@ -60,7 +60,8 @@
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/labelEditMemberDetails" />
+                app:layout_constraintTop_toBottomOf="@+id/labelEditMemberDetails"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view"
@@ -87,7 +88,8 @@
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/view"
                 app:layout_constraintStart_toStartOf="@+id/view"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view2"
@@ -114,7 +116,8 @@
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="@+id/view2"
                 app:layout_constraintStart_toStartOf="@+id/view2"
-                app:layout_constraintTop_toBottomOf="@+id/view2" />
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view3"

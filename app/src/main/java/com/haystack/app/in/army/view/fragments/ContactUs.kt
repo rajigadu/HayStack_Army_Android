@@ -31,7 +31,7 @@ class ContactUs: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentContactUsBinding.inflate(layoutInflater)
         return binding.root
     }

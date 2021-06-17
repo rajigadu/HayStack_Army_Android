@@ -12,6 +12,7 @@
         android:layout_height="200dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"
+        android:contentDescription="@string/inspect"
         android:src="@drawable/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

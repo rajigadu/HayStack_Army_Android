@@ -20,7 +20,7 @@ class TermsAndConditions: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTermsAndConditionsBinding.inflate(layoutInflater)
         return binding.root
     }

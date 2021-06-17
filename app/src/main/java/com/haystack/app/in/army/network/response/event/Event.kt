@@ -1,6 +1,5 @@
 package com.haystack.app.`in`.army.network.response.event
 
-import okhttp3.MultipartBody
 import java.io.Serializable
 
 

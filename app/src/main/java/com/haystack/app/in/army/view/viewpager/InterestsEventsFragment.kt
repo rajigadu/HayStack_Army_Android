@@ -43,7 +43,7 @@ class InterestsEventsFragment: Fragment(), InterestEventsAdapter.InterestedEvent
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMyEventsBinding.inflate(layoutInflater)
         return binding.root
     }

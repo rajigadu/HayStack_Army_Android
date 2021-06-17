@@ -44,7 +44,6 @@ object ApiClient {
 
         val bearerAuthInterceptor =
             BearerAuthenticationInterceptor(
-                token,
                 canCache
             )
         val retrofit =

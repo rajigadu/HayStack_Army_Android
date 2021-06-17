@@ -26,7 +26,7 @@ class EventsViewpagerFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEventsBinding.inflate(layoutInflater)
         return binding.root
     }

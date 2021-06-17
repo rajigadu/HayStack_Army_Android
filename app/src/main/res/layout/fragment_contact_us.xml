@@ -39,6 +39,7 @@
                 android:layout_width="@dimen/logoWidth"
                 android:layout_height="@dimen/logoHeight"
                 android:src="@drawable/logo"
+                android:contentDescription="@string/inspect"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +56,8 @@
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintTop_toBottomOf="@+id/imageView7"
-                android:layout_marginTop="@dimen/margin_32dp" />
+                android:layout_marginTop="@dimen/margin_32dp"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view"
@@ -82,7 +84,8 @@
                 android:layout_marginTop="@dimen/marginLarge"
                 app:layout_constraintEnd_toEndOf="@+id/inputEditTextFullName"
                 app:layout_constraintStart_toStartOf="@+id/inputEditTextFullName"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view1"
@@ -127,7 +130,8 @@
                     android:gravity="start"
                     android:inputType="text|textCapWords"
                     android:hint="@string/enter_description"
-                    android:minLines="5" />
+                    android:minLines="5"
+                    android:autofillHints="" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

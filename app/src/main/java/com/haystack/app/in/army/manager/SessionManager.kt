@@ -75,19 +75,19 @@ class SessionManager constructor(val context: Context) {
     companion object {
 
         @SuppressLint("StaticFieldLeak")
-        private var mInstance: com.haystack.app.`in`.army.manager.SessionManager? = null
+        private var mInstance: SessionManager? = null
 
         fun init(context: Context?) {
-            com.haystack.app.`in`.army.manager.SessionManager.Companion.mInstance =
-                com.haystack.app.`in`.army.manager.SessionManager(context!!)
+            mInstance =
+                SessionManager(context!!)
         }
 
-        val instance: com.haystack.app.`in`.army.manager.SessionManager
+        val instance: SessionManager
             get() {
-                if (com.haystack.app.`in`.army.manager.SessionManager.Companion.mInstance == null)
+                if (mInstance == null)
                     throw RuntimeException("Initialize SessionManager")
 
-                return com.haystack.app.`in`.army.manager.SessionManager.Companion.mInstance as com.haystack.app.`in`.army.manager.SessionManager
+                return mInstance as SessionManager
             }
     }
 }

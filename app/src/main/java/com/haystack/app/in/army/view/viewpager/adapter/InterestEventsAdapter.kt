@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.LayoutGroupsListItemViewBinding
-import com.haystack.app.`in`.army.network.response.attend_events.AttendEventsData
 import com.haystack.app.`in`.army.network.response.interest_events.InterestEventsData
 import com.haystack.app.`in`.army.view.viewpager.InterestsEventsFragment
-import java.util.ArrayList
+import java.util.*
 
 class InterestEventsAdapter(var context: Context)
     : RecyclerView.Adapter<InterestEventsAdapter.ViewHolder>() {
@@ -59,7 +58,7 @@ class InterestEventsAdapter(var context: Context)
     }
 
     private fun showConfirmationDialog(interestEvents: InterestEventsData) {
-        val dialog = MaterialAlertDialogBuilder(context!!, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        val dialog = MaterialAlertDialogBuilder(context, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
             .setTitle("Delete Event?")
             .setMessage("Are you sure want to delete this event.?")
             .setCancelable(false)

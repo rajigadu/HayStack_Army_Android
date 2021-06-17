@@ -27,7 +27,7 @@ class CreateEventMode: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreateEventModeBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -50,7 +50,7 @@ class CreateEventMode: Fragment() {
             val checkedHostContactInfoId = binding.hostContactInfoGroup.checkedRadioButtonId
             findHostContactInfo(checkedHostContactInfoId)
 
-            if (advertiseEvent.isNullOrEmpty() || hostContactInfo.isNullOrEmpty()){
+            if (advertiseEvent.isEmpty() || hostContactInfo.isEmpty()){
                 return@setOnClickListener
             }
             events?.eventtype = advertiseEvent

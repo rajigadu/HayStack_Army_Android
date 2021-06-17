@@ -42,7 +42,7 @@ class MembersFragment: Fragment(), MembersListAdapter.MembersListItemClick {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMembersBinding.inflate(layoutInflater)
         return binding.root
     }

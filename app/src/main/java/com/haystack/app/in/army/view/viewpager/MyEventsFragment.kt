@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentMyEventsBinding
 import com.haystack.app.`in`.army.manager.SessionManager
@@ -32,7 +31,6 @@ import com.haystack.app.`in`.army.view.viewpager.adapter.MyEventsRecyclerViewAda
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 class MyEventsFragment: Fragment(), MyEventsRecyclerViewAdapter.MyEventsOnClickListener {
 
@@ -46,7 +44,7 @@ class MyEventsFragment: Fragment(), MyEventsRecyclerViewAdapter.MyEventsOnClickL
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMyEventsBinding.inflate(layoutInflater)
         return binding.root
     }

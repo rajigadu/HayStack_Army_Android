@@ -48,7 +48,7 @@ class CreateGroup: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCreateGroupBinding.inflate(layoutInflater)
         return binding.root
     }

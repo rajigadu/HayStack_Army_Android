@@ -3,7 +3,7 @@ package com.haystack.app.`in`.army.network
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class BearerAuthenticationInterceptor(val token: String, private val canCache: Boolean) : Interceptor {
+class BearerAuthenticationInterceptor(private val canCache: Boolean) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         //val authKey = SessionManager.instance.getAuthKey()
         //val clientService = SessionManager.instance.getClientService()

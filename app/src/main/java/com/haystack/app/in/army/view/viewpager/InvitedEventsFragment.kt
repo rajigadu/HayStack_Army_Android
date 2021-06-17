@@ -9,16 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentMyEventsBinding
-import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.interest_events.InterestEventsData
-import com.haystack.app.`in`.army.network.response.interest_events.InterestEvents
-import com.haystack.app.`in`.army.utils.Extensions
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
-import com.haystack.app.`in`.army.utils.Extensions.longSnackBar
 import com.haystack.app.`in`.army.view.viewpager.adapter.InvitedEventsAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class InvitedEventsFragment: Fragment(), InvitedEventsAdapter.InvitedEventsItemClick {
 
@@ -33,7 +26,7 @@ class InvitedEventsFragment: Fragment(), InvitedEventsAdapter.InvitedEventsItemC
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMyEventsBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -25,6 +25,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:src="@drawable/logo"
+                android:contentDescription="@string/inspect"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,12 +39,13 @@
                 android:fontFamily="@font/lato"
                 android:hint="@string/first_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view"
@@ -68,7 +70,8 @@
                 android:inputType="textPersonName|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view1"
@@ -80,7 +83,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputLastName" />
 
-            <EditText
+            <!--<EditText
                 android:id="@+id/inputDodId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +95,8 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view2"
@@ -102,7 +106,7 @@
                 android:alpha="0.5"
                 android:background="@color/colorBottomLine"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputDodId"/>
+                app:layout_constraintTop_toBottomOf="@+id/inputDodId"/>-->
 
             <EditText
                 android:id="@+id/inputGovtEmail"
@@ -111,12 +115,13 @@
                 android:layout_marginTop="@dimen/marginLarge"
                 android:background="@android:color/transparent"
                 android:fontFamily="@font/lato"
-                android:hint="@string/govt_email_address"
+                android:hint="@string/email_address"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view2"/>
+                app:layout_constraintTop_toBottomOf="@+id/view1"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view3"
@@ -140,7 +145,8 @@
                 android:inputType="textEmailAddress|textCapWords"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view3"/>
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view4"
@@ -164,7 +170,8 @@
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view4"/>
+                app:layout_constraintTop_toBottomOf="@+id/view4"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view5"
@@ -188,7 +195,8 @@
                 android:inputType="textPassword"
                 android:singleLine="true"
                 android:textSize="@dimen/font_16sp"
-                app:layout_constraintTop_toBottomOf="@+id/view5"/>
+                app:layout_constraintTop_toBottomOf="@+id/view5"
+                android:autofillHints="" />
 
             <View
                 android:id="@+id/view6"
@@ -220,6 +228,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_32dp"
                 android:src="@drawable/check_box"
+                android:contentDescription="@string/inspect"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword" />
 
@@ -228,6 +237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_12dp"
+                android:contentDescription="@string/inspect"
                 android:src="@drawable/check_box"
                 app:layout_constraintTop_toBottomOf="@+id/textTermsAndConditions"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -272,6 +282,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/inspect"
                     android:layout_gravity="center"
                     android:src="@drawable/arrow_right" />
 

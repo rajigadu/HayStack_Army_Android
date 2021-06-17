@@ -47,10 +47,10 @@ object Repository {
 
 
     fun soldierRegistration(fName: String, lName: String, email: String,
-                            userName: String, password: String, dodId: String, deviceId: String): Call<SignUpResponse> {
+                            userName: String, password: String, dodId: String? = null, deviceId: String): Call<SignUpResponse> {
         val deviceType = DEVICE_TYPE
         val deviceToken = SessionManager.instance.getUserToken()
-        return client.soldierRegistration(fName, lName, email, dodId, userName, password, deviceType, deviceId, deviceToken)
+        return client.soldierRegistration(fName, lName, email, userName, password, deviceType, deviceId, deviceToken)
     }
 
     fun spouseRegistration(fName: String, lName: String, email: String, userName: String,

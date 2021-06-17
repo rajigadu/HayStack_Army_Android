@@ -33,7 +33,8 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.HayStack"
         tools:targetApi="m"
-        tools:ignore="UnusedAttribute">
+        tools:ignore="UnusedAttribute"
+        android:fullBackupContent="@xml/backup_descriptor">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

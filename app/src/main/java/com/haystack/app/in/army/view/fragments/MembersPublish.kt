@@ -35,7 +35,7 @@ import com.haystack.app.`in`.army.databinding.FragmentMembersPublishBinding
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.event.AllMembers
 import com.haystack.app.`in`.army.network.response.event.Event
-import com.haystack.app.`in`.army.utils.AppConstants
+import com.haystack.app.`in`.army.network.response.event.EventCreated
 import com.haystack.app.`in`.army.utils.AppConstants.ARG_SERIALIZABLE
 import com.haystack.app.`in`.army.utils.AppConstants.POSITION
 import com.haystack.app.`in`.army.utils.AppConstants.STATUS
@@ -43,12 +43,9 @@ import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
 import com.haystack.app.`in`.army.utils.Extensions.showErrorResponse
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
 import com.haystack.app.`in`.army.view.adapters.NewlyAddedMembersAdapter
-import com.haystack.app.`in`.army.network.response.event.EventCreated
-import com.haystack.app.`in`.army.utils.Extensions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventListener {
 
@@ -67,7 +64,7 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMembersPublishBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -107,7 +104,7 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
 
     private fun initiateView() {
 
-        events = arguments?.getSerializable(AppConstants.ARG_SERIALIZABLE) as Event
+        events = arguments?.getSerializable(ARG_SERIALIZABLE) as Event
         Log.e("TAG", "events: $events")
 
         listMembers.clear()
@@ -260,16 +257,17 @@ class MembersPublish: Fragment(), NewlyAddedMembersAdapter.MembersClickEventList
 
             listAddress = geoCoder.getFromLocationName(locationName, 5)
             if (listAddress != null){
-                val location = listAddress[0] as Address
+                val location = listAddress[0]
                 events?.latitude = location.latitude.toString()
                 events?.longitude = location.longitude.toString()
             }
-            publishCreatedEvent()
 
         }catch (e: Exception){
             e.printStackTrace()
             hideBottomSheet()
         }
+
+        publishCreatedEvent()
     }
 
     private fun publishCreatedEvent() {

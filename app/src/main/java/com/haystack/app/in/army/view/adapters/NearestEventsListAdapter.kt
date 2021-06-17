@@ -2,17 +2,27 @@ package com.haystack.app.`in`.army.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.LayoutNearestEventsItemBinding
 import com.haystack.app.`in`.army.network.config.AppConfig.IMAGE_BASE_URL
 import com.haystack.app.`in`.army.network.response.nearest_events.NearestEventData
 import com.haystack.app.`in`.army.view.fragments.HomeFragment
-import java.util.ArrayList
+import java.io.IOException
+import java.net.URL
+import java.util.*
 
 class NearestEventsListAdapter(var context: Context)
     : RecyclerView.Adapter<NearestEventsListAdapter.ViewHolder>() {
@@ -28,18 +38,75 @@ class NearestEventsListAdapter(var context: Context)
             binding.eventName.text = nearEvents.event_name
             binding.eventsCategory.text = nearEvents.category
 
+            /*if (nearEvents.photo.isNullOrEmpty()) {
+                setEventTextColor(
+                    IMAGE_BASE_URL + nearEvents.photo,
+                    binding.eventName, binding.eventsCategory
+                )
+            }*/
+
             binding.nearestEventItem.setOnClickListener {
                 clickListener?.nearestEventClick(nearEvents)
             }
 
-            Log.e("TAG", "images: "+nearEvents.photo)
+            //Log.e("TAG", "images: "+nearEvents.photo)
             Glide.with(context)
+                .asBitmap()
                 .load(IMAGE_BASE_URL + nearEvents.photo)
                 .placeholder(R.drawable.events_default_bg_)
+                .listener(object : RequestListener<Bitmap> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+
+                        if (resource != null) {
+                            val palette = Palette.from(resource).generate()
+                            val vibrant = palette.getVibrantColor(
+                                ContextCompat.getColor(context, R.color.black)
+                            )
+                            val vibrantLight = palette.getMutedColor(
+                                ContextCompat.getColor(context, R.color.white)
+                            )
+                            binding.eventsCategory.setTextColor(vibrantLight)
+                            binding.eventName.setTextColor(vibrantLight)
+                        }
+
+                        return false
+                    }
+
+                })
                 .into(binding.eventImage)
         }
     }
 
+    private fun setEventTextColor(imageUrl: String, eventName: TextView, eventsCategory: TextView) {
+        var bitmap: Bitmap? = null
+
+        try{
+
+            val url = URL(imageUrl)
+            bitmap = BitmapFactory.decodeStream(url.openStream())
+
+        }catch (e: IOException) {
+            e.printStackTrace()
+        }
+        //val palette = Palette.from(bitmap!!).generate()
+        
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

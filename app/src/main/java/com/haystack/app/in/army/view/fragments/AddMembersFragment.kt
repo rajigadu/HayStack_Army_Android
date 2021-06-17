@@ -37,7 +37,7 @@ class AddMembersFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddMemberBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -47,7 +47,7 @@ class ManualSearch: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentManualSearchBinding.inflate(layoutInflater)
         return binding.root
     }

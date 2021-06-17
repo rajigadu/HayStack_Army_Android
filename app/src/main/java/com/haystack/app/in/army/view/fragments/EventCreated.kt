@@ -19,7 +19,7 @@ class EventCreated: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEventCreatedBinding.inflate(layoutInflater)
         return binding.root
     }

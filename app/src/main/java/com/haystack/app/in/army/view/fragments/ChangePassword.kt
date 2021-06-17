@@ -30,7 +30,7 @@ class ChangePassword: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentChangePasswordBinding.inflate(layoutInflater)
         return binding.root
     }

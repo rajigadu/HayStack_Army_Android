@@ -59,7 +59,7 @@ class InvitedEventsAdapter(var context: Context)
     }
 
     private fun showConfirmationDialog(attendEvent: InterestEventsData) {
-        val dialog = MaterialAlertDialogBuilder(context!!, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        val dialog = MaterialAlertDialogBuilder(context, R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog)
             .setTitle("Delete Event?")
             .setMessage("Are you sure want to delete this event.?")
             .setCancelable(false)
