@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.haystack.app.`in`.army.R
+import com.haystack.app.`in`.army.manager.SessionManager
 
  private const val SPLASH_DELAY: Long = 3000
 
@@ -21,7 +22,7 @@ import com.haystack.app.`in`.army.R
     }
 
      private fun initView() {
-         com.haystack.app.`in`.army.manager.SessionManager.init(this)
+         SessionManager.init(this)
          Handler(Looper.getMainLooper()).postDelayed(mRunnable, SPLASH_DELAY)
      }
 

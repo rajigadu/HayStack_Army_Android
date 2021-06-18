@@ -169,10 +169,10 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
             if (isChecked) {
                 nationWide = "1"
                 distanceInMile = "0"
-                binding.bottomSheetLayout.mapRadius.visibility = GONE
+                binding.bottomSheetLayout.layoutMapRadius.visibility = GONE
             }
             else {
-                binding.bottomSheetLayout.mapRadius.visibility = VISIBLE
+                binding.bottomSheetLayout.layoutMapRadius.visibility = VISIBLE
                 nationWide = "0"
                 distanceInMile = binding.bottomSheetLayout.mapRadius.text.toString().trim()
             }
@@ -192,6 +192,14 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
             }
 
             false
+        }
+
+        binding.bottomSheetLayout.setMapRadius.setOnClickListener {
+            if (lastLocation != null) {
+                distanceInMile = binding.bottomSheetLayout.mapRadius.text.toString().trim()
+                nearestEvents(LatLng(lastLocation.latitude, lastLocation.longitude))
+                binding.bottomSheetLayout.setMapRadius.hideKeyboard()
+            }
         }
 
         binding.getMyLocation.setOnClickListener {
@@ -466,7 +474,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
         nearEvent.nationWide = nationWide!!
         nearEvent.distanceInMile = distanceInMile!!
 
-        //Log.e("TAG", "nearEvent: $nearEvent")
+        Log.e("TAG", "nearEvent: $nearEvent")
 
         Repository.getNearEvents(nearEvent).enqueue(object : Callback<NearEvents>{
             override fun onResponse(call: Call<NearEvents>, response: Response<NearEvents>) {

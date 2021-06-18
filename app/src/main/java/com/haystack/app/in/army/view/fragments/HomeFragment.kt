@@ -236,9 +236,9 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
                             }
 
                         }else{
-                            binding.noEventsImgView.visibility = VISIBLE
-                            binding.noEventsText.visibility = VISIBLE
-                            longSnackBar(response.body()?.message!!, binding.constraintHome)
+                            //binding.noEventsImgView.visibility = VISIBLE
+                            //binding.noEventsText.visibility = VISIBLE
+                            //longSnackBar(response.body()?.message!!, binding.constraintHome)
                         }
                     }
 
@@ -248,7 +248,7 @@ class HomeFragment: Fragment(), MultiplePermissionsListener, NearestEventsListAd
 
             override fun onFailure(call: Call<NearestEvents>, t: Throwable) {
                 try {
-                    if (binding.constraintHome != null)showErrorResponse(t, binding.constraintHome)
+                    //if (binding.constraintHome != null)showErrorResponse(t, binding.constraintHome)
                 }catch (e: Exception){e.printStackTrace()}
 
                 binding.refreshNearestEvents.isRefreshing = false

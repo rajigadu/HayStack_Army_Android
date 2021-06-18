@@ -54,6 +54,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.*
 
 class CreateEvent: Fragment(),MultiplePermissionsListener {
 
@@ -351,11 +352,21 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
 
         datePicker.isCancelable = false
         datePicker.addOnPositiveButtonClickListener {
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            val month = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val selectedDate = "$month-$day-$year"
+
             if (datePickerTitle == "Select Event Start Date") {
-                events.startdate = convertedDateFormat(datePicker.headerText)
+                events.startdate = selectedDate
                 binding.inputStartDate.setText(datePicker.headerText)
             }else{
-                events.enddate = convertedDateFormat(datePicker.headerText)
+                events.enddate = selectedDate
                 binding.inputEndDate.setText(datePicker.headerText)
             }
 

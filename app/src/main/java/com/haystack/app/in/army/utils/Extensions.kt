@@ -56,6 +56,7 @@ object Extensions {
 
     @SuppressLint("SimpleDateFormat")
     fun convertedDateFormat(date: String?): String{
+        Log.e("TAG", "date: $date")
         var formattedDate: Date? = null
         var convertDate: String? = null
         val sdf = SimpleDateFormat("dd MMM yyyy")

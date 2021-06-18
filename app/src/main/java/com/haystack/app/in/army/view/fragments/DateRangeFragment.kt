@@ -25,6 +25,7 @@ import com.haystack.app.`in`.army.utils.Extensions.getCurrentDate
 import com.haystack.app.`in`.army.utils.Extensions.getCurrentTime
 import com.haystack.app.`in`.army.utils.Extensions.longSnackBar
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
+import java.util.*
 
 class DateRangeFragment: Fragment() {
 
@@ -213,11 +214,21 @@ class DateRangeFragment: Fragment() {
 
         datePicker.isCancelable = false
         datePicker.addOnPositiveButtonClickListener {
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            val month = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val selectedDate = "$month-$day-$year"
+
             if (datePickerTitle == "Select Event Start Date") {
-                searchEvent?.startDate = convertedDateFormat(datePicker.headerText)
+                searchEvent?.startDate = selectedDate
                 binding.inputStartDate.setText(datePicker.headerText)
             }else{
-                searchEvent?.endDate = convertedDateFormat(datePicker.headerText)
+                searchEvent?.endDate = selectedDate
                 binding.inputEndDate.setText(datePicker.headerText)
             }
 
