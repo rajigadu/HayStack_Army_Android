@@ -15,6 +15,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +34,7 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentCreateEventBinding
+import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.countries.Countries
 import com.haystack.app.`in`.army.network.response.event.Event
@@ -100,11 +103,11 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
 
         binding.btnCreateEvent.setOnClickListener {
             if (validated()) {
-                /*if (selectedImageUri == null){
-                    showSnackBar(binding.constraintCreateEvent, "Please select event image")
-                    return@setOnClickListener
-                }*/
-                events.image = selectedImageUri.toString()
+                if (selectedImageUri != null){
+                    //showSnackBar(binding.constraintCreateEvent, "Please select event image")
+                    //return@setOnClickListener
+                    events.image = selectedImageUri.toString()
+                }
 
                 val bundle = bundleOf(
                     ARG_SERIALIZABLE to events,
@@ -114,6 +117,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
             }else{
                 showSnackBar(binding.constraintCreateEvent, "Please fill all fields")
             }
+            Log.e("TAG", "event: $events")
         }
 
         binding.inputStartDate.setOnTouchListener { view, motionEvent ->
@@ -137,7 +141,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
                         return@setOnTouchListener false
                     }
                     lastClickTime = SystemClock.elapsedRealtime()
-                    showDatePickerDialog("Select Event End Date")
+                    selectEndDate("Select Event End Date")
                     return@setOnTouchListener true
                 }
                 else -> return@setOnTouchListener false
@@ -254,6 +258,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
     }
 
     private fun getStatesList() {
+        binding.progressCardView.visibility = VISIBLE
         Repository.getAllStatesOfTheCountry(selectedCountry!!).enqueue(
             object : Callback<States>{
                 override fun onResponse(call: Call<States>, response: Response<States>) {
@@ -271,10 +276,12 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
                         }
 
                     }catch (e: Exception){e.printStackTrace()}
+                    binding.progressCardView.visibility = INVISIBLE
                 }
 
                 override fun onFailure(call: Call<States>, t: Throwable) {
                     showErrorResponse(t, binding.constraintCreateEvent)
+                    binding.progressCardView.visibility = INVISIBLE
                 }
 
             })
@@ -356,19 +363,54 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             calendar.time = Date(it)
 
-            val month = calendar.get(Calendar.MONTH)
+            var month = calendar.get(Calendar.MONTH) + 1
             val year = calendar.get(Calendar.YEAR)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
 
             val selectedDate = "$month-$day-$year"
 
-            if (datePickerTitle == "Select Event Start Date") {
-                events.startdate = selectedDate
-                binding.inputStartDate.setText(datePicker.headerText)
-            }else{
-                events.enddate = selectedDate
-                binding.inputEndDate.setText(datePicker.headerText)
-            }
+            events.startdate = selectedDate
+            binding.inputStartDate.setText(datePicker.headerText)
+
+        }
+
+        datePicker.addOnNegativeButtonClickListener {
+            datePicker.dismiss()
+        }
+
+        datePicker.show(requireActivity().supportFragmentManager,
+            context?.resources?.getString(R.string.date_picker)
+        )
+
+    }
+
+    private fun selectEndDate(datePickerTitle: String) {
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTheme(R.style.DatePickerTheme)
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTitleText(datePickerTitle)
+            .build()
+
+        datePicker.isCancelable = false
+        datePicker.addOnPositiveButtonClickListener {
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            var month = calendar.get(Calendar.MONTH) + 1
+            val year = calendar.get(Calendar.YEAR)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
+
+            val selectedDate = "$month-$day-$year"
+
+            events.enddate = selectedDate
+            binding.inputEndDate.setText(datePicker.headerText)
 
         }
 
@@ -393,7 +435,7 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
     }
 
     private fun validated(): Boolean {
-        events.id = com.haystack.app.`in`.army.manager.SessionManager.instance.getUserId()
+        events.id = SessionManager.instance.getUserId()
         events.event_name = binding.inputEventName.text.toString().trim()
         events.event_description = binding.eventDescription.text.toString().trim()
         events.streetaddress = binding.inputStreetAddress.text.toString().trim()
@@ -403,6 +445,10 @@ class CreateEvent: Fragment(),MultiplePermissionsListener {
         events.zipcode = binding.inputZipCode.text.toString().trim()
         events.hostname = binding.inputHostName.text.toString().trim()
         events.contactinfo = binding.inputContactInfoOne.text.toString().trim()
+        events.starttime = binding.startTime.text.toString().trim()
+        events.endtime = binding.endTime.text.toString().trim()
+        events.startdate = convertedDateFormat(binding.inputStartDate.text.toString().trim())
+        events.enddate = convertedDateFormat(binding.inputEndDate.text.toString().trim())
         //events.image = selectedImageUri!!
 
         when {

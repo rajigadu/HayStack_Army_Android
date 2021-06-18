@@ -133,7 +133,7 @@ class DateRangeFragment: Fragment() {
                         return@setOnTouchListener false
                     }
                     lastClickTime = SystemClock.elapsedRealtime()
-                    showDatePickerDialog("Select Event End Date")
+                    selectEndDate("Select Event End Date")
                     return@setOnTouchListener true
                 }
                 else -> return@setOnTouchListener false
@@ -190,13 +190,9 @@ class DateRangeFragment: Fragment() {
 
             val selectedTime = "$hour:$minute $timeState"
 
-            if (timePickerTitle == "Select Event Start Time"){
-                searchEvent?.startTime = selectedTime
-                binding.inputStartTime.setText(selectedTime)
-            }else{
-                searchEvent?.endTime = selectedTime
-                binding.inputEndTime.setText(selectedTime)
-            }
+            searchEvent?.startTime = selectedTime
+            binding.inputStartTime.setText(selectedTime)
+
         }
         timePicker.addOnNegativeButtonClickListener {
             timePicker.dismiss()
@@ -218,9 +214,12 @@ class DateRangeFragment: Fragment() {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
             calendar.time = Date(it)
 
-            val month = calendar.get(Calendar.MONTH)
+            var month = calendar.get(Calendar.MONTH) + 1
             val year = calendar.get(Calendar.YEAR)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
 
             val selectedDate = "$month-$day-$year"
 
@@ -231,6 +230,47 @@ class DateRangeFragment: Fragment() {
                 searchEvent?.endDate = selectedDate
                 binding.inputEndDate.setText(datePicker.headerText)
             }
+
+        }
+
+        datePicker.addOnNegativeButtonClickListener {
+            datePicker.dismiss()
+        }
+
+        datePicker.show(requireActivity().supportFragmentManager,
+            context?.resources?.getString(R.string.date_picker)
+        )
+
+    }
+
+    private val constraintsBuilder =
+        CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.now())
+
+    private fun selectEndDate(datePickerTitle: String) {
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTheme(R.style.DatePickerTheme)
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTitleText(datePickerTitle)
+            .build()
+
+        datePicker.isCancelable = false
+        datePicker.addOnPositiveButtonClickListener {
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            var month = calendar.get(Calendar.MONTH) + 1
+            val year = calendar.get(Calendar.YEAR)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
+
+            val selectedDate = "$month-$day-$year"
+
+            searchEvent?.endDate = selectedDate
+            binding.inputEndDate.setText(datePicker.headerText)
 
         }
 

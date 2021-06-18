@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -49,6 +51,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.*
 
 class EditEvents: Fragment(), MultiplePermissionsListener {
 
@@ -118,7 +121,7 @@ class EditEvents: Fragment(), MultiplePermissionsListener {
                         return@setOnTouchListener false
                     }
                     lastClickTime = SystemClock.elapsedRealtime()
-                    showDatePickerDialog("Select Event End Date")
+                    selectEndDate("Select Event End Date")
                     return@setOnTouchListener true
                 }
                 else -> return@setOnTouchListener false
@@ -556,13 +559,62 @@ class EditEvents: Fragment(), MultiplePermissionsListener {
 
         datePicker.isCancelable = false
         datePicker.addOnPositiveButtonClickListener {
-            if (datePickerTitle == "Select Event Start Date") {
-                updateEvent.startDate = Extensions.convertedDateFormat(datePicker.headerText)
-                binding.editStartDate.setText(datePicker.headerText)
-            }else{
-                updateEvent.endDate = Extensions.convertedDateFormat(datePicker.headerText)
-                binding.editEndDate.setText(datePicker.headerText)
-            }
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            var month = calendar.get(Calendar.MONTH) + 1
+            val year = calendar.get(Calendar.YEAR)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
+
+            val selectedDate = "$month-$day-$year"
+
+            updateEvent.startDate = selectedDate
+            binding.editStartDate.setText(datePicker.headerText)
+
+        }
+
+        datePicker.addOnNegativeButtonClickListener {
+            datePicker.dismiss()
+        }
+
+        datePicker.show(requireActivity().supportFragmentManager,
+            context?.resources?.getString(string.date_picker)
+        )
+
+    }
+
+    private val constraintsBuilder =
+        CalendarConstraints.Builder()
+            .setValidator(DateValidatorPointForward.now())
+
+    private fun selectEndDate(datePickerTitle: String) {
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTheme(style.DatePickerTheme)
+            .setCalendarConstraints(constraintsBuilder.build())
+            .setTitleText(datePickerTitle)
+            .build()
+
+        datePicker.isCancelable = false
+        datePicker.addOnPositiveButtonClickListener {
+
+            val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+            calendar.time = Date(it)
+
+            var month = calendar.get(Calendar.MONTH) + 1
+            val year = calendar.get(Calendar.YEAR)
+            var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            if (month < 10) month = "0$month".toInt()
+            if (day < 10) day = "0$day".toInt()
+
+            val selectedDate = "$month-$day-$year"
+
+            updateEvent.endDate = selectedDate
+            binding.editEndDate.setText(datePicker.headerText)
 
         }
 

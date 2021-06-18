@@ -7,7 +7,7 @@ data class Event(
     var event_name: String,
     var event_description: String,
     var streetaddress: String,
-    var image: String?,
+    var image: String = "",
     var city: String,
     var id: String,
     var state: String,
@@ -26,7 +26,7 @@ data class Event(
     var category: String,
     var allmembers: ArrayList<AllMembers>
 ): Serializable{
-    constructor():this("","","", null,"", "", "","","", "",
+    constructor():this("","","", "","", "", "","","", "",
     "", "", "", "", "","", "", "", "",
         "", arrayListOf()
     )

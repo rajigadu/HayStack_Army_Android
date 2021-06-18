@@ -15,4 +15,5 @@
     <color name="colorGroupsCardView">#F9F9F9</color>
     <color name="colorSearchBackground">#F2F2F2</color>
     <color name="colorLabelText">#333333</color>
+    <color name="colorMapRadiusCircle">#61F6921C</color>
 </resources>

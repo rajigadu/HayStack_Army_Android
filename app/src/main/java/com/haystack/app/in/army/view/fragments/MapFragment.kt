@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -22,6 +23,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -58,6 +60,7 @@ import com.haystack.app.`in`.army.utils.AppConstants.USER_LATITUDE
 import com.haystack.app.`in`.army.utils.AppConstants.USER_LONGITUDE
 import com.haystack.app.`in`.army.utils.Extensions.hideKeyboard
 import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
+import com.haystack.app.`in`.army.utils.Extensions.showErrorResponse
 import com.haystack.app.`in`.army.view.activity.MainMenuActivity
 import com.haystack.app.`in`.army.view.adapters.NearEventsAdapter
 import retrofit2.Call
@@ -90,6 +93,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
     private var listLatLng = arrayListOf<LatLng>()
     private var lastClickTime: Long = 0
     private var sliderIsOpen = false
+    private var currentLatLng: LatLng? = null
 
     private var country: String? = null
     private var state: String? = null
@@ -188,6 +192,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                     nearestEvents(LatLng(lastLocation.latitude, lastLocation.longitude))
                     binding.bottomSheetLayout.mapRadius.hideKeyboard()
                 }
+                drawCircle()
                 return@setOnEditorActionListener true
             }
 
@@ -200,6 +205,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                 nearestEvents(LatLng(lastLocation.latitude, lastLocation.longitude))
                 binding.bottomSheetLayout.setMapRadius.hideKeyboard()
             }
+            drawCircle()
         }
 
         binding.getMyLocation.setOnClickListener {
@@ -256,6 +262,18 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
             )
             sliderIsOpen = true
         }
+    }
+
+    private fun drawCircle() {
+        val midLatLng = mMap.cameraPosition.target
+        mMap.clear()
+        mMap.addCircle(CircleOptions()
+            .center(currentLatLng!!)
+            .radius(distanceInMile!!.toDouble())
+            .strokeWidth(1.0f)
+            .strokeColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+            .fillColor(ContextCompat.getColor(requireContext(), R.color.colorMapRadiusCircle)))
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(16f))
     }
 
     private fun getMyLocation() {
@@ -347,7 +365,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                 val currentLatLong = LatLng(lat!!.toDouble(), lon!!.toDouble())
                 setLocationAddress(currentLatLong)
                 //Log.e("TAG", "setupMap:")
-                //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLong, 16f))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLong, 16f))
                 
                 //Get Near Events
                 //nearestEvents(currentLatLong)
@@ -474,7 +492,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
         nearEvent.nationWide = nationWide!!
         nearEvent.distanceInMile = distanceInMile!!
 
-        Log.e("TAG", "nearEvent: $nearEvent")
+        //Log.e("TAG", "nearEvent: $nearEvent")
 
         Repository.getNearEvents(nearEvent).enqueue(object : Callback<NearEvents>{
             override fun onResponse(call: Call<NearEvents>, response: Response<NearEvents>) {
@@ -487,7 +505,7 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
                             listLatLng.clear()
                             for (item in response.body()?.data!!){
                                 listLatLng.add(LatLng(item.latitude.toDouble(), item.longitude.toDouble()))
-                                //Log.e("TAG", "response: lat->${item.latitude}, lon->${item.longitude}")
+                                Log.e("TAG", "response: lat->${item.latitude}, lon->${item.longitude}")
                             }
                             nearEventsList.clear()
                             nearEventsList.addAll(response.body()?.data!!)
@@ -507,6 +525,8 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
 
             override fun onFailure(call: Call<NearEvents>, t: Throwable) {
                 binding.progressCardView.visibility = INVISIBLE
+                Toast.makeText(
+                    requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -545,13 +565,14 @@ class MapFragment: Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListen
     override fun onCameraIdle() {
         try {
 
-            val currentLatLong = LatLng(
+            currentLatLng = LatLng(
                 mMap.cameraPosition.target.latitude,
                 mMap.cameraPosition.target.longitude
             )
 
-            Log.e("TAG", "onCameraIdle:")
+            //Log.e("TAG", "onCameraIdle:")
             //setLocationAddress(currentLatLong)
+
         }
         catch (e: IOException) {e.printStackTrace()}
         catch (e: IndexOutOfBoundsException) {e.printStackTrace()}

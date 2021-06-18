@@ -1,8 +1,11 @@
 package com.haystack.app.`in`.army.network.repository
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
+import com.haystack.app.`in`.army.BuildConfig
+import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.ApiClient
 import com.haystack.app.`in`.army.network.ApiInterface
@@ -30,6 +33,7 @@ import com.haystack.app.`in`.army.network.response.soldier_signup.SignUpResponse
 import com.haystack.app.`in`.army.network.response.states.States
 import com.haystack.app.`in`.army.utils.AppConstants.DEVICE_TYPE
 import com.haystack.app.`in`.army.utils.Extensions
+import com.haystack.app.`in`.army.utils.Extensions.getRealPathFromURIAPI
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -149,8 +153,24 @@ object Repository {
         multipartMap["longitude"] = rqLongitude
         multipartMap["category"] = rqCategory
 
-        val file = File(Extensions.getRealPathUri(requireContext, event.image!!.toUri())!!) as File?
         var body: MultipartBody.Part? = null
+        var file: File? = null
+        Log.e("TAG", "eventImage: ${event.image}")
+
+        if (event.image.isNullOrEmpty()) {
+
+            try {
+                val uri = Uri.parse(
+                    "android.resource://"+ BuildConfig.APPLICATION_ID+"/" + R.drawable.events_default_bg_)
+                file = File(getRealPathFromURIAPI(requireContext, uri)!!)
+
+            }catch (e: Exception){e.printStackTrace()}
+
+        } else {
+            Log.e("TAG", "image not null")
+            file =
+                File(getRealPathFromURIAPI(requireContext, event.image.toUri())!!)
+        }
 
         if (file != null) {
             val reqBody = RequestBody.create(
@@ -158,13 +178,12 @@ object Repository {
             body = MultipartBody.Part.createFormData("image", file.name, reqBody)
         }
 
+
         for (elements in 0 until event.allmembers.size){
             multipartMap["allmembers[$elements][member]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].member)
             multipartMap["allmembers[$elements][email]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].email)
             multipartMap["allmembers[$elements][number]"] = RequestBody.create(MediaType.parse("text/plain"), event.allmembers[elements].number)
         }
-
-        Log.e("TAG", "multipartBuilder: $multipartMap")
 
         return client.createNewEvent(multipartMap, body)
     }
