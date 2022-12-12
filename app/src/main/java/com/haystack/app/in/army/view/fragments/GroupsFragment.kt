@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.haystack.app.`in`.army.R
 import com.haystack.app.`in`.army.databinding.FragmentGroupsBinding
+import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.all_groups.AllGroups
 import com.haystack.app.`in`.army.network.response.all_groups.Data
@@ -80,7 +81,7 @@ class GroupsFragment: Fragment(), EventListAdapter.EventGroupItemClickListener {
 
     private fun getAllGroups() {
         binding.refreshGroupList.isRefreshing = true
-        Repository.getAllGroupsList(com.haystack.app.`in`.army.manager.SessionManager.instance.getUserId())
+        Repository.getAllGroupsList(SessionManager.instance.getUserId())
             .enqueue(object : Callback<AllGroups>{
                 override fun onResponse(call: Call<AllGroups>, response: Response<AllGroups>) {
                     try {

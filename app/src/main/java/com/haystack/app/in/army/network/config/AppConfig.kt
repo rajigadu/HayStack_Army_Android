@@ -3,7 +3,7 @@ package com.haystack.app.`in`.army.network.config
 object AppConfig {
 
 
-    const val BASE_URL = "https://haystackevents.com/haystack-army/ios/"
+    const val BASE_URL = "https://haystackevents.com/haystack-army/android/"
     const val IMAGE_BASE_URL = "https://haystackevents.com/haystack-army/images/"
 
 

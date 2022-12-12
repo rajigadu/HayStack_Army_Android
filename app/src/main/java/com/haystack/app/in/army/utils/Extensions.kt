@@ -23,6 +23,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import android.app.ProgressDialog
+
+
+
 
 object Extensions {
 
@@ -50,6 +54,12 @@ object Extensions {
             dialog.window?.attributes?.windowAnimations = R.style.SlidingDialogAnimation
 
         dialog.show()
+    }
+
+    fun showProgress(context: Context, message: String?){
+        val pd = ProgressDialog(context)
+        pd.setMessage(message)
+        pd.show()
     }
 
     fun showSnackBarSettings(

@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/marginXLarge"
                 android:text="@string/sign_in"
+                android:textColor="?android:textColorPrimary"
                 android:textAppearance="@style/sign_in"
                 app:layout_constraintStart_toStartOf="@+id/view2"
                 app:layout_constraintTop_toBottomOf="@+id/view2" />

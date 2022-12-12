@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.haystack.app.`in`.army.databinding.FragmentEditProfileBinding
+import com.haystack.app.`in`.army.manager.SessionManager
 import com.haystack.app.`in`.army.network.repository.Repository
 import com.haystack.app.`in`.army.network.response.group_members.DefaultResponse
 import com.haystack.app.`in`.army.utils.Extensions.showAlertDialog
@@ -60,8 +61,8 @@ class EditProfile: Fragment() {
     }
 
     private fun updateEditProfile() {
-        userId = com.haystack.app.`in`.army.manager.SessionManager.instance.getUserId()
-        logniedUser = com.haystack.app.`in`.army.manager.SessionManager.instance.getLoginUser()
+        userId = SessionManager.instance.getUserId()
+        logniedUser = SessionManager.instance.getLoginUser()
 
         Repository.editProfile(firstName!!, lastName!!, userName!!, logniedUser!!, userId!!)
             .enqueue(object : Callback<DefaultResponse>{

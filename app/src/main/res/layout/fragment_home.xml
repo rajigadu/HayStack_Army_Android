@@ -164,6 +164,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_bold"
+                            android:textColor="?android:textColorPrimaryInverse"
                             android:text="@string/my_events"
                             android:textAllCaps="false" />
 
@@ -172,6 +173,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8dp"
+                            android:textColor="?android:textColorPrimaryInverse"
                             android:fontFamily="@font/lato_bold"
                             android:text="@string/interest"
                             android:textAllCaps="false" />
@@ -180,6 +182,7 @@
                             android:id="@+id/btnAttendEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="?android:textColorPrimaryInverse"
                             android:layout_marginStart="@dimen/margin_8dp"
                             android:fontFamily="@font/lato_bold"
                             android:text="@string/attend"
@@ -189,6 +192,7 @@
                             android:id="@+id/btnInviteEvents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="?android:textColorPrimaryInverse"
                             android:layout_marginStart="@dimen/margin_8dp"
                             android:fontFamily="@font/lato_bold"
                             android:text="@string/invite"
